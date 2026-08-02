@@ -14,7 +14,9 @@
     "dev": "npm run dev --workspace apps/docs",
     "dev:pallet": "npm run dev --workspace packages/pallet",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "clean": "npm run clean --workspaces --if-present"
+    "clean": "npm run clean --workspaces --if-present",
+    "build:docs": "npm run build --workspace packages/pallet && npm run build --workspace apps/docs"
+
   },
   "engines": {
     "node": ">=20"
