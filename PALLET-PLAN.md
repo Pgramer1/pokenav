@@ -1,9 +1,28 @@
 # pallet — Project Plan
 
-A Pokémon route-map style navigation component for React. A vertical (later horizontal)
-trail of circular nodes connected by a dotted line, each node showing a pixelated Pokémon
-sprite for a page/section — like walking a route on the world map. Built first for
-devanshsoni.com, extracted here to be installable by anyone.
+A Pokémon route-map style navigation component for React. A vertical or horizontal trail of
+circular nodes connected by a dotted line, each node showing a pixelated Pokémon sprite for
+a page/section — like walking a route on the world map. Built first for devanshsoni.com,
+extracted here to be installable by anyone.
+
+## Orientation and position are independent axes
+
+`orientation` is which axis the trail runs along. `position` is which edge it anchors to,
+and which side the pokéball button and (in vertical) the label sit on. They are deliberately
+not conflated, and both combinations of the two are supported.
+
+**Horizontal labels sit below the node, always** — they do not flip with `position`.
+Beside the node (the vertical arrangement) would make each item as wide as its label, and
+since the trail runs between ring centers it would be drawn straight through the
+neighbouring label's text. Below is the only placement that keeps the trail clear of the
+type at every item width. Flipping labels above for `position: 'right'` was considered and
+rejected: 'left'/'right' say nothing about above/below, so mapping them onto the cross axis
+would conflate the two props. In horizontal, `position` controls which end of the container
+the trail packs to instead.
+
+In horizontal, each node's track is fixed to the node size so the trail geometry stays
+deterministic, and labels may spill into the gap and wrap beyond it — which bounds them at
+exactly the point where two neighbours would otherwise collide.
 
 ## 1. Concept
 - Nodes connected by a dotted trail, one node per nav item.
@@ -66,10 +85,23 @@ novelty — someone with zero interest in Pokémon can still use it with their o
   fully visible and uncropped. Likely means the "line" is really just the seam where the
   two ring halves meet, plus a small button sitting on that seam at the ring's edge, not a
   line drawn across the whole node.
-- **`trailPath: 'wavy'`**: requires the trail to be an SVG `<path>` with a bezier curve and
-  a dash-array along the curve to fake the dotted look — a different rendering approach
-  from the straight version's CSS border/divider, not a simple style toggle. Scope as its
-  own implementation, not an automatic variant of the straight trail.
+- **`trailPath: 'wavy'`**: **done.** Built as its own implementation, as scoped — an SVG
+  `<path>` with a dash-array along the curve, not a style toggle on the straight trail.
+  Resolved details:
+  - **Node centers are measured, not derived.** The path is drawn through real measured
+    ring centers rather than positions computed from the CSS custom properties. Derived
+    positions drift the moment a consumer overrides a size, changes the font, or lets a
+    label wrap, and drift breaks the one thing the curve has to get right. Every bezier
+    segment begins and ends exactly on a measured center, so the sprite circles sit on the
+    path by construction rather than by tuning.
+  - **Curve shape**: one cubic bezier per gap, each bulging to the opposite side of the
+    previous one at a constant amplitude (`--pallet-wave-amplitude`, default 12px). The
+    alternation is what makes it read as a single winding road instead of unrelated
+    wobbles, and it also makes the curve smooth at the nodes: the outgoing and incoming
+    tangents either side of a node are identical, so there is no kink where segments meet.
+  - **The straight trail stays a CSS border.** It needs no measurement, so it survives
+    server rendering and no-JS, and it doubles as the fallback the wavy trail shows until
+    its geometry has been measured — there is never a frame of disconnected circles.
 
 ## 4. Interaction & behavior spec
 - **Hover**: subtle bounce/wiggle on the sprite.
@@ -81,8 +113,24 @@ novelty — someone with zero interest in Pokémon can still use it with their o
   shift together), not two independently-designed states.
 - **Sprite sizing**: normalize bounding-box scale/centering across all sprites so each one
   carries equal visual weight inside its circle.
-- **Scroll-linked trail fill** (nice-to-have, not required): dotted trail fills in as a
-  progress indicator while scrolling through sections.
+- **Scroll-linked trail fill**: **done.** The trail fills continuously in `accentColor` as
+  a `scrollProgress` prop moves 0→1. Resolved details:
+  - **Sourced from the consumer, like `activeHref`.** The component does not read
+    `window.scrollY` itself, so it still works where page scroll is the wrong source or
+    does not exist — inside a scroll container, a virtualized list, an embedded panel, or
+    driven by something that isn't scroll at all. `useScrollProgress()` is exported for the
+    ordinary page-scroll case, opt-in and separable.
+  - **A separate layer from the active node**, not a replacement for it. Both are visible
+    at once: the active node marks where you navigated to, the fill marks how far you have
+    read.
+  - **Two renderers, one per trail.** The straight trail fills per segment via a CSS
+    custom property; the wavy trail fills via an SVG mask so the reveal follows the curve.
+    The mask is needed because the visible path is already using its dash array to look
+    dotted — the two cannot share it. The mask path carries `pathLength="1"`, which
+    renormalizes its dash units so the reveal is length-independent.
+  - **Reduced motion suppresses the transition, not the fill.** The fill is a position
+    readout, so removing it would remove information. It updates in step with scroll as a
+    static state instead of easing toward a target.
 - **Route transition** (nice-to-have): optional capture-flash effect on click.
 - All motion respects `prefers-reduced-motion` — no animation at all if the user has it set.
 
@@ -121,12 +169,11 @@ npm workspaces (no Turborepo needed at this scale):
    for the resolved spec.
 3. **Extraction** (this repo) — port the finished component into the `pallet` workspace,
    generalize hardcoded items into the `NavConfig` API above.
-4. **Theme variants** — accent-color theming (replace hardcoded orange), pokéball ring
-   style, wavy trail path. Land these once the base component is stable in the workspace —
-   wavy trail in particular is its own rendering approach (SVG path vs CSS border) and
-   shouldn't block the initial extraction.
+4. **Theme variants** (done) — accent-color theming, pokéball ring style, wavy trail path,
+   horizontal orientation, scroll-linked trail fill. Wavy landed as its own rendering
+   approach (measured SVG path vs CSS border), as scoped.
 5. **Catalogue + picker** — build the sprite catalogue and the interactive picker UI on
-   `/apps/docs`.
+   `/apps/docs`. **This is the next step.**
 6. **Publish** — npm package, README with GIFs, docs site live, launch posts
    (r/webdev, r/reactjs, Show HN).
 
@@ -139,6 +186,13 @@ npm workspaces (no Turborepo needed at this scale):
   a comprehensive one that includes sprites that read poorly at icon scale.
 
 ## 10. Status
-Extraction into this repo is in progress. Next concrete step: scaffold the workspace
-structure (section 6), then port the finished, visually-QA'd component over from
-devanshsoni.com.
+Phases 1–4 are done. The workspace is scaffolded, the component is built against this spec,
+and all theme variants have landed: accent-color theming, both ring styles, both trail
+paths, both orientations, and scroll-linked trail fill.
+
+Four sprites are bundled (magnemite, eevee, porygon, sudowoodo) as a working set, not a
+curated one. Next concrete step is phase 5: curate the sprite catalogue and build the
+picker UI on `/apps/docs`.
+
+Still deliberately unbuilt: the capture-flash route transition (§4, nice-to-have) and
+anything audio (§2, §9).

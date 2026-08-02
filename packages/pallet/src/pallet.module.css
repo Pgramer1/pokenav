@@ -42,6 +42,13 @@
   --pallet-ring-thickness: 3px;
   --pallet-ring-thickness-active: 4px;
 
+  /*
+   * Peak lateral deviation of the wavy trail, in px. Read by JS when building the path, so
+   * it must stay a plain px length. Kept gentle on purpose: the trail should read as a road
+   * easing between stops, not as a decorative squiggle.
+   */
+  --pallet-wave-amplitude: 12px;
+
   /* Pokéball variant only. Definitional colors, still overridable. */
   --pallet-pokeball-red: #ee1c25;
   --pallet-pokeball-white: #f8f8f8;
@@ -59,6 +66,15 @@
 }
 
 /* ---------------------------------------------------------------- trail ---- */
+
+/*
+ * Positioned box shared by the list and the SVG overlay, so measured node centers and the
+ * path are in one coordinate space. Kept `display: block` so the list still fills the nav's
+ * width exactly as it did before this wrapper existed.
+ */
+.trailWrap {
+  position: relative;
+}
 
 .trail {
   display: flex;
@@ -79,13 +95,12 @@
 
 /*
  * The straight trail: one dotted segment per gap, drawn as a CSS border and anchored to
- * the node's vertical center line.
+ * the node's center line.
  *
- * TODO(trailPath: 'wavy'): the wavy variant is deliberately NOT a style toggle on this
- * rule. It needs an SVG <path> with a bezier curve and a dash-array along that curve,
- * which is a different rendering approach from a CSS border — see PALLET-PLAN.md §3. It
- * is scoped as its own implementation and is not attempted here; `trailPath: 'wavy'`
- * currently renders this straight trail.
+ * This stays a CSS border rather than moving into the SVG with the wavy trail. It needs no
+ * measurement, so it renders correctly during server rendering and without JavaScript,
+ * which is worth keeping for the default configuration. It also doubles as the fallback
+ * the wavy trail shows until its geometry has been measured.
  */
 .node:not(:last-child)::after {
   content: '';
@@ -100,6 +115,68 @@
 .nav[data-position='right'] .node:not(:last-child)::after {
   left: auto;
   right: calc(var(--pallet-node-size) / 2 - 1px);
+}
+
+/* -- wavy trail ------------------------------------------------------------ */
+
+/*
+ * The curve replaces the straight segments only once every node center has been measured.
+ * Before that `data-trail-measured` is absent and the CSS segments above stay visible, so
+ * there is never a frame showing disconnected circles.
+ */
+.nav[data-trail-path='wavy'][data-trail-measured] .node:not(:last-child)::after {
+  content: none;
+}
+
+.trailSvg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.trailBase {
+  stroke: color-mix(in srgb, var(--pallet-accent) 45%, transparent);
+}
+
+/* -- scroll-linked fill ---------------------------------------------------- */
+
+/*
+ * The fill is a second layer over the trail, independent of the active node. Both can be
+ * on at once: the active node marks where you navigated to, the fill marks how far you
+ * have read.
+ */
+.trailFill {
+  stroke: var(--pallet-accent);
+}
+
+.trailMask {
+  transition: stroke-dashoffset var(--pallet-duration) linear;
+}
+
+/*
+ * Straight-trail equivalent of the mask: each node carries the fill fraction of the segment
+ * that follows it, and this pseudo-element draws that fraction over the muted segment.
+ */
+.nav[data-scroll-fill] .node:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: var(--pallet-node-size);
+  left: calc(var(--pallet-node-size) / 2 - 1px);
+  height: calc(var(--pallet-gap) * var(--pallet-segment-fill, 0));
+  border-left: 2px var(--pallet-dot-style) var(--pallet-accent);
+  transition: height var(--pallet-duration) linear;
+}
+
+.nav[data-scroll-fill][data-position='right'] .node:not(:last-child)::before {
+  left: auto;
+  right: calc(var(--pallet-node-size) / 2 - 1px);
+}
+
+/* The SVG mask owns the fill for the wavy trail; this would double-draw it. */
+.nav[data-scroll-fill][data-trail-path='wavy'][data-trail-measured]
+  .node:not(:last-child)::before {
+  content: none;
 }
 
 /* ----------------------------------------------------------------- link ---- */
@@ -299,6 +376,91 @@
   font-weight: 700;
 }
 
+/* ----------------------------------------------------- horizontal layout ---- */
+
+/*
+ * `orientation` and `position` are independent axes and are kept that way here.
+ *
+ *   orientation = which axis the trail runs along.
+ *   position    = which edge the trail anchors to, and which side the pokéball button
+ *                 and (in vertical) the label sit on.
+ *
+ * Labels sit BELOW the node in horizontal, always, rather than flipping with `position`.
+ * Beside the node — the vertical arrangement — would make each item as wide as its label,
+ * and the trail runs between ring centers, so it would be drawn straight through the
+ * neighbouring label's text. Below is the only placement that keeps the trail clear of the
+ * type at every item width. Flipping labels above for `position: 'right'` was rejected
+ * deliberately: 'left'/'right' say nothing about above/below, so mapping them onto the
+ * cross axis would conflate the two props. In horizontal, `position` instead controls which
+ * end of the container the trail packs to.
+ *
+ * These rules pair each selector with a `[data-position='right']` variant so they outrank
+ * the vertical position rules on specificity rather than on source order.
+ */
+
+.nav[data-orientation='horizontal'] .trail,
+.nav[data-orientation='horizontal'][data-position='right'] .trail {
+  flex-direction: row;
+  /* Keeps every ring center on one line even when labels wrap to different heights. */
+  align-items: flex-start;
+}
+
+.nav[data-orientation='horizontal'][data-position='right'] .trail {
+  justify-content: flex-end;
+}
+
+.nav[data-orientation='horizontal'] .link,
+.nav[data-orientation='horizontal'][data-position='right'] .link {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+/*
+ * Fixing the track width to the node size is what makes the horizontal trail geometry
+ * deterministic: the segment can start at the node's own edge because that edge is always
+ * half a node from the ring center, whatever the label does.
+ */
+.nav[data-orientation='horizontal'] .node {
+  display: flex;
+  justify-content: center;
+  width: var(--pallet-node-size);
+}
+
+/*
+ * Labels are allowed to spill into the gap on each side and wrap beyond that, which bounds
+ * them at exactly the point where two neighbours would otherwise collide.
+ */
+.nav[data-orientation='horizontal'] .label {
+  max-width: calc(var(--pallet-node-size) + var(--pallet-gap));
+  text-align: center;
+}
+
+.nav[data-orientation='horizontal'] .node:not(:last-child)::after,
+.nav[data-orientation='horizontal'][data-position='right'] .node:not(:last-child)::after {
+  top: calc(var(--pallet-node-size) / 2 - 1px);
+  right: auto;
+  left: var(--pallet-node-size);
+  width: var(--pallet-gap);
+  height: 0;
+  border-left: none;
+  border-top: 2px var(--pallet-dot-style)
+    color-mix(in srgb, var(--pallet-accent) 45%, transparent);
+}
+
+.nav[data-scroll-fill][data-orientation='horizontal'] .node:not(:last-child)::before,
+.nav[data-scroll-fill][data-orientation='horizontal'][data-position='right']
+  .node:not(:last-child)::before {
+  top: calc(var(--pallet-node-size) / 2 - 1px);
+  right: auto;
+  left: var(--pallet-node-size);
+  width: calc(var(--pallet-gap) * var(--pallet-segment-fill, 0));
+  height: 0;
+  border-left: none;
+  border-top: 2px var(--pallet-dot-style) var(--pallet-accent);
+  transition: width var(--pallet-duration) linear;
+}
+
 /* ---------------------------------------------------------------- focus ---- */
 
 /* Deliberate focus ring rather than the UA default, which the circle would clip (§5). */
@@ -340,7 +502,9 @@
 .nav[data-reduced-motion] .ring::before,
 .nav[data-reduced-motion] .ring::after,
 .nav[data-reduced-motion] .sprite,
-.nav[data-reduced-motion] .label {
+.nav[data-reduced-motion] .label,
+.nav[data-reduced-motion] .node::before,
+.nav[data-reduced-motion] .trailMask {
   transition: none;
   animation: none;
 }
@@ -350,8 +514,18 @@
   .ring::before,
   .ring::after,
   .sprite,
-  .label {
+  .label,
+  .node::before,
+  .trailMask {
     transition: none;
     animation: none;
   }
 }
+
+/*
+ * Note what is NOT suppressed above: the scroll fill itself. Removing the transition stops
+ * it animating between values, so it tracks scroll as a static state that updates in step
+ * with the page rather than easing toward a target. The fill is a position readout, not
+ * decoration — dropping it entirely would remove information, which is not what reduced
+ * motion asks for.
+ */

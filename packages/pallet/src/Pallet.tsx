@@ -1,7 +1,10 @@
+import { useId } from 'react';
 import { getCatalogueEntry } from './catalogue';
 import { resolveTheme } from './defaults';
 import { getSpriteDataUrl } from './sprites';
+import { TrailSvg } from './TrailSvg';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
+import { useTrailGeometry } from './useTrailGeometry';
 import styles from './pallet.module.css';
 import type { NavConfig, NavItem } from './types';
 
@@ -16,6 +19,18 @@ export interface PalletProps extends NavConfig {
    * navigation. Omit it and no node is active.
    */
   activeHref?: string;
+  /**
+   * Scroll position as a 0–1 fraction. Progressively fills the trail in `accentColor`.
+   *
+   * Same reasoning as `activeHref`: sourced from the consumer rather than read off
+   * `window` internally, so the component works anywhere — inside a scroll container, a
+   * virtualized list, an embedded panel, or driven by something that isn't scroll at all.
+   * `useScrollProgress()` is exported for the ordinary page-scroll case.
+   *
+   * Omit it and no fill layer renders. This is a separate visual layer from the
+   * route-based active node, which is unaffected.
+   */
+  scrollProgress?: number;
   /** Accessible name for the `<nav>` landmark. */
   ariaLabel?: string;
   /** Merged onto the root element's own class. */
@@ -26,8 +41,9 @@ export interface PalletProps extends NavConfig {
  * Route-map style navigation: a trail of circular sprite nodes connected by a dotted line.
  *
  * Rendering notes:
- * - The ring, its pokéball detailing, and the trail segments are all drawn in CSS via
- *   pseudo-elements. There is no wrapper element here whose only job is to be painted.
+ * - The ring, its pokéball detailing, and the straight trail are drawn in CSS via
+ *   pseudo-elements. Only the wavy trail needs an element, because a curve through measured
+ *   points cannot be expressed as a border.
  * - The `data-*` attributes below are the public styling contract. They are what the
  *   stylesheet keys off, and what consumers should target to restyle from outside.
  * - The component holds no route state and subscribes to nothing.
@@ -38,11 +54,27 @@ export function Pallet({
   items,
   theme,
   activeHref,
+  scrollProgress,
   ariaLabel = 'Site navigation',
   className,
 }: PalletProps) {
   const resolvedTheme = resolveTheme(theme);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const maskId = `pallet-trail-${useId()}`;
+
+  const isWavy = resolvedTheme.trailPath === 'wavy';
+  const { containerRef, setNodeRef, points, width, height, amplitude } = useTrailGeometry(
+    isWavy,
+    items.length,
+  );
+
+  // Only true once every node has been measured. Until then the CSS straight trail stays
+  // visible, so server-rendered and no-JS output still shows a connected trail rather than
+  // a row of orphaned circles.
+  const isMeasured = points.length === items.length && items.length > 1;
+
+  const hasScrollFill = scrollProgress !== undefined;
+  const segmentCount = Math.max(items.length - 1, 1);
 
   return (
     <nav
@@ -53,6 +85,8 @@ export function Pallet({
       data-orientation={orientation}
       data-ring-style={resolvedTheme.ringStyle}
       data-trail-path={resolvedTheme.trailPath}
+      data-trail-measured={isMeasured ? '' : undefined}
+      data-scroll-fill={hasScrollFill ? '' : undefined}
       data-reduced-motion={prefersReducedMotion ? '' : undefined}
       style={
         {
@@ -62,55 +96,93 @@ export function Pallet({
         } as React.CSSProperties
       }
     >
-      <ol className={styles.trail} data-pallet-trail="">
-        {items.map((item) => {
-          const isActive = item.href === activeHref;
-          const sprite = resolveSprite(item);
+      {/*
+       * The wrapper exists so the SVG has a positioned box to fill that is a valid sibling
+       * of the list. An <svg> cannot be a child of <ol>, and the overlay has to share the
+       * list's coordinate space for the measured points to line up.
+       */}
+      <div className={styles.trailWrap} ref={containerRef} data-pallet-trail-wrap="">
+        {isWavy && isMeasured ? (
+          <TrailSvg
+            points={points}
+            width={width}
+            height={height}
+            amplitude={amplitude}
+            orientation={orientation}
+            dotStyle={resolvedTheme.dotStyle}
+            wavy
+            scrollProgress={scrollProgress}
+            maskId={maskId}
+          />
+        ) : null}
 
-          return (
-            <li
-              key={item.href}
-              className={styles.node}
-              data-pallet-node=""
-              data-active={isActive ? '' : undefined}
-            >
-              <a
-                href={item.href}
-                className={styles.link}
-                aria-current={isActive ? 'page' : undefined}
+        <ol className={styles.trail} data-pallet-trail="">
+          {items.map((item, index) => {
+            const isActive = item.href === activeHref;
+            const sprite = resolveSprite(item);
+
+            return (
+              <li
+                key={item.href}
+                className={styles.node}
+                data-pallet-node=""
+                data-active={isActive ? '' : undefined}
+                style={
+                  hasScrollFill
+                    ? ({
+                        // How much of the segment *after* this node is filled, 0–1. Only
+                        // consumed by the straight trail; the wavy trail fills via the SVG
+                        // mask, which follows the curve rather than a stack of segments.
+                        '--pallet-segment-fill': segmentFill(scrollProgress, segmentCount, index),
+                      } as React.CSSProperties)
+                    : undefined
+                }
               >
-                <span className={styles.ring} data-pallet-ring="">
-                  {sprite ? (
-                    <img
-                      src={sprite.url}
-                      alt={sprite.alt}
-                      className={styles.sprite}
-                      data-pallet-sprite=""
-                    />
-                  ) : null}
-                </span>
-                {/*
-                 * When a sprite is present its alt text already carries the section name
-                 * (§5: "{Pokémon name} — {section name}"), so the link's accessible name is
-                 * complete without this span. Leaving it exposed would make a screen
-                 * reader announce the section twice — "Eevee — Home, Home". Hiding it is
-                 * what keeps the §5 alt-text rule and a clean announcement compatible.
-                 * With no sprite there is no alt text, so the label must stay exposed.
-                 */}
-                <span
-                  className={styles.label}
-                  data-pallet-label=""
-                  aria-hidden={sprite ? 'true' : undefined}
+                <a
+                  href={item.href}
+                  className={styles.link}
+                  aria-current={isActive ? 'page' : undefined}
                 >
-                  {item.label}
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ol>
+                  <span className={styles.ring} data-pallet-ring="" ref={setNodeRef(index)}>
+                    {sprite ? (
+                      <img
+                        src={sprite.url}
+                        alt={sprite.alt}
+                        className={styles.sprite}
+                        data-pallet-sprite=""
+                      />
+                    ) : null}
+                  </span>
+                  {/*
+                   * When a sprite is present its alt text already carries the section name
+                   * (§5: "{Pokémon name} — {section name}"), so the link's accessible name is
+                   * complete without this span. Leaving it exposed would make a screen
+                   * reader announce the section twice — "Eevee — Home, Home". Hiding it is
+                   * what keeps the §5 alt-text rule and a clean announcement compatible.
+                   * With no sprite there is no alt text, so the label must stay exposed.
+                   */}
+                  <span
+                    className={styles.label}
+                    data-pallet-label=""
+                    aria-hidden={sprite ? 'true' : undefined}
+                  >
+                    {item.label}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </nav>
   );
+}
+
+/** Fraction of the segment following `index` that scroll progress has reached, 0–1. */
+function segmentFill(progress: number | undefined, segments: number, index: number): number {
+  if (progress === undefined || !Number.isFinite(progress)) return 0;
+  const clamped = Math.min(1, Math.max(0, progress));
+  return Math.min(1, Math.max(0, clamped * segments - index));
 }
 
 /**

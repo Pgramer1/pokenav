@@ -5,6 +5,7 @@ export { catalogue, getCatalogueEntry } from './catalogue';
 export { getSpriteDataUrl, spriteDataUrls } from './sprites';
 export { DEFAULT_THEME, resolveTheme } from './defaults';
 export { usePrefersReducedMotion } from './usePrefersReducedMotion';
+export { useScrollProgress } from './useScrollProgress';
 
 export type {
   Catalogue,

@@ -119,12 +119,34 @@ trail, and focus ring — no color is hardcoded, so the nav matches any consumer
 one exception is `ringStyle: 'pokeball'`, whose red and white are definitional to that
 style; they're still overridable via `--pallet-pokeball-red` / `--pallet-pokeball-white`.
 
-### Not implemented yet
+### Scroll-linked trail fill
 
-`trailPath: 'wavy'` and `orientation: 'horizontal'` are accepted by the types so the config
-shape stays stable, but currently render as `'straight'` and `'vertical'`. The wavy trail
-needs an SVG bezier path with a dash-array along the curve — a different rendering approach
-from a CSS border, scoped as its own piece of work.
+Pass `scrollProgress` (0–1) and the trail fills continuously in `accentColor` as the value
+rises. It's a separate layer from the active node — both show at once.
+
+Like `activeHref`, it's supplied by you rather than read off `window` internally, so the
+component still works inside a scroll container, a virtualized list, or driven by something
+that isn't scroll at all. For the ordinary page-scroll case:
+
+```tsx
+import { Pallet, useScrollProgress } from '@devanshsoni/pallet';
+
+<Pallet {...config} scrollProgress={useScrollProgress()} />;
+```
+
+`useScrollProgress(ref)` tracks a scrollable element instead of the document. Under
+`prefers-reduced-motion` the fill still tracks scroll, it just stops animating between
+values — it's a position readout, so removing it would remove information.
+
+### Orientation and position
+
+These are independent axes. `orientation` is which way the trail runs; `position` is which
+edge it anchors to. All four combinations work.
+
+In horizontal, labels sit **below** the node rather than flipping with `position` — beside
+the node would put the trail straight through the neighbouring label's text, and
+'left'/'right' say nothing about above/below. `position` controls which end the trail packs
+to instead.
 
 ### CSS custom properties
 
@@ -138,6 +160,7 @@ Set these on the root element to adjust geometry without forking the stylesheet:
 | `--pallet-duration`          | `160ms`   |
 | `--pallet-ring-thickness`    | `3px`     |
 | `--pallet-pokeball-thickness`| `6px`     |
+| `--pallet-wave-amplitude`    | `12px`    |
 
 If you change node, sprite, or pokéball thickness, keep
 `node - 2 x thickness >= sprite x 1.415` — the sprite box is a square inside a circle, so
@@ -145,11 +168,12 @@ its corners are the binding constraint. Violate it and the ring crops the artwor
 
 ### Extra props
 
-| Prop        | Type     | Notes                                              |
-| ----------- | -------- | -------------------------------------------------- |
-| `activeHref`| `string` | Current route. Falls back to `window.location`.    |
-| `ariaLabel` | `string` | Landmark name. Defaults to `'Site navigation'`.    |
-| `className` | `string` | Applied to the root `<nav>`.                       |
+| Prop             | Type     | Notes                                                    |
+| ---------------- | -------- | -------------------------------------------------------- |
+| `activeHref`     | `string` | Current route. Omit and no node is active.               |
+| `scrollProgress` | `number` | 0–1. Fills the trail. Omit and no fill layer renders.    |
+| `ariaLabel`      | `string` | Landmark name. Defaults to `'Site navigation'`.          |
+| `className`      | `string` | Applied to the root `<nav>`.                             |
 
 ## Using it without Pokémon
 
