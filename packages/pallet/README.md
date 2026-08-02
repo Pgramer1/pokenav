@@ -59,20 +59,30 @@ rather than the internal class names:
 }
 ```
 
-### Next.js App Router
+### Active route
 
-The package ships with a `'use client'` directive, so it drops into a server component
-without wrapping. Pass `usePathname()` as `activeHref` so the active node tracks the real
-route — `pallet` takes no dependency on `next` itself:
+`activeHref` is a plain string prop. The component compares it against each item's `href`
+and does nothing else — no router import, no history subscription, no framework coupling.
+You decide where the string comes from:
 
 ```tsx
+// Next.js App Router
 'use client';
 import { usePathname } from 'next/navigation';
-
 <Pallet {...config} activeHref={usePathname()} />;
+
+// Next.js Pages Router
+<Pallet {...config} activeHref={useRouter().pathname} />;
+
+// React Router
+<Pallet {...config} activeHref={useLocation().pathname} />;
+
+// Scroll-spy over sections on a single page
+<Pallet {...config} activeHref={visibleSectionId} />;
 ```
 
-Without `activeHref`, the component falls back to `window.location.pathname` after mount.
+Omit it and no node is active. The package ships with a `'use client'` directive, so it
+drops into a server component without wrapping.
 
 ## API
 
@@ -104,8 +114,34 @@ Without `activeHref`, the component falls back to `window.location.pathname` aft
 | `dotStyle`    | `'dotted' \| 'dashed' \| 'solid'` | `'dotted'`  |
 | `font`        | `string`                          | `'inherit'` |
 
-`accentColor` is the single source of truth for the active ring, hover ring, and trail
-color — no color is hardcoded, so the nav matches any consumer's brand.
+`accentColor` is the single source of truth for the active ring, hover ring, inactive ring,
+trail, and focus ring — no color is hardcoded, so the nav matches any consumer's brand. The
+one exception is `ringStyle: 'pokeball'`, whose red and white are definitional to that
+style; they're still overridable via `--pallet-pokeball-red` / `--pallet-pokeball-white`.
+
+### Not implemented yet
+
+`trailPath: 'wavy'` and `orientation: 'horizontal'` are accepted by the types so the config
+shape stays stable, but currently render as `'straight'` and `'vertical'`. The wavy trail
+needs an SVG bezier path with a dash-array along the curve — a different rendering approach
+from a CSS border, scoped as its own piece of work.
+
+### CSS custom properties
+
+Set these on the root element to adjust geometry without forking the stylesheet:
+
+| Property                     | Default   |
+| ---------------------------- | --------- |
+| `--pallet-node-size`         | `64px`    |
+| `--pallet-sprite-size`       | `36px`    |
+| `--pallet-gap`               | `1.75rem` |
+| `--pallet-duration`          | `160ms`   |
+| `--pallet-ring-thickness`    | `3px`     |
+| `--pallet-pokeball-thickness`| `6px`     |
+
+If you change node, sprite, or pokéball thickness, keep
+`node - 2 x thickness >= sprite x 1.415` — the sprite box is a square inside a circle, so
+its corners are the binding constraint. Violate it and the ring crops the artwork.
 
 ### Extra props
 

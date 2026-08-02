@@ -1,23 +1,64 @@
 /*
- * Base stylesheet for the trail. Self-contained plain CSS Modules — no Tailwind, no
- * framework-coupled styling — so it works in any consumer app without their config.
+ * pallet — base stylesheet.
  *
- * Every color derives from --pallet-accent (PALLET-PLAN.md §4). Nothing here hardcodes a
- * hue. Labels inherit the consumer's text color so the nav sits inside their typography
- * rather than fighting it.
+ * Self-contained plain CSS Modules. No Tailwind, no preprocessor, no framework coupling,
+ * nothing for the consumer to configure beyond importing this file once.
  *
- * Consumers who want to restyle from the outside should target the `data-*` attributes on
- * the rendered markup — those are the stable public contract, not these class names.
+ * Color rules (PALLET-PLAN.md §3, §4):
+ *   Every color derives from --pallet-accent. The only literal colors in this file are the
+ *   pokéball red/white, which are definitional to that ring style rather than theme values
+ *   — and they are still exposed as overridable custom properties.
+ *   Labels inherit the consumer's currentColor so the nav sits inside their typography.
+ *
+ * Geometry:
+ *   The ring visual is drawn by ::before as an overlay, NOT as a border on the box that
+ *   holds the sprite. That separation is what keeps the sprite perfectly still and
+ *   uncropped when the ring thickens on hover/active, and it is what lets the pokéball
+ *   variant draw a hard two-tone split that a CSS border cannot.
+ *
+ * Consumers restyling from outside should target the data-* attributes on the markup —
+ * those are the stable public contract, not these class names.
  */
 
+/*
+ * Geometry constraint worth stating, because getting it wrong crops the artwork:
+ *
+ * The sprite box is a SQUARE sitting inside a CIRCLE. A square of side S needs a circle of
+ * diameter S x sqrt(2) to be fully inscribed — its corners, not its edges, are the binding
+ * constraint. So the inner hole of the ring must be at least sprite-size x 1.415, or the
+ * corners of the sprite pass under the ring band and get painted over.
+ *
+ * With the values below: inner hole = 64 - (2 x 6) = 52px, and 36 x 1.415 = 50.9px. Fits,
+ * with ~1px to spare. Change any of node size, sprite size, or pokéball thickness and that
+ * inequality has to be rechecked.
+ */
 .nav {
-  --pallet-node-size: 44px;
-  --pallet-sprite-size: 40px;
-  --pallet-gap: 1.5rem;
+  --pallet-node-size: 64px;
+  --pallet-sprite-size: 36px;
+  --pallet-gap: 1.75rem;
   --pallet-duration: 160ms;
+
+  /* Ring geometry. Active thickness is a separate value so the two can be tuned apart. */
+  --pallet-ring-thickness: 3px;
+  --pallet-ring-thickness-active: 4px;
+
+  /* Pokéball variant only. Definitional colors, still overridable. */
+  --pallet-pokeball-red: #ee1c25;
+  --pallet-pokeball-white: #f8f8f8;
+  --pallet-pokeball-thickness: 6px;
+  /* Matches the band thickness exactly, so the button sits fully inside the ring and
+     never breaks the circular silhouette. */
+  --pallet-pokeball-button: 6px;
 
   font-family: var(--pallet-font);
 }
+
+.nav[data-ring-style='pokeball'] {
+  --pallet-ring-thickness: var(--pallet-pokeball-thickness);
+  --pallet-ring-thickness-active: var(--pallet-pokeball-thickness);
+}
+
+/* ---------------------------------------------------------------- trail ---- */
 
 .trail {
   display: flex;
@@ -36,14 +77,24 @@
   position: relative;
 }
 
-/* The dotted trail: one segment per gap, anchored to the node's center line. */
+/*
+ * The straight trail: one dotted segment per gap, drawn as a CSS border and anchored to
+ * the node's vertical center line.
+ *
+ * TODO(trailPath: 'wavy'): the wavy variant is deliberately NOT a style toggle on this
+ * rule. It needs an SVG <path> with a bezier curve and a dash-array along that curve,
+ * which is a different rendering approach from a CSS border — see PALLET-PLAN.md §3. It
+ * is scoped as its own implementation and is not attempted here; `trailPath: 'wavy'`
+ * currently renders this straight trail.
+ */
 .node:not(:last-child)::after {
   content: '';
   position: absolute;
   top: var(--pallet-node-size);
   left: calc(var(--pallet-node-size) / 2 - 1px);
   height: var(--pallet-gap);
-  border-left: 2px var(--pallet-dot-style) color-mix(in srgb, var(--pallet-accent) 45%, transparent);
+  border-left: 2px var(--pallet-dot-style)
+    color-mix(in srgb, var(--pallet-accent) 45%, transparent);
 }
 
 .nav[data-position='right'] .node:not(:last-child)::after {
@@ -51,63 +102,192 @@
   right: calc(var(--pallet-node-size) / 2 - 1px);
 }
 
+/* ----------------------------------------------------------------- link ---- */
+
 .link {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   color: inherit;
   text-decoration: none;
 }
 
+/* Mirror the whole node so the label sits inboard of the trail on a right-side nav. */
 .nav[data-position='right'] .link {
   flex-direction: row-reverse;
 }
 
+/* ----------------------------------------------------------------- ring ---- */
+
 /*
- * The node itself keeps the same circular shape whether active or not — active state is a
- * thicker ring, a glow, and a slight scale-up, never a different shape. That consistency
- * was a specific fix from the first prototype (PALLET-PLAN.md §1).
+ * Active nodes keep the exact same circular shape as inactive ones — the difference is a
+ * thicker ring, a glow, and a slight scale-up, never a different silhouette. The first
+ * prototype turned the active node into a pill and broke the trail's visual consistency;
+ * this is the fix (PALLET-PLAN.md §1).
  */
 .ring {
-  box-sizing: border-box;
+  position: relative;
   display: grid;
   place-items: center;
   flex: none;
   width: var(--pallet-node-size);
   height: var(--pallet-node-size);
-  border: 2px solid color-mix(in srgb, var(--pallet-accent) 15%, transparent);
   border-radius: 50%;
   transition:
     transform var(--pallet-duration) ease,
-    border-color var(--pallet-duration) ease,
     box-shadow var(--pallet-duration) ease;
 }
 
-.link:hover .ring {
+/* The ring itself, as an overlay so ring thickness never disturbs the sprite. */
+.ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  pointer-events: none;
+  transition:
+    border-color var(--pallet-duration) ease,
+    border-width var(--pallet-duration) ease,
+    opacity var(--pallet-duration) ease;
+}
+
+/* -- solid ring ------------------------------------------------------------ */
+
+/* Inactive rings are the brand color at low opacity, never flat grey, so every node
+   reads as part of one system (PALLET-PLAN.md §4). */
+.nav[data-ring-style='solid'] .ring::before {
+  border: var(--pallet-ring-thickness) solid
+    color-mix(in srgb, var(--pallet-accent) 14%, transparent);
+}
+
+.nav[data-ring-style='solid'] .link:hover .ring::before {
   border-color: color-mix(in srgb, var(--pallet-accent) 55%, transparent);
 }
 
-.node[data-active] .ring {
-  border-width: 3px;
+.nav[data-ring-style='solid'] .node[data-active] .ring::before {
+  border-width: var(--pallet-ring-thickness-active);
   border-color: var(--pallet-accent);
+}
+
+/* -- pokéball ring --------------------------------------------------------- */
+
+/*
+ * Two hard-split semicircles, red over white, masked into an annulus. A plain border
+ * cannot produce a hard two-tone split, hence the gradient + mask.
+ *
+ * The mask cuts the center out entirely, so the ring is a true ring: the sprite sits in
+ * open space inside it and is never overlapped or cropped. `closest-side` makes 100% equal
+ * the radius, so the transparent hole is exactly (radius - thickness).
+ */
+.nav[data-ring-style='pokeball'] .ring::before {
+  background: linear-gradient(
+    to bottom,
+    var(--pallet-pokeball-red) 0 50%,
+    var(--pallet-pokeball-white) 50% 100%
+  );
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 0 calc(100% - var(--pallet-ring-thickness)),
+    #000 calc(100% - var(--pallet-ring-thickness)) 100%
+  );
+  mask: radial-gradient(
+    circle closest-side,
+    transparent 0 calc(100% - var(--pallet-ring-thickness)),
+    #000 calc(100% - var(--pallet-ring-thickness)) 100%
+  );
+  /* Inactive pokéball nodes recede the same way inactive solid rings do. */
+  opacity: 0.4;
+}
+
+.nav[data-ring-style='pokeball'] .link:hover .ring::before {
+  opacity: 0.72;
+}
+
+.nav[data-ring-style='pokeball'] .node[data-active] .ring::before {
+  opacity: 1;
+}
+
+/*
+ * The pokéball's center line and button.
+ *
+ * The seam is not drawn: it is simply where the two gradient halves meet, so it already
+ * terminates at the inner edge of the ring and cannot cross the sprite. The only drawn
+ * detail is the button, sitting on that seam at the ring's edge — centered on the ring
+ * band at the 9 o'clock point (or 3 o'clock on a right-side nav), well clear of the
+ * sprite. This is the exact constraint in PALLET-PLAN.md §3: no horizontal band across
+ * the artwork.
+ */
+.nav[data-ring-style='pokeball'] .ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--pallet-ring-thickness) / 2);
+  width: var(--pallet-pokeball-button);
+  height: var(--pallet-pokeball-button);
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--pallet-pokeball-white);
+  border: 1.5px solid color-mix(in srgb, var(--pallet-pokeball-red) 70%, #000);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity var(--pallet-duration) ease;
+}
+
+.nav[data-position='right'][data-ring-style='pokeball'] .ring::after {
+  left: auto;
+  right: calc(var(--pallet-ring-thickness) / 2);
+  transform: translate(50%, -50%);
+}
+
+.nav[data-ring-style='pokeball'] .link:hover .ring::after {
+  opacity: 0.72;
+}
+
+.nav[data-ring-style='pokeball'] .node[data-active] .ring::after {
+  opacity: 1;
+}
+
+/* -- active emphasis (shared by both ring styles) -------------------------- */
+
+.node[data-active] .ring {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
   transform: scale(1.08);
 }
 
+/* --------------------------------------------------------------- sprite ---- */
+
+/*
+ * Sprite normalization (PALLET-PLAN.md §4). Every sprite renders into an identical
+ * square box and is scaled to fit inside it, so a short-wide sprite and a tall one carry
+ * the same visual weight in their circles instead of tracking their raw pixel dimensions.
+ * `contain` preserves aspect ratio; grid centering handles the centering half.
+ */
 .sprite {
   display: block;
   width: var(--pallet-sprite-size);
   height: var(--pallet-sprite-size);
-  /* Sprites are pixel art — never let the browser smooth them. */
-  image-rendering: pixelated;
   object-fit: contain;
+  /* Pixel art — never let the browser smooth it. */
+  image-rendering: pixelated;
+  /*
+   * The ring is a positioned pseudo-element, which would otherwise paint above this
+   * static grid item and clip the sprite's corners. Lifting the sprite into its own
+   * stacking position guarantees the artwork is never painted over, independent of the
+   * geometry above.
+   */
+  position: relative;
+  z-index: 1;
 }
 
 .link:hover .sprite {
   animation: bounce 480ms ease;
 }
 
-/* Label color and weight shift together, one rule, not two independent states (§4). */
+/* ---------------------------------------------------------------- label ---- */
+
+/* Color and weight shift together as one rule, not two independently-styled states (§4). */
 .label {
   color: color-mix(in srgb, currentColor 60%, transparent);
   font-weight: 500;
@@ -119,14 +299,20 @@
   font-weight: 700;
 }
 
+/* ---------------------------------------------------------------- focus ---- */
+
 /* Deliberate focus ring rather than the UA default, which the circle would clip (§5). */
 .link:focus-visible {
   outline: none;
 }
 
 .link:focus-visible .ring {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pallet-accent) 90%, transparent);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--pallet-accent) 30%, transparent),
+    0 0 0 5px var(--pallet-accent);
 }
+
+/* --------------------------------------------------------------- motion ---- */
 
 @keyframes bounce {
   0%,
@@ -142,11 +328,17 @@
 }
 
 /*
- * Reduced motion means no motion at all, not shortened motion (§4). Both guards are here
- * on purpose: the media query covers the server-rendered pass before hydration, the data
- * attribute covers the JS-observed preference.
+ * Reduced motion means no motion at all, not shortened motion (§4). Both guards are
+ * deliberate: the media query covers the server-rendered pass before hydration, the data
+ * attribute covers the preference once JS has observed it.
+ *
+ * The active node's scale-up survives both. It is a static state that tells you which
+ * route you are on, not motion — suppressing it would cost the affordance without
+ * removing a single animation.
  */
 .nav[data-reduced-motion] .ring,
+.nav[data-reduced-motion] .ring::before,
+.nav[data-reduced-motion] .ring::after,
 .nav[data-reduced-motion] .sprite,
 .nav[data-reduced-motion] .label {
   transition: none;
@@ -155,15 +347,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ring,
+  .ring::before,
+  .ring::after,
   .sprite,
   .label {
     transition: none;
     animation: none;
   }
 }
-
-/*
- * Note that the active node's scale-up survives both guards. It's a static state that
- * carries meaning (which route you're on), not motion — suppressing it would cost the
- * affordance without removing any animation.
- */

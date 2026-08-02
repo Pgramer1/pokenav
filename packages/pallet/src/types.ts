@@ -8,7 +8,12 @@
 /** Which side of the viewport the trail is anchored to. */
 export type NavPosition = 'left' | 'right';
 
-/** Direction the trail runs. `horizontal` is planned but not implemented yet. */
+/**
+ * Direction the trail runs.
+ *
+ * `horizontal` is **not implemented yet** and currently renders vertically. The value is
+ * accepted so the config shape stays stable (PALLET-PLAN.md §1).
+ */
 export type NavOrientation = 'vertical' | 'horizontal';
 
 /** How the connecting trail between nodes is drawn. */
@@ -22,8 +27,11 @@ export type RingStyle = 'solid' | 'pokeball';
 
 /**
  * `straight` — trail rendered as a CSS border/divider.
- * `wavy` — trail rendered as an SVG bezier `<path>`. Different rendering approach, not a
- * style toggle; scoped as its own implementation.
+ *
+ * `wavy` — **not implemented yet.** It requires an SVG bezier `<path>` with a dash-array
+ * along the curve, a different rendering approach from a CSS border rather than a style
+ * toggle, and is scoped as its own piece of work. Passing it today renders the straight
+ * trail; the value is accepted so the config shape stays stable.
  */
 export type TrailPath = 'straight' | 'wavy';
 

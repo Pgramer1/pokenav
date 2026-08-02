@@ -1,8 +1,17 @@
+/*
+ * Docs-site chrome only. Nothing here styles the nav component — that ships with the
+ * package (`@devanshsoni/pallet/styles.css`, imported in layout.tsx). Keeping this file
+ * free of any `[data-pallet*]` selector is what proves the component is self-contained.
+ *
+ * No Tailwind, no CSS framework, no preprocessor anywhere in this app.
+ */
+
 :root {
   --bg: #0b0f14;
   --fg: #e6edf3;
   --muted: #8b98a5;
   --border: #1e2936;
+  --panel: #10171f;
   color-scheme: dark;
 }
 
@@ -12,6 +21,7 @@
     --fg: #10161d;
     --muted: #5b6774;
     --border: #e3e8ee;
+    --panel: #f7f9fb;
     color-scheme: light;
   }
 }
@@ -22,7 +32,7 @@
 
 body {
   margin: 0;
-  padding: 3rem 1.5rem;
+  padding: 3rem 1.5rem 5rem;
   background: var(--bg);
   color: var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -30,16 +40,93 @@ body {
 }
 
 main {
-  max-width: 44rem;
+  max-width: 56rem;
   margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.25rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.lede {
+  margin: 0 0 2rem;
+  max-width: 42rem;
+  color: var(--muted);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 42rem;
 }
 
 code {
   font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', Menlo, monospace;
-  font-size: 0.9em;
+  font-size: 0.88em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
 }
 
-/*
- * The nav brings its own stylesheet (`@devanshsoni/pallet/styles.css`, imported in
- * layout.tsx). Nothing here styles the component — that's the package's job.
- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.controlsLabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-right: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  outline-offset: 2px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.swatch[data-selected] {
+  border-color: var(--fg);
+}
+
+.demos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.demo {
+  flex: 1 1 15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.demo h2 {
+  margin: 0;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
