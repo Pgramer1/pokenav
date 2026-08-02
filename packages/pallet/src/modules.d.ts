@@ -5,8 +5,21 @@ declare module '*.module.css' {
   export default classes;
 }
 
-/** PNGs are inlined as `data:` URIs by tsup's `dataurl` loader — see tsup.config.ts. */
+/**
+ * Sprite PNGs are resolved by the consumer's bundler, which returns a URL string (or a
+ * module whose default export is one).
+ */
 declare module '*.png' {
   const src: string;
   export default src;
+}
+
+/**
+ * `sprite-import.mjs` is published unbundled rather than compiled, so it has no generated
+ * types — see the file itself for why it has to stay outside the build.
+ */
+declare module '*/sprite-import.mjs' {
+  export function importSprite(
+    pokemonId: number,
+  ): Promise<{ default?: string } | string>;
 }

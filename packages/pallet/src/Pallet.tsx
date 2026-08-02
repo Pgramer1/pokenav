@@ -1,9 +1,9 @@
 import { useId } from 'react';
 import { getCatalogueEntry } from './catalogue';
 import { resolveTheme } from './defaults';
-import { getSpriteDataUrl } from './sprites';
 import { TrailSvg } from './TrailSvg';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
+import { useSpriteUrls } from './useSpriteUrls';
 import { useTrailGeometry } from './useTrailGeometry';
 import styles from './pallet.module.css';
 import type { NavConfig, NavItem } from './types';
@@ -77,6 +77,11 @@ export function Pallet({
   const segmentCount = Math.max(items.length - 1, 1);
   const reachedIndex = reachedNodeIndex(scrollProgress, items.length);
 
+  // Only the ids this nav actually names are ever loaded.
+  const spriteUrls = useSpriteUrls(
+    items.map((item) => (item.spriteUrl ? undefined : item.pokemonId)).filter(isNumber),
+  );
+
   return (
     <nav
       aria-label={ariaLabel}
@@ -120,7 +125,7 @@ export function Pallet({
         <ol className={styles.trail} data-pallet-trail="">
           {items.map((item, index) => {
             const isActive = item.href === activeHref;
-            const sprite = resolveSprite(item);
+            const sprite = resolveSprite(item, spriteUrls);
 
             return (
               <li
@@ -212,21 +217,30 @@ function segmentFill(progress: number | undefined, segments: number, index: numb
  * Alt text follows §5: `"{Pokémon name} — {section name}"`, never the species alone. A
  * custom sprite has no species name, so the label carries the whole accessible name.
  */
-function resolveSprite(item: NavItem): { url: string; alt: string } | null {
+function resolveSprite(
+  item: NavItem,
+  spriteUrls: Record<number, string>,
+): { url: string; alt: string } | null {
   if (item.spriteUrl) {
     return { url: item.spriteUrl, alt: item.label };
   }
 
   if (item.pokemonId !== undefined) {
     const entry = getCatalogueEntry(item.pokemonId);
-    const url = getSpriteDataUrl(item.pokemonId);
-    // An id with no bundled sprite degrades to a label-only node rather than a broken
-    // image. The ring still renders, so the trail keeps its shape.
+    const url = spriteUrls[item.pokemonId];
+    // Three cases collapse to the same graceful result: an id with no catalogue entry, an
+    // id with no bundled sprite, and a sprite that simply has not finished loading yet.
+    // All render a label-only node rather than a broken image, and the ring still draws so
+    // the trail keeps its shape.
     if (!entry || !url) return null;
     return { url, alt: `${capitalize(entry.name)} — ${item.label}` };
   }
 
   return null;
+}
+
+function isNumber(value: number | undefined): value is number {
+  return typeof value === 'number';
 }
 
 function capitalize(value: string): string {

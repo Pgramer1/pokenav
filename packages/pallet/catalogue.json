@@ -1,29 +1,8529 @@
 {
-  "version": 1,
+  "version": 2,
   "entries": [
+    {
+      "id": 1,
+      "name": "bulbasaur",
+      "generation": 1,
+      "iconAsset": "sprites/1.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ivysaur",
+      "generation": 1,
+      "iconAsset": "sprites/2.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "venusaur",
+      "generation": 1,
+      "iconAsset": "sprites/3.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "charmander",
+      "generation": 1,
+      "iconAsset": "sprites/4.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "charmeleon",
+      "generation": 1,
+      "iconAsset": "sprites/5.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "charizard",
+      "generation": 1,
+      "iconAsset": "sprites/6.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "squirtle",
+      "generation": 1,
+      "iconAsset": "sprites/7.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "wartortle",
+      "generation": 1,
+      "iconAsset": "sprites/8.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "blastoise",
+      "generation": 1,
+      "iconAsset": "sprites/9.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "caterpie",
+      "generation": 1,
+      "iconAsset": "sprites/10.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "metapod",
+      "generation": 1,
+      "iconAsset": "sprites/11.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "butterfree",
+      "generation": 1,
+      "iconAsset": "sprites/12.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "weedle",
+      "generation": 1,
+      "iconAsset": "sprites/13.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "kakuna",
+      "generation": 1,
+      "iconAsset": "sprites/14.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "beedrill",
+      "generation": 1,
+      "iconAsset": "sprites/15.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "pidgey",
+      "generation": 1,
+      "iconAsset": "sprites/16.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "pidgeotto",
+      "generation": 1,
+      "iconAsset": "sprites/17.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "pidgeot",
+      "generation": 1,
+      "iconAsset": "sprites/18.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "rattata",
+      "generation": 1,
+      "iconAsset": "sprites/19.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "raticate",
+      "generation": 1,
+      "iconAsset": "sprites/20.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "spearow",
+      "generation": 1,
+      "iconAsset": "sprites/21.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "fearow",
+      "generation": 1,
+      "iconAsset": "sprites/22.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "ekans",
+      "generation": 1,
+      "iconAsset": "sprites/23.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "arbok",
+      "generation": 1,
+      "iconAsset": "sprites/24.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "pikachu",
+      "generation": 1,
+      "iconAsset": "sprites/25.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "raichu",
+      "generation": 1,
+      "iconAsset": "sprites/26.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "sandshrew",
+      "generation": 1,
+      "iconAsset": "sprites/27.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "sandslash",
+      "generation": 1,
+      "iconAsset": "sprites/28.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "nidoran-f",
+      "generation": 1,
+      "iconAsset": "sprites/29.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "nidorina",
+      "generation": 1,
+      "iconAsset": "sprites/30.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "nidoqueen",
+      "generation": 1,
+      "iconAsset": "sprites/31.png",
+      "types": [
+        "poison",
+        "ground"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "nidoran-m",
+      "generation": 1,
+      "iconAsset": "sprites/32.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "nidorino",
+      "generation": 1,
+      "iconAsset": "sprites/33.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "nidoking",
+      "generation": 1,
+      "iconAsset": "sprites/34.png",
+      "types": [
+        "poison",
+        "ground"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "clefairy",
+      "generation": 1,
+      "iconAsset": "sprites/35.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "clefable",
+      "generation": 1,
+      "iconAsset": "sprites/36.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 37,
+      "name": "vulpix",
+      "generation": 1,
+      "iconAsset": "sprites/37.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 38,
+      "name": "ninetales",
+      "generation": 1,
+      "iconAsset": "sprites/38.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 39,
+      "name": "jigglypuff",
+      "generation": 1,
+      "iconAsset": "sprites/39.png",
+      "types": [
+        "normal",
+        "fairy"
+      ]
+    },
+    {
+      "id": 40,
+      "name": "wigglytuff",
+      "generation": 1,
+      "iconAsset": "sprites/40.png",
+      "types": [
+        "normal",
+        "fairy"
+      ]
+    },
+    {
+      "id": 41,
+      "name": "zubat",
+      "generation": 1,
+      "iconAsset": "sprites/41.png",
+      "types": [
+        "flying",
+        "poison"
+      ]
+    },
+    {
+      "id": 42,
+      "name": "golbat",
+      "generation": 1,
+      "iconAsset": "sprites/42.png",
+      "types": [
+        "flying",
+        "poison"
+      ]
+    },
+    {
+      "id": 43,
+      "name": "oddish",
+      "generation": 1,
+      "iconAsset": "sprites/43.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 44,
+      "name": "gloom",
+      "generation": 1,
+      "iconAsset": "sprites/44.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 45,
+      "name": "vileplume",
+      "generation": 1,
+      "iconAsset": "sprites/45.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 46,
+      "name": "paras",
+      "generation": 1,
+      "iconAsset": "sprites/46.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 47,
+      "name": "parasect",
+      "generation": 1,
+      "iconAsset": "sprites/47.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 48,
+      "name": "venonat",
+      "generation": 1,
+      "iconAsset": "sprites/48.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 49,
+      "name": "venomoth",
+      "generation": 1,
+      "iconAsset": "sprites/49.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 50,
+      "name": "diglett",
+      "generation": 1,
+      "iconAsset": "sprites/50.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 51,
+      "name": "dugtrio",
+      "generation": 1,
+      "iconAsset": "sprites/51.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 52,
+      "name": "meowth",
+      "generation": 1,
+      "iconAsset": "sprites/52.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 53,
+      "name": "persian",
+      "generation": 1,
+      "iconAsset": "sprites/53.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 54,
+      "name": "psyduck",
+      "generation": 1,
+      "iconAsset": "sprites/54.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 55,
+      "name": "golduck",
+      "generation": 1,
+      "iconAsset": "sprites/55.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 56,
+      "name": "mankey",
+      "generation": 1,
+      "iconAsset": "sprites/56.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 57,
+      "name": "primeape",
+      "generation": 1,
+      "iconAsset": "sprites/57.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 58,
+      "name": "growlithe",
+      "generation": 1,
+      "iconAsset": "sprites/58.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 59,
+      "name": "arcanine",
+      "generation": 1,
+      "iconAsset": "sprites/59.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 60,
+      "name": "poliwag",
+      "generation": 1,
+      "iconAsset": "sprites/60.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 61,
+      "name": "poliwhirl",
+      "generation": 1,
+      "iconAsset": "sprites/61.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 62,
+      "name": "poliwrath",
+      "generation": 1,
+      "iconAsset": "sprites/62.png",
+      "types": [
+        "fighting",
+        "water"
+      ]
+    },
+    {
+      "id": 63,
+      "name": "abra",
+      "generation": 1,
+      "iconAsset": "sprites/63.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 64,
+      "name": "kadabra",
+      "generation": 1,
+      "iconAsset": "sprites/64.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 65,
+      "name": "alakazam",
+      "generation": 1,
+      "iconAsset": "sprites/65.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 66,
+      "name": "machop",
+      "generation": 1,
+      "iconAsset": "sprites/66.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 67,
+      "name": "machoke",
+      "generation": 1,
+      "iconAsset": "sprites/67.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 68,
+      "name": "machamp",
+      "generation": 1,
+      "iconAsset": "sprites/68.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 69,
+      "name": "bellsprout",
+      "generation": 1,
+      "iconAsset": "sprites/69.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 70,
+      "name": "weepinbell",
+      "generation": 1,
+      "iconAsset": "sprites/70.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 71,
+      "name": "victreebel",
+      "generation": 1,
+      "iconAsset": "sprites/71.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 72,
+      "name": "tentacool",
+      "generation": 1,
+      "iconAsset": "sprites/72.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 73,
+      "name": "tentacruel",
+      "generation": 1,
+      "iconAsset": "sprites/73.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 74,
+      "name": "geodude",
+      "generation": 1,
+      "iconAsset": "sprites/74.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 75,
+      "name": "graveler",
+      "generation": 1,
+      "iconAsset": "sprites/75.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 76,
+      "name": "golem",
+      "generation": 1,
+      "iconAsset": "sprites/76.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 77,
+      "name": "ponyta",
+      "generation": 1,
+      "iconAsset": "sprites/77.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 78,
+      "name": "rapidash",
+      "generation": 1,
+      "iconAsset": "sprites/78.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 79,
+      "name": "slowpoke",
+      "generation": 1,
+      "iconAsset": "sprites/79.png",
+      "types": [
+        "water",
+        "psychic"
+      ]
+    },
+    {
+      "id": 80,
+      "name": "slowbro",
+      "generation": 1,
+      "iconAsset": "sprites/80.png",
+      "types": [
+        "water",
+        "psychic"
+      ]
+    },
     {
       "id": 81,
       "name": "magnemite",
-      "iconAsset": "sprites/magnemite.png",
-      "types": ["electric", "steel"]
+      "generation": 1,
+      "iconAsset": "sprites/81.png",
+      "types": [
+        "steel",
+        "electric"
+      ]
+    },
+    {
+      "id": 82,
+      "name": "magneton",
+      "generation": 1,
+      "iconAsset": "sprites/82.png",
+      "types": [
+        "steel",
+        "electric"
+      ]
+    },
+    {
+      "id": 83,
+      "name": "farfetchd",
+      "generation": 1,
+      "iconAsset": "sprites/83.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 84,
+      "name": "doduo",
+      "generation": 1,
+      "iconAsset": "sprites/84.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 85,
+      "name": "dodrio",
+      "generation": 1,
+      "iconAsset": "sprites/85.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 86,
+      "name": "seel",
+      "generation": 1,
+      "iconAsset": "sprites/86.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 87,
+      "name": "dewgong",
+      "generation": 1,
+      "iconAsset": "sprites/87.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 88,
+      "name": "grimer",
+      "generation": 1,
+      "iconAsset": "sprites/88.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 89,
+      "name": "muk",
+      "generation": 1,
+      "iconAsset": "sprites/89.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 90,
+      "name": "shellder",
+      "generation": 1,
+      "iconAsset": "sprites/90.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 91,
+      "name": "cloyster",
+      "generation": 1,
+      "iconAsset": "sprites/91.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 92,
+      "name": "gastly",
+      "generation": 1,
+      "iconAsset": "sprites/92.png",
+      "types": [
+        "poison",
+        "ghost"
+      ]
+    },
+    {
+      "id": 93,
+      "name": "haunter",
+      "generation": 1,
+      "iconAsset": "sprites/93.png",
+      "types": [
+        "poison",
+        "ghost"
+      ]
+    },
+    {
+      "id": 94,
+      "name": "gengar",
+      "generation": 1,
+      "iconAsset": "sprites/94.png",
+      "types": [
+        "poison",
+        "ghost"
+      ]
+    },
+    {
+      "id": 95,
+      "name": "onix",
+      "generation": 1,
+      "iconAsset": "sprites/95.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 96,
+      "name": "drowzee",
+      "generation": 1,
+      "iconAsset": "sprites/96.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 97,
+      "name": "hypno",
+      "generation": 1,
+      "iconAsset": "sprites/97.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 98,
+      "name": "krabby",
+      "generation": 1,
+      "iconAsset": "sprites/98.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 99,
+      "name": "kingler",
+      "generation": 1,
+      "iconAsset": "sprites/99.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 100,
+      "name": "voltorb",
+      "generation": 1,
+      "iconAsset": "sprites/100.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 101,
+      "name": "electrode",
+      "generation": 1,
+      "iconAsset": "sprites/101.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 102,
+      "name": "exeggcute",
+      "generation": 1,
+      "iconAsset": "sprites/102.png",
+      "types": [
+        "grass",
+        "psychic"
+      ]
+    },
+    {
+      "id": 103,
+      "name": "exeggutor",
+      "generation": 1,
+      "iconAsset": "sprites/103.png",
+      "types": [
+        "grass",
+        "psychic"
+      ]
+    },
+    {
+      "id": 104,
+      "name": "cubone",
+      "generation": 1,
+      "iconAsset": "sprites/104.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 105,
+      "name": "marowak",
+      "generation": 1,
+      "iconAsset": "sprites/105.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 106,
+      "name": "hitmonlee",
+      "generation": 1,
+      "iconAsset": "sprites/106.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 107,
+      "name": "hitmonchan",
+      "generation": 1,
+      "iconAsset": "sprites/107.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 108,
+      "name": "lickitung",
+      "generation": 1,
+      "iconAsset": "sprites/108.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 109,
+      "name": "koffing",
+      "generation": 1,
+      "iconAsset": "sprites/109.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 110,
+      "name": "weezing",
+      "generation": 1,
+      "iconAsset": "sprites/110.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 111,
+      "name": "rhyhorn",
+      "generation": 1,
+      "iconAsset": "sprites/111.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 112,
+      "name": "rhydon",
+      "generation": 1,
+      "iconAsset": "sprites/112.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 113,
+      "name": "chansey",
+      "generation": 1,
+      "iconAsset": "sprites/113.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 114,
+      "name": "tangela",
+      "generation": 1,
+      "iconAsset": "sprites/114.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 115,
+      "name": "kangaskhan",
+      "generation": 1,
+      "iconAsset": "sprites/115.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 116,
+      "name": "horsea",
+      "generation": 1,
+      "iconAsset": "sprites/116.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 117,
+      "name": "seadra",
+      "generation": 1,
+      "iconAsset": "sprites/117.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 118,
+      "name": "goldeen",
+      "generation": 1,
+      "iconAsset": "sprites/118.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 119,
+      "name": "seaking",
+      "generation": 1,
+      "iconAsset": "sprites/119.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 120,
+      "name": "staryu",
+      "generation": 1,
+      "iconAsset": "sprites/120.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 121,
+      "name": "starmie",
+      "generation": 1,
+      "iconAsset": "sprites/121.png",
+      "types": [
+        "water",
+        "psychic"
+      ]
+    },
+    {
+      "id": 122,
+      "name": "mr-mime",
+      "generation": 1,
+      "iconAsset": "sprites/122.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 123,
+      "name": "scyther",
+      "generation": 1,
+      "iconAsset": "sprites/123.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 124,
+      "name": "jynx",
+      "generation": 1,
+      "iconAsset": "sprites/124.png",
+      "types": [
+        "psychic",
+        "ice"
+      ]
+    },
+    {
+      "id": 125,
+      "name": "electabuzz",
+      "generation": 1,
+      "iconAsset": "sprites/125.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 126,
+      "name": "magmar",
+      "generation": 1,
+      "iconAsset": "sprites/126.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 127,
+      "name": "pinsir",
+      "generation": 1,
+      "iconAsset": "sprites/127.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 128,
+      "name": "tauros",
+      "generation": 1,
+      "iconAsset": "sprites/128.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 129,
+      "name": "magikarp",
+      "generation": 1,
+      "iconAsset": "sprites/129.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 130,
+      "name": "gyarados",
+      "generation": 1,
+      "iconAsset": "sprites/130.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 131,
+      "name": "lapras",
+      "generation": 1,
+      "iconAsset": "sprites/131.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 132,
+      "name": "ditto",
+      "generation": 1,
+      "iconAsset": "sprites/132.png",
+      "types": [
+        "normal"
+      ]
     },
     {
       "id": 133,
       "name": "eevee",
-      "iconAsset": "sprites/eevee.png",
-      "types": ["normal"]
+      "generation": 1,
+      "iconAsset": "sprites/133.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 134,
+      "name": "vaporeon",
+      "generation": 1,
+      "iconAsset": "sprites/134.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 135,
+      "name": "jolteon",
+      "generation": 1,
+      "iconAsset": "sprites/135.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 136,
+      "name": "flareon",
+      "generation": 1,
+      "iconAsset": "sprites/136.png",
+      "types": [
+        "fire"
+      ]
     },
     {
       "id": 137,
       "name": "porygon",
-      "iconAsset": "sprites/porygon.png",
-      "types": ["normal"]
+      "generation": 1,
+      "iconAsset": "sprites/137.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 138,
+      "name": "omanyte",
+      "generation": 1,
+      "iconAsset": "sprites/138.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 139,
+      "name": "omastar",
+      "generation": 1,
+      "iconAsset": "sprites/139.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 140,
+      "name": "kabuto",
+      "generation": 1,
+      "iconAsset": "sprites/140.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 141,
+      "name": "kabutops",
+      "generation": 1,
+      "iconAsset": "sprites/141.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 142,
+      "name": "aerodactyl",
+      "generation": 1,
+      "iconAsset": "sprites/142.png",
+      "types": [
+        "flying",
+        "rock"
+      ]
+    },
+    {
+      "id": 143,
+      "name": "snorlax",
+      "generation": 1,
+      "iconAsset": "sprites/143.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 144,
+      "name": "articuno",
+      "generation": 1,
+      "iconAsset": "sprites/144.png",
+      "types": [
+        "flying",
+        "ice"
+      ]
+    },
+    {
+      "id": 145,
+      "name": "zapdos",
+      "generation": 1,
+      "iconAsset": "sprites/145.png",
+      "types": [
+        "flying",
+        "electric"
+      ]
+    },
+    {
+      "id": 146,
+      "name": "moltres",
+      "generation": 1,
+      "iconAsset": "sprites/146.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 147,
+      "name": "dratini",
+      "generation": 1,
+      "iconAsset": "sprites/147.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 148,
+      "name": "dragonair",
+      "generation": 1,
+      "iconAsset": "sprites/148.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 149,
+      "name": "dragonite",
+      "generation": 1,
+      "iconAsset": "sprites/149.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 150,
+      "name": "mewtwo",
+      "generation": 1,
+      "iconAsset": "sprites/150.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 151,
+      "name": "mew",
+      "generation": 1,
+      "iconAsset": "sprites/151.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 152,
+      "name": "chikorita",
+      "generation": 2,
+      "iconAsset": "sprites/152.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 153,
+      "name": "bayleef",
+      "generation": 2,
+      "iconAsset": "sprites/153.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 154,
+      "name": "meganium",
+      "generation": 2,
+      "iconAsset": "sprites/154.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 155,
+      "name": "cyndaquil",
+      "generation": 2,
+      "iconAsset": "sprites/155.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 156,
+      "name": "quilava",
+      "generation": 2,
+      "iconAsset": "sprites/156.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 157,
+      "name": "typhlosion",
+      "generation": 2,
+      "iconAsset": "sprites/157.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 158,
+      "name": "totodile",
+      "generation": 2,
+      "iconAsset": "sprites/158.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 159,
+      "name": "croconaw",
+      "generation": 2,
+      "iconAsset": "sprites/159.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 160,
+      "name": "feraligatr",
+      "generation": 2,
+      "iconAsset": "sprites/160.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 161,
+      "name": "sentret",
+      "generation": 2,
+      "iconAsset": "sprites/161.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 162,
+      "name": "furret",
+      "generation": 2,
+      "iconAsset": "sprites/162.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 163,
+      "name": "hoothoot",
+      "generation": 2,
+      "iconAsset": "sprites/163.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 164,
+      "name": "noctowl",
+      "generation": 2,
+      "iconAsset": "sprites/164.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 165,
+      "name": "ledyba",
+      "generation": 2,
+      "iconAsset": "sprites/165.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 166,
+      "name": "ledian",
+      "generation": 2,
+      "iconAsset": "sprites/166.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 167,
+      "name": "spinarak",
+      "generation": 2,
+      "iconAsset": "sprites/167.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 168,
+      "name": "ariados",
+      "generation": 2,
+      "iconAsset": "sprites/168.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 169,
+      "name": "crobat",
+      "generation": 2,
+      "iconAsset": "sprites/169.png",
+      "types": [
+        "flying",
+        "poison"
+      ]
+    },
+    {
+      "id": 170,
+      "name": "chinchou",
+      "generation": 2,
+      "iconAsset": "sprites/170.png",
+      "types": [
+        "water",
+        "electric"
+      ]
+    },
+    {
+      "id": 171,
+      "name": "lanturn",
+      "generation": 2,
+      "iconAsset": "sprites/171.png",
+      "types": [
+        "water",
+        "electric"
+      ]
+    },
+    {
+      "id": 172,
+      "name": "pichu",
+      "generation": 2,
+      "iconAsset": "sprites/172.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 173,
+      "name": "cleffa",
+      "generation": 2,
+      "iconAsset": "sprites/173.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 174,
+      "name": "igglybuff",
+      "generation": 2,
+      "iconAsset": "sprites/174.png",
+      "types": [
+        "normal",
+        "fairy"
+      ]
+    },
+    {
+      "id": 175,
+      "name": "togepi",
+      "generation": 2,
+      "iconAsset": "sprites/175.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 176,
+      "name": "togetic",
+      "generation": 2,
+      "iconAsset": "sprites/176.png",
+      "types": [
+        "flying",
+        "fairy"
+      ]
+    },
+    {
+      "id": 177,
+      "name": "natu",
+      "generation": 2,
+      "iconAsset": "sprites/177.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 178,
+      "name": "xatu",
+      "generation": 2,
+      "iconAsset": "sprites/178.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 179,
+      "name": "mareep",
+      "generation": 2,
+      "iconAsset": "sprites/179.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 180,
+      "name": "flaaffy",
+      "generation": 2,
+      "iconAsset": "sprites/180.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 181,
+      "name": "ampharos",
+      "generation": 2,
+      "iconAsset": "sprites/181.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 182,
+      "name": "bellossom",
+      "generation": 2,
+      "iconAsset": "sprites/182.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 183,
+      "name": "marill",
+      "generation": 2,
+      "iconAsset": "sprites/183.png",
+      "types": [
+        "water",
+        "fairy"
+      ]
+    },
+    {
+      "id": 184,
+      "name": "azumarill",
+      "generation": 2,
+      "iconAsset": "sprites/184.png",
+      "types": [
+        "water",
+        "fairy"
+      ]
     },
     {
       "id": 185,
       "name": "sudowoodo",
-      "iconAsset": "sprites/sudowoodo.png",
-      "types": ["rock"]
+      "generation": 2,
+      "iconAsset": "sprites/185.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 186,
+      "name": "politoed",
+      "generation": 2,
+      "iconAsset": "sprites/186.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 187,
+      "name": "hoppip",
+      "generation": 2,
+      "iconAsset": "sprites/187.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 188,
+      "name": "skiploom",
+      "generation": 2,
+      "iconAsset": "sprites/188.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 189,
+      "name": "jumpluff",
+      "generation": 2,
+      "iconAsset": "sprites/189.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 190,
+      "name": "aipom",
+      "generation": 2,
+      "iconAsset": "sprites/190.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 191,
+      "name": "sunkern",
+      "generation": 2,
+      "iconAsset": "sprites/191.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 192,
+      "name": "sunflora",
+      "generation": 2,
+      "iconAsset": "sprites/192.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 193,
+      "name": "yanma",
+      "generation": 2,
+      "iconAsset": "sprites/193.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 194,
+      "name": "wooper",
+      "generation": 2,
+      "iconAsset": "sprites/194.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 195,
+      "name": "quagsire",
+      "generation": 2,
+      "iconAsset": "sprites/195.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 196,
+      "name": "espeon",
+      "generation": 2,
+      "iconAsset": "sprites/196.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 197,
+      "name": "umbreon",
+      "generation": 2,
+      "iconAsset": "sprites/197.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 198,
+      "name": "murkrow",
+      "generation": 2,
+      "iconAsset": "sprites/198.png",
+      "types": [
+        "flying",
+        "dark"
+      ]
+    },
+    {
+      "id": 199,
+      "name": "slowking",
+      "generation": 2,
+      "iconAsset": "sprites/199.png",
+      "types": [
+        "water",
+        "psychic"
+      ]
+    },
+    {
+      "id": 200,
+      "name": "misdreavus",
+      "generation": 2,
+      "iconAsset": "sprites/200.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 201,
+      "name": "unown",
+      "generation": 2,
+      "iconAsset": "sprites/201.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 202,
+      "name": "wobbuffet",
+      "generation": 2,
+      "iconAsset": "sprites/202.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 203,
+      "name": "girafarig",
+      "generation": 2,
+      "iconAsset": "sprites/203.png",
+      "types": [
+        "normal",
+        "psychic"
+      ]
+    },
+    {
+      "id": 204,
+      "name": "pineco",
+      "generation": 2,
+      "iconAsset": "sprites/204.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 205,
+      "name": "forretress",
+      "generation": 2,
+      "iconAsset": "sprites/205.png",
+      "types": [
+        "bug",
+        "steel"
+      ]
+    },
+    {
+      "id": 206,
+      "name": "dunsparce",
+      "generation": 2,
+      "iconAsset": "sprites/206.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 207,
+      "name": "gligar",
+      "generation": 2,
+      "iconAsset": "sprites/207.png",
+      "types": [
+        "flying",
+        "ground"
+      ]
+    },
+    {
+      "id": 208,
+      "name": "steelix",
+      "generation": 2,
+      "iconAsset": "sprites/208.png",
+      "types": [
+        "ground",
+        "steel"
+      ]
+    },
+    {
+      "id": 209,
+      "name": "snubbull",
+      "generation": 2,
+      "iconAsset": "sprites/209.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 210,
+      "name": "granbull",
+      "generation": 2,
+      "iconAsset": "sprites/210.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 211,
+      "name": "qwilfish",
+      "generation": 2,
+      "iconAsset": "sprites/211.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 212,
+      "name": "scizor",
+      "generation": 2,
+      "iconAsset": "sprites/212.png",
+      "types": [
+        "bug",
+        "steel"
+      ]
+    },
+    {
+      "id": 213,
+      "name": "shuckle",
+      "generation": 2,
+      "iconAsset": "sprites/213.png",
+      "types": [
+        "rock",
+        "bug"
+      ]
+    },
+    {
+      "id": 214,
+      "name": "heracross",
+      "generation": 2,
+      "iconAsset": "sprites/214.png",
+      "types": [
+        "fighting",
+        "bug"
+      ]
+    },
+    {
+      "id": 215,
+      "name": "sneasel",
+      "generation": 2,
+      "iconAsset": "sprites/215.png",
+      "types": [
+        "ice",
+        "dark"
+      ]
+    },
+    {
+      "id": 216,
+      "name": "teddiursa",
+      "generation": 2,
+      "iconAsset": "sprites/216.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 217,
+      "name": "ursaring",
+      "generation": 2,
+      "iconAsset": "sprites/217.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 218,
+      "name": "slugma",
+      "generation": 2,
+      "iconAsset": "sprites/218.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 219,
+      "name": "magcargo",
+      "generation": 2,
+      "iconAsset": "sprites/219.png",
+      "types": [
+        "rock",
+        "fire"
+      ]
+    },
+    {
+      "id": 220,
+      "name": "swinub",
+      "generation": 2,
+      "iconAsset": "sprites/220.png",
+      "types": [
+        "ground",
+        "ice"
+      ]
+    },
+    {
+      "id": 221,
+      "name": "piloswine",
+      "generation": 2,
+      "iconAsset": "sprites/221.png",
+      "types": [
+        "ground",
+        "ice"
+      ]
+    },
+    {
+      "id": 222,
+      "name": "corsola",
+      "generation": 2,
+      "iconAsset": "sprites/222.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 223,
+      "name": "remoraid",
+      "generation": 2,
+      "iconAsset": "sprites/223.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 224,
+      "name": "octillery",
+      "generation": 2,
+      "iconAsset": "sprites/224.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 225,
+      "name": "delibird",
+      "generation": 2,
+      "iconAsset": "sprites/225.png",
+      "types": [
+        "flying",
+        "ice"
+      ]
+    },
+    {
+      "id": 226,
+      "name": "mantine",
+      "generation": 2,
+      "iconAsset": "sprites/226.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 227,
+      "name": "skarmory",
+      "generation": 2,
+      "iconAsset": "sprites/227.png",
+      "types": [
+        "flying",
+        "steel"
+      ]
+    },
+    {
+      "id": 228,
+      "name": "houndour",
+      "generation": 2,
+      "iconAsset": "sprites/228.png",
+      "types": [
+        "fire",
+        "dark"
+      ]
+    },
+    {
+      "id": 229,
+      "name": "houndoom",
+      "generation": 2,
+      "iconAsset": "sprites/229.png",
+      "types": [
+        "fire",
+        "dark"
+      ]
+    },
+    {
+      "id": 230,
+      "name": "kingdra",
+      "generation": 2,
+      "iconAsset": "sprites/230.png",
+      "types": [
+        "water",
+        "dragon"
+      ]
+    },
+    {
+      "id": 231,
+      "name": "phanpy",
+      "generation": 2,
+      "iconAsset": "sprites/231.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 232,
+      "name": "donphan",
+      "generation": 2,
+      "iconAsset": "sprites/232.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 233,
+      "name": "porygon2",
+      "generation": 2,
+      "iconAsset": "sprites/233.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 234,
+      "name": "stantler",
+      "generation": 2,
+      "iconAsset": "sprites/234.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 235,
+      "name": "smeargle",
+      "generation": 2,
+      "iconAsset": "sprites/235.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 236,
+      "name": "tyrogue",
+      "generation": 2,
+      "iconAsset": "sprites/236.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 237,
+      "name": "hitmontop",
+      "generation": 2,
+      "iconAsset": "sprites/237.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 238,
+      "name": "smoochum",
+      "generation": 2,
+      "iconAsset": "sprites/238.png",
+      "types": [
+        "psychic",
+        "ice"
+      ]
+    },
+    {
+      "id": 239,
+      "name": "elekid",
+      "generation": 2,
+      "iconAsset": "sprites/239.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 240,
+      "name": "magby",
+      "generation": 2,
+      "iconAsset": "sprites/240.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 241,
+      "name": "miltank",
+      "generation": 2,
+      "iconAsset": "sprites/241.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 242,
+      "name": "blissey",
+      "generation": 2,
+      "iconAsset": "sprites/242.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 243,
+      "name": "raikou",
+      "generation": 2,
+      "iconAsset": "sprites/243.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 244,
+      "name": "entei",
+      "generation": 2,
+      "iconAsset": "sprites/244.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 245,
+      "name": "suicune",
+      "generation": 2,
+      "iconAsset": "sprites/245.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 246,
+      "name": "larvitar",
+      "generation": 2,
+      "iconAsset": "sprites/246.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 247,
+      "name": "pupitar",
+      "generation": 2,
+      "iconAsset": "sprites/247.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 248,
+      "name": "tyranitar",
+      "generation": 2,
+      "iconAsset": "sprites/248.png",
+      "types": [
+        "rock",
+        "dark"
+      ]
+    },
+    {
+      "id": 249,
+      "name": "lugia",
+      "generation": 2,
+      "iconAsset": "sprites/249.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 250,
+      "name": "ho-oh",
+      "generation": 2,
+      "iconAsset": "sprites/250.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 251,
+      "name": "celebi",
+      "generation": 2,
+      "iconAsset": "sprites/251.png",
+      "types": [
+        "grass",
+        "psychic"
+      ]
+    },
+    {
+      "id": 252,
+      "name": "treecko",
+      "generation": 3,
+      "iconAsset": "sprites/252.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 253,
+      "name": "grovyle",
+      "generation": 3,
+      "iconAsset": "sprites/253.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 254,
+      "name": "sceptile",
+      "generation": 3,
+      "iconAsset": "sprites/254.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 255,
+      "name": "torchic",
+      "generation": 3,
+      "iconAsset": "sprites/255.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 256,
+      "name": "combusken",
+      "generation": 3,
+      "iconAsset": "sprites/256.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 257,
+      "name": "blaziken",
+      "generation": 3,
+      "iconAsset": "sprites/257.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 258,
+      "name": "mudkip",
+      "generation": 3,
+      "iconAsset": "sprites/258.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 259,
+      "name": "marshtomp",
+      "generation": 3,
+      "iconAsset": "sprites/259.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 260,
+      "name": "swampert",
+      "generation": 3,
+      "iconAsset": "sprites/260.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 261,
+      "name": "poochyena",
+      "generation": 3,
+      "iconAsset": "sprites/261.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 262,
+      "name": "mightyena",
+      "generation": 3,
+      "iconAsset": "sprites/262.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 263,
+      "name": "zigzagoon",
+      "generation": 3,
+      "iconAsset": "sprites/263.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 264,
+      "name": "linoone",
+      "generation": 3,
+      "iconAsset": "sprites/264.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 265,
+      "name": "wurmple",
+      "generation": 3,
+      "iconAsset": "sprites/265.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 266,
+      "name": "silcoon",
+      "generation": 3,
+      "iconAsset": "sprites/266.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 267,
+      "name": "beautifly",
+      "generation": 3,
+      "iconAsset": "sprites/267.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 268,
+      "name": "cascoon",
+      "generation": 3,
+      "iconAsset": "sprites/268.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 269,
+      "name": "dustox",
+      "generation": 3,
+      "iconAsset": "sprites/269.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 270,
+      "name": "lotad",
+      "generation": 3,
+      "iconAsset": "sprites/270.png",
+      "types": [
+        "water",
+        "grass"
+      ]
+    },
+    {
+      "id": 271,
+      "name": "lombre",
+      "generation": 3,
+      "iconAsset": "sprites/271.png",
+      "types": [
+        "water",
+        "grass"
+      ]
+    },
+    {
+      "id": 272,
+      "name": "ludicolo",
+      "generation": 3,
+      "iconAsset": "sprites/272.png",
+      "types": [
+        "water",
+        "grass"
+      ]
+    },
+    {
+      "id": 273,
+      "name": "seedot",
+      "generation": 3,
+      "iconAsset": "sprites/273.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 274,
+      "name": "nuzleaf",
+      "generation": 3,
+      "iconAsset": "sprites/274.png",
+      "types": [
+        "grass",
+        "dark"
+      ]
+    },
+    {
+      "id": 275,
+      "name": "shiftry",
+      "generation": 3,
+      "iconAsset": "sprites/275.png",
+      "types": [
+        "grass",
+        "dark"
+      ]
+    },
+    {
+      "id": 276,
+      "name": "taillow",
+      "generation": 3,
+      "iconAsset": "sprites/276.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 277,
+      "name": "swellow",
+      "generation": 3,
+      "iconAsset": "sprites/277.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 278,
+      "name": "wingull",
+      "generation": 3,
+      "iconAsset": "sprites/278.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 279,
+      "name": "pelipper",
+      "generation": 3,
+      "iconAsset": "sprites/279.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 280,
+      "name": "ralts",
+      "generation": 3,
+      "iconAsset": "sprites/280.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 281,
+      "name": "kirlia",
+      "generation": 3,
+      "iconAsset": "sprites/281.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 282,
+      "name": "gardevoir",
+      "generation": 3,
+      "iconAsset": "sprites/282.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 283,
+      "name": "surskit",
+      "generation": 3,
+      "iconAsset": "sprites/283.png",
+      "types": [
+        "bug",
+        "water"
+      ]
+    },
+    {
+      "id": 284,
+      "name": "masquerain",
+      "generation": 3,
+      "iconAsset": "sprites/284.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 285,
+      "name": "shroomish",
+      "generation": 3,
+      "iconAsset": "sprites/285.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 286,
+      "name": "breloom",
+      "generation": 3,
+      "iconAsset": "sprites/286.png",
+      "types": [
+        "fighting",
+        "grass"
+      ]
+    },
+    {
+      "id": 287,
+      "name": "slakoth",
+      "generation": 3,
+      "iconAsset": "sprites/287.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 288,
+      "name": "vigoroth",
+      "generation": 3,
+      "iconAsset": "sprites/288.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 289,
+      "name": "slaking",
+      "generation": 3,
+      "iconAsset": "sprites/289.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 290,
+      "name": "nincada",
+      "generation": 3,
+      "iconAsset": "sprites/290.png",
+      "types": [
+        "ground",
+        "bug"
+      ]
+    },
+    {
+      "id": 291,
+      "name": "ninjask",
+      "generation": 3,
+      "iconAsset": "sprites/291.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 292,
+      "name": "shedinja",
+      "generation": 3,
+      "iconAsset": "sprites/292.png",
+      "types": [
+        "bug",
+        "ghost"
+      ]
+    },
+    {
+      "id": 293,
+      "name": "whismur",
+      "generation": 3,
+      "iconAsset": "sprites/293.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 294,
+      "name": "loudred",
+      "generation": 3,
+      "iconAsset": "sprites/294.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 295,
+      "name": "exploud",
+      "generation": 3,
+      "iconAsset": "sprites/295.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 296,
+      "name": "makuhita",
+      "generation": 3,
+      "iconAsset": "sprites/296.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 297,
+      "name": "hariyama",
+      "generation": 3,
+      "iconAsset": "sprites/297.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 298,
+      "name": "azurill",
+      "generation": 3,
+      "iconAsset": "sprites/298.png",
+      "types": [
+        "normal",
+        "fairy"
+      ]
+    },
+    {
+      "id": 299,
+      "name": "nosepass",
+      "generation": 3,
+      "iconAsset": "sprites/299.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 300,
+      "name": "skitty",
+      "generation": 3,
+      "iconAsset": "sprites/300.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 301,
+      "name": "delcatty",
+      "generation": 3,
+      "iconAsset": "sprites/301.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 302,
+      "name": "sableye",
+      "generation": 3,
+      "iconAsset": "sprites/302.png",
+      "types": [
+        "ghost",
+        "dark"
+      ]
+    },
+    {
+      "id": 303,
+      "name": "mawile",
+      "generation": 3,
+      "iconAsset": "sprites/303.png",
+      "types": [
+        "steel",
+        "fairy"
+      ]
+    },
+    {
+      "id": 304,
+      "name": "aron",
+      "generation": 3,
+      "iconAsset": "sprites/304.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 305,
+      "name": "lairon",
+      "generation": 3,
+      "iconAsset": "sprites/305.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 306,
+      "name": "aggron",
+      "generation": 3,
+      "iconAsset": "sprites/306.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 307,
+      "name": "meditite",
+      "generation": 3,
+      "iconAsset": "sprites/307.png",
+      "types": [
+        "fighting",
+        "psychic"
+      ]
+    },
+    {
+      "id": 308,
+      "name": "medicham",
+      "generation": 3,
+      "iconAsset": "sprites/308.png",
+      "types": [
+        "fighting",
+        "psychic"
+      ]
+    },
+    {
+      "id": 309,
+      "name": "electrike",
+      "generation": 3,
+      "iconAsset": "sprites/309.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 310,
+      "name": "manectric",
+      "generation": 3,
+      "iconAsset": "sprites/310.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 311,
+      "name": "plusle",
+      "generation": 3,
+      "iconAsset": "sprites/311.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 312,
+      "name": "minun",
+      "generation": 3,
+      "iconAsset": "sprites/312.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 313,
+      "name": "volbeat",
+      "generation": 3,
+      "iconAsset": "sprites/313.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 314,
+      "name": "illumise",
+      "generation": 3,
+      "iconAsset": "sprites/314.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 315,
+      "name": "roselia",
+      "generation": 3,
+      "iconAsset": "sprites/315.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 316,
+      "name": "gulpin",
+      "generation": 3,
+      "iconAsset": "sprites/316.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 317,
+      "name": "swalot",
+      "generation": 3,
+      "iconAsset": "sprites/317.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 318,
+      "name": "carvanha",
+      "generation": 3,
+      "iconAsset": "sprites/318.png",
+      "types": [
+        "water",
+        "dark"
+      ]
+    },
+    {
+      "id": 319,
+      "name": "sharpedo",
+      "generation": 3,
+      "iconAsset": "sprites/319.png",
+      "types": [
+        "water",
+        "dark"
+      ]
+    },
+    {
+      "id": 320,
+      "name": "wailmer",
+      "generation": 3,
+      "iconAsset": "sprites/320.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 321,
+      "name": "wailord",
+      "generation": 3,
+      "iconAsset": "sprites/321.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 322,
+      "name": "numel",
+      "generation": 3,
+      "iconAsset": "sprites/322.png",
+      "types": [
+        "ground",
+        "fire"
+      ]
+    },
+    {
+      "id": 323,
+      "name": "camerupt",
+      "generation": 3,
+      "iconAsset": "sprites/323.png",
+      "types": [
+        "ground",
+        "fire"
+      ]
+    },
+    {
+      "id": 324,
+      "name": "torkoal",
+      "generation": 3,
+      "iconAsset": "sprites/324.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 325,
+      "name": "spoink",
+      "generation": 3,
+      "iconAsset": "sprites/325.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 326,
+      "name": "grumpig",
+      "generation": 3,
+      "iconAsset": "sprites/326.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 327,
+      "name": "spinda",
+      "generation": 3,
+      "iconAsset": "sprites/327.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 328,
+      "name": "trapinch",
+      "generation": 3,
+      "iconAsset": "sprites/328.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 329,
+      "name": "vibrava",
+      "generation": 3,
+      "iconAsset": "sprites/329.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 330,
+      "name": "flygon",
+      "generation": 3,
+      "iconAsset": "sprites/330.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 331,
+      "name": "cacnea",
+      "generation": 3,
+      "iconAsset": "sprites/331.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 332,
+      "name": "cacturne",
+      "generation": 3,
+      "iconAsset": "sprites/332.png",
+      "types": [
+        "grass",
+        "dark"
+      ]
+    },
+    {
+      "id": 333,
+      "name": "swablu",
+      "generation": 3,
+      "iconAsset": "sprites/333.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 334,
+      "name": "altaria",
+      "generation": 3,
+      "iconAsset": "sprites/334.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 335,
+      "name": "zangoose",
+      "generation": 3,
+      "iconAsset": "sprites/335.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 336,
+      "name": "seviper",
+      "generation": 3,
+      "iconAsset": "sprites/336.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 337,
+      "name": "lunatone",
+      "generation": 3,
+      "iconAsset": "sprites/337.png",
+      "types": [
+        "rock",
+        "psychic"
+      ]
+    },
+    {
+      "id": 338,
+      "name": "solrock",
+      "generation": 3,
+      "iconAsset": "sprites/338.png",
+      "types": [
+        "rock",
+        "psychic"
+      ]
+    },
+    {
+      "id": 339,
+      "name": "barboach",
+      "generation": 3,
+      "iconAsset": "sprites/339.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 340,
+      "name": "whiscash",
+      "generation": 3,
+      "iconAsset": "sprites/340.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 341,
+      "name": "corphish",
+      "generation": 3,
+      "iconAsset": "sprites/341.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 342,
+      "name": "crawdaunt",
+      "generation": 3,
+      "iconAsset": "sprites/342.png",
+      "types": [
+        "water",
+        "dark"
+      ]
+    },
+    {
+      "id": 343,
+      "name": "baltoy",
+      "generation": 3,
+      "iconAsset": "sprites/343.png",
+      "types": [
+        "ground",
+        "psychic"
+      ]
+    },
+    {
+      "id": 344,
+      "name": "claydol",
+      "generation": 3,
+      "iconAsset": "sprites/344.png",
+      "types": [
+        "ground",
+        "psychic"
+      ]
+    },
+    {
+      "id": 345,
+      "name": "lileep",
+      "generation": 3,
+      "iconAsset": "sprites/345.png",
+      "types": [
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "id": 346,
+      "name": "cradily",
+      "generation": 3,
+      "iconAsset": "sprites/346.png",
+      "types": [
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "id": 347,
+      "name": "anorith",
+      "generation": 3,
+      "iconAsset": "sprites/347.png",
+      "types": [
+        "rock",
+        "bug"
+      ]
+    },
+    {
+      "id": 348,
+      "name": "armaldo",
+      "generation": 3,
+      "iconAsset": "sprites/348.png",
+      "types": [
+        "rock",
+        "bug"
+      ]
+    },
+    {
+      "id": 349,
+      "name": "feebas",
+      "generation": 3,
+      "iconAsset": "sprites/349.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 350,
+      "name": "milotic",
+      "generation": 3,
+      "iconAsset": "sprites/350.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 351,
+      "name": "castform",
+      "generation": 3,
+      "iconAsset": "sprites/351.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 352,
+      "name": "kecleon",
+      "generation": 3,
+      "iconAsset": "sprites/352.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 353,
+      "name": "shuppet",
+      "generation": 3,
+      "iconAsset": "sprites/353.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 354,
+      "name": "banette",
+      "generation": 3,
+      "iconAsset": "sprites/354.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 355,
+      "name": "duskull",
+      "generation": 3,
+      "iconAsset": "sprites/355.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 356,
+      "name": "dusclops",
+      "generation": 3,
+      "iconAsset": "sprites/356.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 357,
+      "name": "tropius",
+      "generation": 3,
+      "iconAsset": "sprites/357.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 358,
+      "name": "chimecho",
+      "generation": 3,
+      "iconAsset": "sprites/358.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 359,
+      "name": "absol",
+      "generation": 3,
+      "iconAsset": "sprites/359.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 360,
+      "name": "wynaut",
+      "generation": 3,
+      "iconAsset": "sprites/360.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 361,
+      "name": "snorunt",
+      "generation": 3,
+      "iconAsset": "sprites/361.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 362,
+      "name": "glalie",
+      "generation": 3,
+      "iconAsset": "sprites/362.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 363,
+      "name": "spheal",
+      "generation": 3,
+      "iconAsset": "sprites/363.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 364,
+      "name": "sealeo",
+      "generation": 3,
+      "iconAsset": "sprites/364.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 365,
+      "name": "walrein",
+      "generation": 3,
+      "iconAsset": "sprites/365.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 366,
+      "name": "clamperl",
+      "generation": 3,
+      "iconAsset": "sprites/366.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 367,
+      "name": "huntail",
+      "generation": 3,
+      "iconAsset": "sprites/367.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 368,
+      "name": "gorebyss",
+      "generation": 3,
+      "iconAsset": "sprites/368.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 369,
+      "name": "relicanth",
+      "generation": 3,
+      "iconAsset": "sprites/369.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 370,
+      "name": "luvdisc",
+      "generation": 3,
+      "iconAsset": "sprites/370.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 371,
+      "name": "bagon",
+      "generation": 3,
+      "iconAsset": "sprites/371.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 372,
+      "name": "shelgon",
+      "generation": 3,
+      "iconAsset": "sprites/372.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 373,
+      "name": "salamence",
+      "generation": 3,
+      "iconAsset": "sprites/373.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 374,
+      "name": "beldum",
+      "generation": 3,
+      "iconAsset": "sprites/374.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 375,
+      "name": "metang",
+      "generation": 3,
+      "iconAsset": "sprites/375.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 376,
+      "name": "metagross",
+      "generation": 3,
+      "iconAsset": "sprites/376.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 377,
+      "name": "regirock",
+      "generation": 3,
+      "iconAsset": "sprites/377.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 378,
+      "name": "regice",
+      "generation": 3,
+      "iconAsset": "sprites/378.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 379,
+      "name": "registeel",
+      "generation": 3,
+      "iconAsset": "sprites/379.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 380,
+      "name": "latias",
+      "generation": 3,
+      "iconAsset": "sprites/380.png",
+      "types": [
+        "psychic",
+        "dragon"
+      ]
+    },
+    {
+      "id": 381,
+      "name": "latios",
+      "generation": 3,
+      "iconAsset": "sprites/381.png",
+      "types": [
+        "psychic",
+        "dragon"
+      ]
+    },
+    {
+      "id": 382,
+      "name": "kyogre",
+      "generation": 3,
+      "iconAsset": "sprites/382.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 383,
+      "name": "groudon",
+      "generation": 3,
+      "iconAsset": "sprites/383.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 384,
+      "name": "rayquaza",
+      "generation": 3,
+      "iconAsset": "sprites/384.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 385,
+      "name": "jirachi",
+      "generation": 3,
+      "iconAsset": "sprites/385.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 386,
+      "name": "deoxys",
+      "generation": 3,
+      "iconAsset": "sprites/386.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 387,
+      "name": "turtwig",
+      "generation": 4,
+      "iconAsset": "sprites/387.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 388,
+      "name": "grotle",
+      "generation": 4,
+      "iconAsset": "sprites/388.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 389,
+      "name": "torterra",
+      "generation": 4,
+      "iconAsset": "sprites/389.png",
+      "types": [
+        "ground",
+        "grass"
+      ]
+    },
+    {
+      "id": 390,
+      "name": "chimchar",
+      "generation": 4,
+      "iconAsset": "sprites/390.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 391,
+      "name": "monferno",
+      "generation": 4,
+      "iconAsset": "sprites/391.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 392,
+      "name": "infernape",
+      "generation": 4,
+      "iconAsset": "sprites/392.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 393,
+      "name": "piplup",
+      "generation": 4,
+      "iconAsset": "sprites/393.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 394,
+      "name": "prinplup",
+      "generation": 4,
+      "iconAsset": "sprites/394.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 395,
+      "name": "empoleon",
+      "generation": 4,
+      "iconAsset": "sprites/395.png",
+      "types": [
+        "steel",
+        "water"
+      ]
+    },
+    {
+      "id": 396,
+      "name": "starly",
+      "generation": 4,
+      "iconAsset": "sprites/396.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 397,
+      "name": "staravia",
+      "generation": 4,
+      "iconAsset": "sprites/397.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 398,
+      "name": "staraptor",
+      "generation": 4,
+      "iconAsset": "sprites/398.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 399,
+      "name": "bidoof",
+      "generation": 4,
+      "iconAsset": "sprites/399.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 400,
+      "name": "bibarel",
+      "generation": 4,
+      "iconAsset": "sprites/400.png",
+      "types": [
+        "normal",
+        "water"
+      ]
+    },
+    {
+      "id": 401,
+      "name": "kricketot",
+      "generation": 4,
+      "iconAsset": "sprites/401.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 402,
+      "name": "kricketune",
+      "generation": 4,
+      "iconAsset": "sprites/402.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 403,
+      "name": "shinx",
+      "generation": 4,
+      "iconAsset": "sprites/403.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 404,
+      "name": "luxio",
+      "generation": 4,
+      "iconAsset": "sprites/404.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 405,
+      "name": "luxray",
+      "generation": 4,
+      "iconAsset": "sprites/405.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 406,
+      "name": "budew",
+      "generation": 4,
+      "iconAsset": "sprites/406.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 407,
+      "name": "roserade",
+      "generation": 4,
+      "iconAsset": "sprites/407.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 408,
+      "name": "cranidos",
+      "generation": 4,
+      "iconAsset": "sprites/408.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 409,
+      "name": "rampardos",
+      "generation": 4,
+      "iconAsset": "sprites/409.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 410,
+      "name": "shieldon",
+      "generation": 4,
+      "iconAsset": "sprites/410.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 411,
+      "name": "bastiodon",
+      "generation": 4,
+      "iconAsset": "sprites/411.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 412,
+      "name": "burmy",
+      "generation": 4,
+      "iconAsset": "sprites/412.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 413,
+      "name": "wormadam",
+      "generation": 4,
+      "iconAsset": "sprites/413.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 414,
+      "name": "mothim",
+      "generation": 4,
+      "iconAsset": "sprites/414.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 415,
+      "name": "combee",
+      "generation": 4,
+      "iconAsset": "sprites/415.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 416,
+      "name": "vespiquen",
+      "generation": 4,
+      "iconAsset": "sprites/416.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 417,
+      "name": "pachirisu",
+      "generation": 4,
+      "iconAsset": "sprites/417.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 418,
+      "name": "buizel",
+      "generation": 4,
+      "iconAsset": "sprites/418.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 419,
+      "name": "floatzel",
+      "generation": 4,
+      "iconAsset": "sprites/419.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 420,
+      "name": "cherubi",
+      "generation": 4,
+      "iconAsset": "sprites/420.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 421,
+      "name": "cherrim",
+      "generation": 4,
+      "iconAsset": "sprites/421.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 422,
+      "name": "shellos",
+      "generation": 4,
+      "iconAsset": "sprites/422.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 423,
+      "name": "gastrodon",
+      "generation": 4,
+      "iconAsset": "sprites/423.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 424,
+      "name": "ambipom",
+      "generation": 4,
+      "iconAsset": "sprites/424.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 425,
+      "name": "drifloon",
+      "generation": 4,
+      "iconAsset": "sprites/425.png",
+      "types": [
+        "flying",
+        "ghost"
+      ]
+    },
+    {
+      "id": 426,
+      "name": "drifblim",
+      "generation": 4,
+      "iconAsset": "sprites/426.png",
+      "types": [
+        "flying",
+        "ghost"
+      ]
+    },
+    {
+      "id": 427,
+      "name": "buneary",
+      "generation": 4,
+      "iconAsset": "sprites/427.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 428,
+      "name": "lopunny",
+      "generation": 4,
+      "iconAsset": "sprites/428.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 429,
+      "name": "mismagius",
+      "generation": 4,
+      "iconAsset": "sprites/429.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 430,
+      "name": "honchkrow",
+      "generation": 4,
+      "iconAsset": "sprites/430.png",
+      "types": [
+        "flying",
+        "dark"
+      ]
+    },
+    {
+      "id": 431,
+      "name": "glameow",
+      "generation": 4,
+      "iconAsset": "sprites/431.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 432,
+      "name": "purugly",
+      "generation": 4,
+      "iconAsset": "sprites/432.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 433,
+      "name": "chingling",
+      "generation": 4,
+      "iconAsset": "sprites/433.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 434,
+      "name": "stunky",
+      "generation": 4,
+      "iconAsset": "sprites/434.png",
+      "types": [
+        "poison",
+        "dark"
+      ]
+    },
+    {
+      "id": 435,
+      "name": "skuntank",
+      "generation": 4,
+      "iconAsset": "sprites/435.png",
+      "types": [
+        "poison",
+        "dark"
+      ]
+    },
+    {
+      "id": 436,
+      "name": "bronzor",
+      "generation": 4,
+      "iconAsset": "sprites/436.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 437,
+      "name": "bronzong",
+      "generation": 4,
+      "iconAsset": "sprites/437.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 438,
+      "name": "bonsly",
+      "generation": 4,
+      "iconAsset": "sprites/438.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 439,
+      "name": "mime-jr",
+      "generation": 4,
+      "iconAsset": "sprites/439.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 440,
+      "name": "happiny",
+      "generation": 4,
+      "iconAsset": "sprites/440.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 441,
+      "name": "chatot",
+      "generation": 4,
+      "iconAsset": "sprites/441.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 442,
+      "name": "spiritomb",
+      "generation": 4,
+      "iconAsset": "sprites/442.png",
+      "types": [
+        "ghost",
+        "dark"
+      ]
+    },
+    {
+      "id": 443,
+      "name": "gible",
+      "generation": 4,
+      "iconAsset": "sprites/443.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 444,
+      "name": "gabite",
+      "generation": 4,
+      "iconAsset": "sprites/444.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 445,
+      "name": "garchomp",
+      "generation": 4,
+      "iconAsset": "sprites/445.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 446,
+      "name": "munchlax",
+      "generation": 4,
+      "iconAsset": "sprites/446.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 447,
+      "name": "riolu",
+      "generation": 4,
+      "iconAsset": "sprites/447.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 448,
+      "name": "lucario",
+      "generation": 4,
+      "iconAsset": "sprites/448.png",
+      "types": [
+        "fighting",
+        "steel"
+      ]
+    },
+    {
+      "id": 449,
+      "name": "hippopotas",
+      "generation": 4,
+      "iconAsset": "sprites/449.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 450,
+      "name": "hippowdon",
+      "generation": 4,
+      "iconAsset": "sprites/450.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 451,
+      "name": "skorupi",
+      "generation": 4,
+      "iconAsset": "sprites/451.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 452,
+      "name": "drapion",
+      "generation": 4,
+      "iconAsset": "sprites/452.png",
+      "types": [
+        "poison",
+        "dark"
+      ]
+    },
+    {
+      "id": 453,
+      "name": "croagunk",
+      "generation": 4,
+      "iconAsset": "sprites/453.png",
+      "types": [
+        "fighting",
+        "poison"
+      ]
+    },
+    {
+      "id": 454,
+      "name": "toxicroak",
+      "generation": 4,
+      "iconAsset": "sprites/454.png",
+      "types": [
+        "fighting",
+        "poison"
+      ]
+    },
+    {
+      "id": 455,
+      "name": "carnivine",
+      "generation": 4,
+      "iconAsset": "sprites/455.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 456,
+      "name": "finneon",
+      "generation": 4,
+      "iconAsset": "sprites/456.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 457,
+      "name": "lumineon",
+      "generation": 4,
+      "iconAsset": "sprites/457.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 458,
+      "name": "mantyke",
+      "generation": 4,
+      "iconAsset": "sprites/458.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 459,
+      "name": "snover",
+      "generation": 4,
+      "iconAsset": "sprites/459.png",
+      "types": [
+        "grass",
+        "ice"
+      ]
+    },
+    {
+      "id": 460,
+      "name": "abomasnow",
+      "generation": 4,
+      "iconAsset": "sprites/460.png",
+      "types": [
+        "grass",
+        "ice"
+      ]
+    },
+    {
+      "id": 461,
+      "name": "weavile",
+      "generation": 4,
+      "iconAsset": "sprites/461.png",
+      "types": [
+        "ice",
+        "dark"
+      ]
+    },
+    {
+      "id": 462,
+      "name": "magnezone",
+      "generation": 4,
+      "iconAsset": "sprites/462.png",
+      "types": [
+        "steel",
+        "electric"
+      ]
+    },
+    {
+      "id": 463,
+      "name": "lickilicky",
+      "generation": 4,
+      "iconAsset": "sprites/463.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 464,
+      "name": "rhyperior",
+      "generation": 4,
+      "iconAsset": "sprites/464.png",
+      "types": [
+        "ground",
+        "rock"
+      ]
+    },
+    {
+      "id": 465,
+      "name": "tangrowth",
+      "generation": 4,
+      "iconAsset": "sprites/465.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 466,
+      "name": "electivire",
+      "generation": 4,
+      "iconAsset": "sprites/466.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 467,
+      "name": "magmortar",
+      "generation": 4,
+      "iconAsset": "sprites/467.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 468,
+      "name": "togekiss",
+      "generation": 4,
+      "iconAsset": "sprites/468.png",
+      "types": [
+        "flying",
+        "fairy"
+      ]
+    },
+    {
+      "id": 469,
+      "name": "yanmega",
+      "generation": 4,
+      "iconAsset": "sprites/469.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 470,
+      "name": "leafeon",
+      "generation": 4,
+      "iconAsset": "sprites/470.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 471,
+      "name": "glaceon",
+      "generation": 4,
+      "iconAsset": "sprites/471.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 472,
+      "name": "gliscor",
+      "generation": 4,
+      "iconAsset": "sprites/472.png",
+      "types": [
+        "flying",
+        "ground"
+      ]
+    },
+    {
+      "id": 473,
+      "name": "mamoswine",
+      "generation": 4,
+      "iconAsset": "sprites/473.png",
+      "types": [
+        "ground",
+        "ice"
+      ]
+    },
+    {
+      "id": 474,
+      "name": "porygon-z",
+      "generation": 4,
+      "iconAsset": "sprites/474.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 475,
+      "name": "gallade",
+      "generation": 4,
+      "iconAsset": "sprites/475.png",
+      "types": [
+        "fighting",
+        "psychic"
+      ]
+    },
+    {
+      "id": 476,
+      "name": "probopass",
+      "generation": 4,
+      "iconAsset": "sprites/476.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 477,
+      "name": "dusknoir",
+      "generation": 4,
+      "iconAsset": "sprites/477.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 478,
+      "name": "froslass",
+      "generation": 4,
+      "iconAsset": "sprites/478.png",
+      "types": [
+        "ghost",
+        "ice"
+      ]
+    },
+    {
+      "id": 479,
+      "name": "rotom",
+      "generation": 4,
+      "iconAsset": "sprites/479.png",
+      "types": [
+        "ghost",
+        "electric"
+      ]
+    },
+    {
+      "id": 480,
+      "name": "uxie",
+      "generation": 4,
+      "iconAsset": "sprites/480.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 481,
+      "name": "mesprit",
+      "generation": 4,
+      "iconAsset": "sprites/481.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 482,
+      "name": "azelf",
+      "generation": 4,
+      "iconAsset": "sprites/482.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 483,
+      "name": "dialga",
+      "generation": 4,
+      "iconAsset": "sprites/483.png",
+      "types": [
+        "steel",
+        "dragon"
+      ]
+    },
+    {
+      "id": 484,
+      "name": "palkia",
+      "generation": 4,
+      "iconAsset": "sprites/484.png",
+      "types": [
+        "water",
+        "dragon"
+      ]
+    },
+    {
+      "id": 485,
+      "name": "heatran",
+      "generation": 4,
+      "iconAsset": "sprites/485.png",
+      "types": [
+        "steel",
+        "fire"
+      ]
+    },
+    {
+      "id": 486,
+      "name": "regigigas",
+      "generation": 4,
+      "iconAsset": "sprites/486.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 487,
+      "name": "giratina",
+      "generation": 4,
+      "iconAsset": "sprites/487.png",
+      "types": [
+        "ghost",
+        "dragon"
+      ]
+    },
+    {
+      "id": 488,
+      "name": "cresselia",
+      "generation": 4,
+      "iconAsset": "sprites/488.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 489,
+      "name": "phione",
+      "generation": 4,
+      "iconAsset": "sprites/489.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 490,
+      "name": "manaphy",
+      "generation": 4,
+      "iconAsset": "sprites/490.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 491,
+      "name": "darkrai",
+      "generation": 4,
+      "iconAsset": "sprites/491.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 492,
+      "name": "shaymin",
+      "generation": 4,
+      "iconAsset": "sprites/492.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 493,
+      "name": "arceus",
+      "generation": 4,
+      "iconAsset": "sprites/493.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 494,
+      "name": "victini",
+      "generation": 5,
+      "iconAsset": "sprites/494.png",
+      "types": [
+        "fire",
+        "psychic"
+      ]
+    },
+    {
+      "id": 495,
+      "name": "snivy",
+      "generation": 5,
+      "iconAsset": "sprites/495.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 496,
+      "name": "servine",
+      "generation": 5,
+      "iconAsset": "sprites/496.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 497,
+      "name": "serperior",
+      "generation": 5,
+      "iconAsset": "sprites/497.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 498,
+      "name": "tepig",
+      "generation": 5,
+      "iconAsset": "sprites/498.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 499,
+      "name": "pignite",
+      "generation": 5,
+      "iconAsset": "sprites/499.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 500,
+      "name": "emboar",
+      "generation": 5,
+      "iconAsset": "sprites/500.png",
+      "types": [
+        "fighting",
+        "fire"
+      ]
+    },
+    {
+      "id": 501,
+      "name": "oshawott",
+      "generation": 5,
+      "iconAsset": "sprites/501.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 502,
+      "name": "dewott",
+      "generation": 5,
+      "iconAsset": "sprites/502.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 503,
+      "name": "samurott",
+      "generation": 5,
+      "iconAsset": "sprites/503.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 504,
+      "name": "patrat",
+      "generation": 5,
+      "iconAsset": "sprites/504.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 505,
+      "name": "watchog",
+      "generation": 5,
+      "iconAsset": "sprites/505.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 506,
+      "name": "lillipup",
+      "generation": 5,
+      "iconAsset": "sprites/506.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 507,
+      "name": "herdier",
+      "generation": 5,
+      "iconAsset": "sprites/507.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 508,
+      "name": "stoutland",
+      "generation": 5,
+      "iconAsset": "sprites/508.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 509,
+      "name": "purrloin",
+      "generation": 5,
+      "iconAsset": "sprites/509.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 510,
+      "name": "liepard",
+      "generation": 5,
+      "iconAsset": "sprites/510.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 511,
+      "name": "pansage",
+      "generation": 5,
+      "iconAsset": "sprites/511.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 512,
+      "name": "simisage",
+      "generation": 5,
+      "iconAsset": "sprites/512.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 513,
+      "name": "pansear",
+      "generation": 5,
+      "iconAsset": "sprites/513.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 514,
+      "name": "simisear",
+      "generation": 5,
+      "iconAsset": "sprites/514.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 515,
+      "name": "panpour",
+      "generation": 5,
+      "iconAsset": "sprites/515.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 516,
+      "name": "simipour",
+      "generation": 5,
+      "iconAsset": "sprites/516.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 517,
+      "name": "munna",
+      "generation": 5,
+      "iconAsset": "sprites/517.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 518,
+      "name": "musharna",
+      "generation": 5,
+      "iconAsset": "sprites/518.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 519,
+      "name": "pidove",
+      "generation": 5,
+      "iconAsset": "sprites/519.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 520,
+      "name": "tranquill",
+      "generation": 5,
+      "iconAsset": "sprites/520.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 521,
+      "name": "unfezant",
+      "generation": 5,
+      "iconAsset": "sprites/521.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 522,
+      "name": "blitzle",
+      "generation": 5,
+      "iconAsset": "sprites/522.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 523,
+      "name": "zebstrika",
+      "generation": 5,
+      "iconAsset": "sprites/523.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 524,
+      "name": "roggenrola",
+      "generation": 5,
+      "iconAsset": "sprites/524.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 525,
+      "name": "boldore",
+      "generation": 5,
+      "iconAsset": "sprites/525.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 526,
+      "name": "gigalith",
+      "generation": 5,
+      "iconAsset": "sprites/526.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 527,
+      "name": "woobat",
+      "generation": 5,
+      "iconAsset": "sprites/527.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 528,
+      "name": "swoobat",
+      "generation": 5,
+      "iconAsset": "sprites/528.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 529,
+      "name": "drilbur",
+      "generation": 5,
+      "iconAsset": "sprites/529.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 530,
+      "name": "excadrill",
+      "generation": 5,
+      "iconAsset": "sprites/530.png",
+      "types": [
+        "ground",
+        "steel"
+      ]
+    },
+    {
+      "id": 531,
+      "name": "audino",
+      "generation": 5,
+      "iconAsset": "sprites/531.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 532,
+      "name": "timburr",
+      "generation": 5,
+      "iconAsset": "sprites/532.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 533,
+      "name": "gurdurr",
+      "generation": 5,
+      "iconAsset": "sprites/533.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 534,
+      "name": "conkeldurr",
+      "generation": 5,
+      "iconAsset": "sprites/534.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 535,
+      "name": "tympole",
+      "generation": 5,
+      "iconAsset": "sprites/535.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 536,
+      "name": "palpitoad",
+      "generation": 5,
+      "iconAsset": "sprites/536.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 537,
+      "name": "seismitoad",
+      "generation": 5,
+      "iconAsset": "sprites/537.png",
+      "types": [
+        "ground",
+        "water"
+      ]
+    },
+    {
+      "id": 538,
+      "name": "throh",
+      "generation": 5,
+      "iconAsset": "sprites/538.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 539,
+      "name": "sawk",
+      "generation": 5,
+      "iconAsset": "sprites/539.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 540,
+      "name": "sewaddle",
+      "generation": 5,
+      "iconAsset": "sprites/540.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 541,
+      "name": "swadloon",
+      "generation": 5,
+      "iconAsset": "sprites/541.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 542,
+      "name": "leavanny",
+      "generation": 5,
+      "iconAsset": "sprites/542.png",
+      "types": [
+        "bug",
+        "grass"
+      ]
+    },
+    {
+      "id": 543,
+      "name": "venipede",
+      "generation": 5,
+      "iconAsset": "sprites/543.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 544,
+      "name": "whirlipede",
+      "generation": 5,
+      "iconAsset": "sprites/544.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 545,
+      "name": "scolipede",
+      "generation": 5,
+      "iconAsset": "sprites/545.png",
+      "types": [
+        "poison",
+        "bug"
+      ]
+    },
+    {
+      "id": 546,
+      "name": "cottonee",
+      "generation": 5,
+      "iconAsset": "sprites/546.png",
+      "types": [
+        "grass",
+        "fairy"
+      ]
+    },
+    {
+      "id": 547,
+      "name": "whimsicott",
+      "generation": 5,
+      "iconAsset": "sprites/547.png",
+      "types": [
+        "grass",
+        "fairy"
+      ]
+    },
+    {
+      "id": 548,
+      "name": "petilil",
+      "generation": 5,
+      "iconAsset": "sprites/548.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 549,
+      "name": "lilligant",
+      "generation": 5,
+      "iconAsset": "sprites/549.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 550,
+      "name": "basculin",
+      "generation": 5,
+      "iconAsset": "sprites/550.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 551,
+      "name": "sandile",
+      "generation": 5,
+      "iconAsset": "sprites/551.png",
+      "types": [
+        "ground",
+        "dark"
+      ]
+    },
+    {
+      "id": 552,
+      "name": "krokorok",
+      "generation": 5,
+      "iconAsset": "sprites/552.png",
+      "types": [
+        "ground",
+        "dark"
+      ]
+    },
+    {
+      "id": 553,
+      "name": "krookodile",
+      "generation": 5,
+      "iconAsset": "sprites/553.png",
+      "types": [
+        "ground",
+        "dark"
+      ]
+    },
+    {
+      "id": 554,
+      "name": "darumaka",
+      "generation": 5,
+      "iconAsset": "sprites/554.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 555,
+      "name": "darmanitan",
+      "generation": 5,
+      "iconAsset": "sprites/555.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 556,
+      "name": "maractus",
+      "generation": 5,
+      "iconAsset": "sprites/556.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 557,
+      "name": "dwebble",
+      "generation": 5,
+      "iconAsset": "sprites/557.png",
+      "types": [
+        "rock",
+        "bug"
+      ]
+    },
+    {
+      "id": 558,
+      "name": "crustle",
+      "generation": 5,
+      "iconAsset": "sprites/558.png",
+      "types": [
+        "rock",
+        "bug"
+      ]
+    },
+    {
+      "id": 559,
+      "name": "scraggy",
+      "generation": 5,
+      "iconAsset": "sprites/559.png",
+      "types": [
+        "fighting",
+        "dark"
+      ]
+    },
+    {
+      "id": 560,
+      "name": "scrafty",
+      "generation": 5,
+      "iconAsset": "sprites/560.png",
+      "types": [
+        "fighting",
+        "dark"
+      ]
+    },
+    {
+      "id": 561,
+      "name": "sigilyph",
+      "generation": 5,
+      "iconAsset": "sprites/561.png",
+      "types": [
+        "flying",
+        "psychic"
+      ]
+    },
+    {
+      "id": 562,
+      "name": "yamask",
+      "generation": 5,
+      "iconAsset": "sprites/562.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 563,
+      "name": "cofagrigus",
+      "generation": 5,
+      "iconAsset": "sprites/563.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 564,
+      "name": "tirtouga",
+      "generation": 5,
+      "iconAsset": "sprites/564.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 565,
+      "name": "carracosta",
+      "generation": 5,
+      "iconAsset": "sprites/565.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 566,
+      "name": "archen",
+      "generation": 5,
+      "iconAsset": "sprites/566.png",
+      "types": [
+        "flying",
+        "rock"
+      ]
+    },
+    {
+      "id": 567,
+      "name": "archeops",
+      "generation": 5,
+      "iconAsset": "sprites/567.png",
+      "types": [
+        "flying",
+        "rock"
+      ]
+    },
+    {
+      "id": 568,
+      "name": "trubbish",
+      "generation": 5,
+      "iconAsset": "sprites/568.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 569,
+      "name": "garbodor",
+      "generation": 5,
+      "iconAsset": "sprites/569.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 570,
+      "name": "zorua",
+      "generation": 5,
+      "iconAsset": "sprites/570.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 571,
+      "name": "zoroark",
+      "generation": 5,
+      "iconAsset": "sprites/571.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 572,
+      "name": "minccino",
+      "generation": 5,
+      "iconAsset": "sprites/572.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 573,
+      "name": "cinccino",
+      "generation": 5,
+      "iconAsset": "sprites/573.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 574,
+      "name": "gothita",
+      "generation": 5,
+      "iconAsset": "sprites/574.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 575,
+      "name": "gothorita",
+      "generation": 5,
+      "iconAsset": "sprites/575.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 576,
+      "name": "gothitelle",
+      "generation": 5,
+      "iconAsset": "sprites/576.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 577,
+      "name": "solosis",
+      "generation": 5,
+      "iconAsset": "sprites/577.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 578,
+      "name": "duosion",
+      "generation": 5,
+      "iconAsset": "sprites/578.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 579,
+      "name": "reuniclus",
+      "generation": 5,
+      "iconAsset": "sprites/579.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 580,
+      "name": "ducklett",
+      "generation": 5,
+      "iconAsset": "sprites/580.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 581,
+      "name": "swanna",
+      "generation": 5,
+      "iconAsset": "sprites/581.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 582,
+      "name": "vanillite",
+      "generation": 5,
+      "iconAsset": "sprites/582.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 583,
+      "name": "vanillish",
+      "generation": 5,
+      "iconAsset": "sprites/583.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 584,
+      "name": "vanilluxe",
+      "generation": 5,
+      "iconAsset": "sprites/584.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 585,
+      "name": "deerling",
+      "generation": 5,
+      "iconAsset": "sprites/585.png",
+      "types": [
+        "normal",
+        "grass"
+      ]
+    },
+    {
+      "id": 586,
+      "name": "sawsbuck",
+      "generation": 5,
+      "iconAsset": "sprites/586.png",
+      "types": [
+        "normal",
+        "grass"
+      ]
+    },
+    {
+      "id": 587,
+      "name": "emolga",
+      "generation": 5,
+      "iconAsset": "sprites/587.png",
+      "types": [
+        "flying",
+        "electric"
+      ]
+    },
+    {
+      "id": 588,
+      "name": "karrablast",
+      "generation": 5,
+      "iconAsset": "sprites/588.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 589,
+      "name": "escavalier",
+      "generation": 5,
+      "iconAsset": "sprites/589.png",
+      "types": [
+        "bug",
+        "steel"
+      ]
+    },
+    {
+      "id": 590,
+      "name": "foongus",
+      "generation": 5,
+      "iconAsset": "sprites/590.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 591,
+      "name": "amoonguss",
+      "generation": 5,
+      "iconAsset": "sprites/591.png",
+      "types": [
+        "poison",
+        "grass"
+      ]
+    },
+    {
+      "id": 592,
+      "name": "frillish",
+      "generation": 5,
+      "iconAsset": "sprites/592.png",
+      "types": [
+        "ghost",
+        "water"
+      ]
+    },
+    {
+      "id": 593,
+      "name": "jellicent",
+      "generation": 5,
+      "iconAsset": "sprites/593.png",
+      "types": [
+        "ghost",
+        "water"
+      ]
+    },
+    {
+      "id": 594,
+      "name": "alomomola",
+      "generation": 5,
+      "iconAsset": "sprites/594.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 595,
+      "name": "joltik",
+      "generation": 5,
+      "iconAsset": "sprites/595.png",
+      "types": [
+        "bug",
+        "electric"
+      ]
+    },
+    {
+      "id": 596,
+      "name": "galvantula",
+      "generation": 5,
+      "iconAsset": "sprites/596.png",
+      "types": [
+        "bug",
+        "electric"
+      ]
+    },
+    {
+      "id": 597,
+      "name": "ferroseed",
+      "generation": 5,
+      "iconAsset": "sprites/597.png",
+      "types": [
+        "steel",
+        "grass"
+      ]
+    },
+    {
+      "id": 598,
+      "name": "ferrothorn",
+      "generation": 5,
+      "iconAsset": "sprites/598.png",
+      "types": [
+        "steel",
+        "grass"
+      ]
+    },
+    {
+      "id": 599,
+      "name": "klink",
+      "generation": 5,
+      "iconAsset": "sprites/599.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 600,
+      "name": "klang",
+      "generation": 5,
+      "iconAsset": "sprites/600.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 601,
+      "name": "klinklang",
+      "generation": 5,
+      "iconAsset": "sprites/601.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 602,
+      "name": "tynamo",
+      "generation": 5,
+      "iconAsset": "sprites/602.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 603,
+      "name": "eelektrik",
+      "generation": 5,
+      "iconAsset": "sprites/603.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 604,
+      "name": "eelektross",
+      "generation": 5,
+      "iconAsset": "sprites/604.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 605,
+      "name": "elgyem",
+      "generation": 5,
+      "iconAsset": "sprites/605.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 606,
+      "name": "beheeyem",
+      "generation": 5,
+      "iconAsset": "sprites/606.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 607,
+      "name": "litwick",
+      "generation": 5,
+      "iconAsset": "sprites/607.png",
+      "types": [
+        "ghost",
+        "fire"
+      ]
+    },
+    {
+      "id": 608,
+      "name": "lampent",
+      "generation": 5,
+      "iconAsset": "sprites/608.png",
+      "types": [
+        "ghost",
+        "fire"
+      ]
+    },
+    {
+      "id": 609,
+      "name": "chandelure",
+      "generation": 5,
+      "iconAsset": "sprites/609.png",
+      "types": [
+        "ghost",
+        "fire"
+      ]
+    },
+    {
+      "id": 610,
+      "name": "axew",
+      "generation": 5,
+      "iconAsset": "sprites/610.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 611,
+      "name": "fraxure",
+      "generation": 5,
+      "iconAsset": "sprites/611.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 612,
+      "name": "haxorus",
+      "generation": 5,
+      "iconAsset": "sprites/612.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 613,
+      "name": "cubchoo",
+      "generation": 5,
+      "iconAsset": "sprites/613.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 614,
+      "name": "beartic",
+      "generation": 5,
+      "iconAsset": "sprites/614.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 615,
+      "name": "cryogonal",
+      "generation": 5,
+      "iconAsset": "sprites/615.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 616,
+      "name": "shelmet",
+      "generation": 5,
+      "iconAsset": "sprites/616.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 617,
+      "name": "accelgor",
+      "generation": 5,
+      "iconAsset": "sprites/617.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 618,
+      "name": "stunfisk",
+      "generation": 5,
+      "iconAsset": "sprites/618.png",
+      "types": [
+        "ground",
+        "electric"
+      ]
+    },
+    {
+      "id": 619,
+      "name": "mienfoo",
+      "generation": 5,
+      "iconAsset": "sprites/619.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 620,
+      "name": "mienshao",
+      "generation": 5,
+      "iconAsset": "sprites/620.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 621,
+      "name": "druddigon",
+      "generation": 5,
+      "iconAsset": "sprites/621.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 622,
+      "name": "golett",
+      "generation": 5,
+      "iconAsset": "sprites/622.png",
+      "types": [
+        "ground",
+        "ghost"
+      ]
+    },
+    {
+      "id": 623,
+      "name": "golurk",
+      "generation": 5,
+      "iconAsset": "sprites/623.png",
+      "types": [
+        "ground",
+        "ghost"
+      ]
+    },
+    {
+      "id": 624,
+      "name": "pawniard",
+      "generation": 5,
+      "iconAsset": "sprites/624.png",
+      "types": [
+        "steel",
+        "dark"
+      ]
+    },
+    {
+      "id": 625,
+      "name": "bisharp",
+      "generation": 5,
+      "iconAsset": "sprites/625.png",
+      "types": [
+        "steel",
+        "dark"
+      ]
+    },
+    {
+      "id": 626,
+      "name": "bouffalant",
+      "generation": 5,
+      "iconAsset": "sprites/626.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 627,
+      "name": "rufflet",
+      "generation": 5,
+      "iconAsset": "sprites/627.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 628,
+      "name": "braviary",
+      "generation": 5,
+      "iconAsset": "sprites/628.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 629,
+      "name": "vullaby",
+      "generation": 5,
+      "iconAsset": "sprites/629.png",
+      "types": [
+        "flying",
+        "dark"
+      ]
+    },
+    {
+      "id": 630,
+      "name": "mandibuzz",
+      "generation": 5,
+      "iconAsset": "sprites/630.png",
+      "types": [
+        "flying",
+        "dark"
+      ]
+    },
+    {
+      "id": 631,
+      "name": "heatmor",
+      "generation": 5,
+      "iconAsset": "sprites/631.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 632,
+      "name": "durant",
+      "generation": 5,
+      "iconAsset": "sprites/632.png",
+      "types": [
+        "bug",
+        "steel"
+      ]
+    },
+    {
+      "id": 633,
+      "name": "deino",
+      "generation": 5,
+      "iconAsset": "sprites/633.png",
+      "types": [
+        "dragon",
+        "dark"
+      ]
+    },
+    {
+      "id": 634,
+      "name": "zweilous",
+      "generation": 5,
+      "iconAsset": "sprites/634.png",
+      "types": [
+        "dragon",
+        "dark"
+      ]
+    },
+    {
+      "id": 635,
+      "name": "hydreigon",
+      "generation": 5,
+      "iconAsset": "sprites/635.png",
+      "types": [
+        "dragon",
+        "dark"
+      ]
+    },
+    {
+      "id": 636,
+      "name": "larvesta",
+      "generation": 5,
+      "iconAsset": "sprites/636.png",
+      "types": [
+        "bug",
+        "fire"
+      ]
+    },
+    {
+      "id": 637,
+      "name": "volcarona",
+      "generation": 5,
+      "iconAsset": "sprites/637.png",
+      "types": [
+        "bug",
+        "fire"
+      ]
+    },
+    {
+      "id": 638,
+      "name": "cobalion",
+      "generation": 5,
+      "iconAsset": "sprites/638.png",
+      "types": [
+        "fighting",
+        "steel"
+      ]
+    },
+    {
+      "id": 639,
+      "name": "terrakion",
+      "generation": 5,
+      "iconAsset": "sprites/639.png",
+      "types": [
+        "fighting",
+        "rock"
+      ]
+    },
+    {
+      "id": 640,
+      "name": "virizion",
+      "generation": 5,
+      "iconAsset": "sprites/640.png",
+      "types": [
+        "fighting",
+        "grass"
+      ]
+    },
+    {
+      "id": 641,
+      "name": "tornadus",
+      "generation": 5,
+      "iconAsset": "sprites/641.png",
+      "types": [
+        "flying"
+      ]
+    },
+    {
+      "id": 642,
+      "name": "thundurus",
+      "generation": 5,
+      "iconAsset": "sprites/642.png",
+      "types": [
+        "flying",
+        "electric"
+      ]
+    },
+    {
+      "id": 643,
+      "name": "reshiram",
+      "generation": 5,
+      "iconAsset": "sprites/643.png",
+      "types": [
+        "fire",
+        "dragon"
+      ]
+    },
+    {
+      "id": 644,
+      "name": "zekrom",
+      "generation": 5,
+      "iconAsset": "sprites/644.png",
+      "types": [
+        "electric",
+        "dragon"
+      ]
+    },
+    {
+      "id": 645,
+      "name": "landorus",
+      "generation": 5,
+      "iconAsset": "sprites/645.png",
+      "types": [
+        "flying",
+        "ground"
+      ]
+    },
+    {
+      "id": 646,
+      "name": "kyurem",
+      "generation": 5,
+      "iconAsset": "sprites/646.png",
+      "types": [
+        "ice",
+        "dragon"
+      ]
+    },
+    {
+      "id": 647,
+      "name": "keldeo",
+      "generation": 5,
+      "iconAsset": "sprites/647.png",
+      "types": [
+        "fighting",
+        "water"
+      ]
+    },
+    {
+      "id": 648,
+      "name": "meloetta",
+      "generation": 5,
+      "iconAsset": "sprites/648.png",
+      "types": [
+        "normal",
+        "psychic"
+      ]
+    },
+    {
+      "id": 649,
+      "name": "genesect",
+      "generation": 5,
+      "iconAsset": "sprites/649.png",
+      "types": [
+        "bug",
+        "steel"
+      ]
+    },
+    {
+      "id": 650,
+      "name": "chespin",
+      "generation": 6,
+      "iconAsset": "sprites/650.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 651,
+      "name": "quilladin",
+      "generation": 6,
+      "iconAsset": "sprites/651.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 652,
+      "name": "chesnaught",
+      "generation": 6,
+      "iconAsset": "sprites/652.png",
+      "types": [
+        "fighting",
+        "grass"
+      ]
+    },
+    {
+      "id": 653,
+      "name": "fennekin",
+      "generation": 6,
+      "iconAsset": "sprites/653.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 654,
+      "name": "braixen",
+      "generation": 6,
+      "iconAsset": "sprites/654.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 655,
+      "name": "delphox",
+      "generation": 6,
+      "iconAsset": "sprites/655.png",
+      "types": [
+        "fire",
+        "psychic"
+      ]
+    },
+    {
+      "id": 656,
+      "name": "froakie",
+      "generation": 6,
+      "iconAsset": "sprites/656.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 657,
+      "name": "frogadier",
+      "generation": 6,
+      "iconAsset": "sprites/657.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 658,
+      "name": "greninja",
+      "generation": 6,
+      "iconAsset": "sprites/658.png",
+      "types": [
+        "water",
+        "dark"
+      ]
+    },
+    {
+      "id": 659,
+      "name": "bunnelby",
+      "generation": 6,
+      "iconAsset": "sprites/659.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 660,
+      "name": "diggersby",
+      "generation": 6,
+      "iconAsset": "sprites/660.png",
+      "types": [
+        "normal",
+        "ground"
+      ]
+    },
+    {
+      "id": 661,
+      "name": "fletchling",
+      "generation": 6,
+      "iconAsset": "sprites/661.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 662,
+      "name": "fletchinder",
+      "generation": 6,
+      "iconAsset": "sprites/662.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 663,
+      "name": "talonflame",
+      "generation": 6,
+      "iconAsset": "sprites/663.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 664,
+      "name": "scatterbug",
+      "generation": 6,
+      "iconAsset": "sprites/664.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 665,
+      "name": "spewpa",
+      "generation": 6,
+      "iconAsset": "sprites/665.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 666,
+      "name": "vivillon",
+      "generation": 6,
+      "iconAsset": "sprites/666.png",
+      "types": [
+        "flying",
+        "bug"
+      ]
+    },
+    {
+      "id": 667,
+      "name": "litleo",
+      "generation": 6,
+      "iconAsset": "sprites/667.png",
+      "types": [
+        "normal",
+        "fire"
+      ]
+    },
+    {
+      "id": 668,
+      "name": "pyroar",
+      "generation": 6,
+      "iconAsset": "sprites/668.png",
+      "types": [
+        "normal",
+        "fire"
+      ]
+    },
+    {
+      "id": 669,
+      "name": "flabebe",
+      "generation": 6,
+      "iconAsset": "sprites/669.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 670,
+      "name": "floette",
+      "generation": 6,
+      "iconAsset": "sprites/670.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 671,
+      "name": "florges",
+      "generation": 6,
+      "iconAsset": "sprites/671.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 672,
+      "name": "skiddo",
+      "generation": 6,
+      "iconAsset": "sprites/672.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 673,
+      "name": "gogoat",
+      "generation": 6,
+      "iconAsset": "sprites/673.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 674,
+      "name": "pancham",
+      "generation": 6,
+      "iconAsset": "sprites/674.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 675,
+      "name": "pangoro",
+      "generation": 6,
+      "iconAsset": "sprites/675.png",
+      "types": [
+        "fighting",
+        "dark"
+      ]
+    },
+    {
+      "id": 676,
+      "name": "furfrou",
+      "generation": 6,
+      "iconAsset": "sprites/676.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 677,
+      "name": "espurr",
+      "generation": 6,
+      "iconAsset": "sprites/677.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 678,
+      "name": "meowstic",
+      "generation": 6,
+      "iconAsset": "sprites/678.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 679,
+      "name": "honedge",
+      "generation": 6,
+      "iconAsset": "sprites/679.png",
+      "types": [
+        "ghost",
+        "steel"
+      ]
+    },
+    {
+      "id": 680,
+      "name": "doublade",
+      "generation": 6,
+      "iconAsset": "sprites/680.png",
+      "types": [
+        "ghost",
+        "steel"
+      ]
+    },
+    {
+      "id": 681,
+      "name": "aegislash",
+      "generation": 6,
+      "iconAsset": "sprites/681.png",
+      "types": [
+        "ghost",
+        "steel"
+      ]
+    },
+    {
+      "id": 682,
+      "name": "spritzee",
+      "generation": 6,
+      "iconAsset": "sprites/682.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 683,
+      "name": "aromatisse",
+      "generation": 6,
+      "iconAsset": "sprites/683.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 684,
+      "name": "swirlix",
+      "generation": 6,
+      "iconAsset": "sprites/684.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 685,
+      "name": "slurpuff",
+      "generation": 6,
+      "iconAsset": "sprites/685.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 686,
+      "name": "inkay",
+      "generation": 6,
+      "iconAsset": "sprites/686.png",
+      "types": [
+        "psychic",
+        "dark"
+      ]
+    },
+    {
+      "id": 687,
+      "name": "malamar",
+      "generation": 6,
+      "iconAsset": "sprites/687.png",
+      "types": [
+        "psychic",
+        "dark"
+      ]
+    },
+    {
+      "id": 688,
+      "name": "binacle",
+      "generation": 6,
+      "iconAsset": "sprites/688.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 689,
+      "name": "barbaracle",
+      "generation": 6,
+      "iconAsset": "sprites/689.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 690,
+      "name": "skrelp",
+      "generation": 6,
+      "iconAsset": "sprites/690.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 691,
+      "name": "dragalge",
+      "generation": 6,
+      "iconAsset": "sprites/691.png",
+      "types": [
+        "poison",
+        "dragon"
+      ]
+    },
+    {
+      "id": 692,
+      "name": "clauncher",
+      "generation": 6,
+      "iconAsset": "sprites/692.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 693,
+      "name": "clawitzer",
+      "generation": 6,
+      "iconAsset": "sprites/693.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 694,
+      "name": "helioptile",
+      "generation": 6,
+      "iconAsset": "sprites/694.png",
+      "types": [
+        "normal",
+        "electric"
+      ]
+    },
+    {
+      "id": 695,
+      "name": "heliolisk",
+      "generation": 6,
+      "iconAsset": "sprites/695.png",
+      "types": [
+        "normal",
+        "electric"
+      ]
+    },
+    {
+      "id": 696,
+      "name": "tyrunt",
+      "generation": 6,
+      "iconAsset": "sprites/696.png",
+      "types": [
+        "rock",
+        "dragon"
+      ]
+    },
+    {
+      "id": 697,
+      "name": "tyrantrum",
+      "generation": 6,
+      "iconAsset": "sprites/697.png",
+      "types": [
+        "rock",
+        "dragon"
+      ]
+    },
+    {
+      "id": 698,
+      "name": "amaura",
+      "generation": 6,
+      "iconAsset": "sprites/698.png",
+      "types": [
+        "rock",
+        "ice"
+      ]
+    },
+    {
+      "id": 699,
+      "name": "aurorus",
+      "generation": 6,
+      "iconAsset": "sprites/699.png",
+      "types": [
+        "rock",
+        "ice"
+      ]
+    },
+    {
+      "id": 700,
+      "name": "sylveon",
+      "generation": 6,
+      "iconAsset": "sprites/700.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 701,
+      "name": "hawlucha",
+      "generation": 6,
+      "iconAsset": "sprites/701.png",
+      "types": [
+        "fighting",
+        "flying"
+      ]
+    },
+    {
+      "id": 702,
+      "name": "dedenne",
+      "generation": 6,
+      "iconAsset": "sprites/702.png",
+      "types": [
+        "electric",
+        "fairy"
+      ]
+    },
+    {
+      "id": 703,
+      "name": "carbink",
+      "generation": 6,
+      "iconAsset": "sprites/703.png",
+      "types": [
+        "rock",
+        "fairy"
+      ]
+    },
+    {
+      "id": 704,
+      "name": "goomy",
+      "generation": 6,
+      "iconAsset": "sprites/704.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 705,
+      "name": "sliggoo",
+      "generation": 6,
+      "iconAsset": "sprites/705.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 706,
+      "name": "goodra",
+      "generation": 6,
+      "iconAsset": "sprites/706.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 707,
+      "name": "klefki",
+      "generation": 6,
+      "iconAsset": "sprites/707.png",
+      "types": [
+        "steel",
+        "fairy"
+      ]
+    },
+    {
+      "id": 708,
+      "name": "phantump",
+      "generation": 6,
+      "iconAsset": "sprites/708.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 709,
+      "name": "trevenant",
+      "generation": 6,
+      "iconAsset": "sprites/709.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 710,
+      "name": "pumpkaboo",
+      "generation": 6,
+      "iconAsset": "sprites/710.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 711,
+      "name": "gourgeist",
+      "generation": 6,
+      "iconAsset": "sprites/711.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 712,
+      "name": "bergmite",
+      "generation": 6,
+      "iconAsset": "sprites/712.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 713,
+      "name": "avalugg",
+      "generation": 6,
+      "iconAsset": "sprites/713.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 714,
+      "name": "noibat",
+      "generation": 6,
+      "iconAsset": "sprites/714.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 715,
+      "name": "noivern",
+      "generation": 6,
+      "iconAsset": "sprites/715.png",
+      "types": [
+        "flying",
+        "dragon"
+      ]
+    },
+    {
+      "id": 716,
+      "name": "xerneas",
+      "generation": 6,
+      "iconAsset": "sprites/716.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 717,
+      "name": "yveltal",
+      "generation": 6,
+      "iconAsset": "sprites/717.png",
+      "types": [
+        "flying",
+        "dark"
+      ]
+    },
+    {
+      "id": 718,
+      "name": "zygarde",
+      "generation": 6,
+      "iconAsset": "sprites/718.png",
+      "types": [
+        "ground",
+        "dragon"
+      ]
+    },
+    {
+      "id": 719,
+      "name": "diancie",
+      "generation": 6,
+      "iconAsset": "sprites/719.png",
+      "types": [
+        "rock",
+        "fairy"
+      ]
+    },
+    {
+      "id": 720,
+      "name": "hoopa",
+      "generation": 6,
+      "iconAsset": "sprites/720.png",
+      "types": [
+        "ghost",
+        "psychic"
+      ]
+    },
+    {
+      "id": 721,
+      "name": "volcanion",
+      "generation": 6,
+      "iconAsset": "sprites/721.png",
+      "types": [
+        "fire",
+        "water"
+      ]
+    },
+    {
+      "id": 722,
+      "name": "rowlet",
+      "generation": 7,
+      "iconAsset": "sprites/722.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 723,
+      "name": "dartrix",
+      "generation": 7,
+      "iconAsset": "sprites/723.png",
+      "types": [
+        "flying",
+        "grass"
+      ]
+    },
+    {
+      "id": 724,
+      "name": "decidueye",
+      "generation": 7,
+      "iconAsset": "sprites/724.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 725,
+      "name": "litten",
+      "generation": 7,
+      "iconAsset": "sprites/725.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 726,
+      "name": "torracat",
+      "generation": 7,
+      "iconAsset": "sprites/726.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 727,
+      "name": "incineroar",
+      "generation": 7,
+      "iconAsset": "sprites/727.png",
+      "types": [
+        "fire",
+        "dark"
+      ]
+    },
+    {
+      "id": 728,
+      "name": "popplio",
+      "generation": 7,
+      "iconAsset": "sprites/728.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 729,
+      "name": "brionne",
+      "generation": 7,
+      "iconAsset": "sprites/729.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 730,
+      "name": "primarina",
+      "generation": 7,
+      "iconAsset": "sprites/730.png",
+      "types": [
+        "water",
+        "fairy"
+      ]
+    },
+    {
+      "id": 731,
+      "name": "pikipek",
+      "generation": 7,
+      "iconAsset": "sprites/731.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 732,
+      "name": "trumbeak",
+      "generation": 7,
+      "iconAsset": "sprites/732.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 733,
+      "name": "toucannon",
+      "generation": 7,
+      "iconAsset": "sprites/733.png",
+      "types": [
+        "normal",
+        "flying"
+      ]
+    },
+    {
+      "id": 734,
+      "name": "yungoos",
+      "generation": 7,
+      "iconAsset": "sprites/734.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 735,
+      "name": "gumshoos",
+      "generation": 7,
+      "iconAsset": "sprites/735.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 736,
+      "name": "grubbin",
+      "generation": 7,
+      "iconAsset": "sprites/736.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 737,
+      "name": "charjabug",
+      "generation": 7,
+      "iconAsset": "sprites/737.png",
+      "types": [
+        "bug",
+        "electric"
+      ]
+    },
+    {
+      "id": 738,
+      "name": "vikavolt",
+      "generation": 7,
+      "iconAsset": "sprites/738.png",
+      "types": [
+        "bug",
+        "electric"
+      ]
+    },
+    {
+      "id": 739,
+      "name": "crabrawler",
+      "generation": 7,
+      "iconAsset": "sprites/739.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 740,
+      "name": "crabominable",
+      "generation": 7,
+      "iconAsset": "sprites/740.png",
+      "types": [
+        "fighting",
+        "ice"
+      ]
+    },
+    {
+      "id": 741,
+      "name": "oricorio",
+      "generation": 7,
+      "iconAsset": "sprites/741.png",
+      "types": [
+        "flying",
+        "fire"
+      ]
+    },
+    {
+      "id": 742,
+      "name": "cutiefly",
+      "generation": 7,
+      "iconAsset": "sprites/742.png",
+      "types": [
+        "bug",
+        "fairy"
+      ]
+    },
+    {
+      "id": 743,
+      "name": "ribombee",
+      "generation": 7,
+      "iconAsset": "sprites/743.png",
+      "types": [
+        "bug",
+        "fairy"
+      ]
+    },
+    {
+      "id": 744,
+      "name": "rockruff",
+      "generation": 7,
+      "iconAsset": "sprites/744.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 745,
+      "name": "lycanroc",
+      "generation": 7,
+      "iconAsset": "sprites/745.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 746,
+      "name": "wishiwashi",
+      "generation": 7,
+      "iconAsset": "sprites/746.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 747,
+      "name": "mareanie",
+      "generation": 7,
+      "iconAsset": "sprites/747.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 748,
+      "name": "toxapex",
+      "generation": 7,
+      "iconAsset": "sprites/748.png",
+      "types": [
+        "poison",
+        "water"
+      ]
+    },
+    {
+      "id": 749,
+      "name": "mudbray",
+      "generation": 7,
+      "iconAsset": "sprites/749.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 750,
+      "name": "mudsdale",
+      "generation": 7,
+      "iconAsset": "sprites/750.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 751,
+      "name": "dewpider",
+      "generation": 7,
+      "iconAsset": "sprites/751.png",
+      "types": [
+        "bug",
+        "water"
+      ]
+    },
+    {
+      "id": 752,
+      "name": "araquanid",
+      "generation": 7,
+      "iconAsset": "sprites/752.png",
+      "types": [
+        "bug",
+        "water"
+      ]
+    },
+    {
+      "id": 753,
+      "name": "fomantis",
+      "generation": 7,
+      "iconAsset": "sprites/753.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 754,
+      "name": "lurantis",
+      "generation": 7,
+      "iconAsset": "sprites/754.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 755,
+      "name": "morelull",
+      "generation": 7,
+      "iconAsset": "sprites/755.png",
+      "types": [
+        "grass",
+        "fairy"
+      ]
+    },
+    {
+      "id": 756,
+      "name": "shiinotic",
+      "generation": 7,
+      "iconAsset": "sprites/756.png",
+      "types": [
+        "grass",
+        "fairy"
+      ]
+    },
+    {
+      "id": 757,
+      "name": "salandit",
+      "generation": 7,
+      "iconAsset": "sprites/757.png",
+      "types": [
+        "poison",
+        "fire"
+      ]
+    },
+    {
+      "id": 758,
+      "name": "salazzle",
+      "generation": 7,
+      "iconAsset": "sprites/758.png",
+      "types": [
+        "poison",
+        "fire"
+      ]
+    },
+    {
+      "id": 759,
+      "name": "stufful",
+      "generation": 7,
+      "iconAsset": "sprites/759.png",
+      "types": [
+        "normal",
+        "fighting"
+      ]
+    },
+    {
+      "id": 760,
+      "name": "bewear",
+      "generation": 7,
+      "iconAsset": "sprites/760.png",
+      "types": [
+        "normal",
+        "fighting"
+      ]
+    },
+    {
+      "id": 761,
+      "name": "bounsweet",
+      "generation": 7,
+      "iconAsset": "sprites/761.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 762,
+      "name": "steenee",
+      "generation": 7,
+      "iconAsset": "sprites/762.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 763,
+      "name": "tsareena",
+      "generation": 7,
+      "iconAsset": "sprites/763.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 764,
+      "name": "comfey",
+      "generation": 7,
+      "iconAsset": "sprites/764.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 765,
+      "name": "oranguru",
+      "generation": 7,
+      "iconAsset": "sprites/765.png",
+      "types": [
+        "normal",
+        "psychic"
+      ]
+    },
+    {
+      "id": 766,
+      "name": "passimian",
+      "generation": 7,
+      "iconAsset": "sprites/766.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 767,
+      "name": "wimpod",
+      "generation": 7,
+      "iconAsset": "sprites/767.png",
+      "types": [
+        "bug",
+        "water"
+      ]
+    },
+    {
+      "id": 768,
+      "name": "golisopod",
+      "generation": 7,
+      "iconAsset": "sprites/768.png",
+      "types": [
+        "bug",
+        "water"
+      ]
+    },
+    {
+      "id": 769,
+      "name": "sandygast",
+      "generation": 7,
+      "iconAsset": "sprites/769.png",
+      "types": [
+        "ground",
+        "ghost"
+      ]
+    },
+    {
+      "id": 770,
+      "name": "palossand",
+      "generation": 7,
+      "iconAsset": "sprites/770.png",
+      "types": [
+        "ground",
+        "ghost"
+      ]
+    },
+    {
+      "id": 771,
+      "name": "pyukumuku",
+      "generation": 7,
+      "iconAsset": "sprites/771.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 772,
+      "name": "type-null",
+      "generation": 7,
+      "iconAsset": "sprites/772.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 773,
+      "name": "silvally",
+      "generation": 7,
+      "iconAsset": "sprites/773.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 774,
+      "name": "minior",
+      "generation": 7,
+      "iconAsset": "sprites/774.png",
+      "types": [
+        "flying",
+        "rock"
+      ]
+    },
+    {
+      "id": 775,
+      "name": "komala",
+      "generation": 7,
+      "iconAsset": "sprites/775.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 776,
+      "name": "turtonator",
+      "generation": 7,
+      "iconAsset": "sprites/776.png",
+      "types": [
+        "fire",
+        "dragon"
+      ]
+    },
+    {
+      "id": 777,
+      "name": "togedemaru",
+      "generation": 7,
+      "iconAsset": "sprites/777.png",
+      "types": [
+        "steel",
+        "electric"
+      ]
+    },
+    {
+      "id": 778,
+      "name": "mimikyu",
+      "generation": 7,
+      "iconAsset": "sprites/778.png",
+      "types": [
+        "ghost",
+        "fairy"
+      ]
+    },
+    {
+      "id": 779,
+      "name": "bruxish",
+      "generation": 7,
+      "iconAsset": "sprites/779.png",
+      "types": [
+        "water",
+        "psychic"
+      ]
+    },
+    {
+      "id": 780,
+      "name": "drampa",
+      "generation": 7,
+      "iconAsset": "sprites/780.png",
+      "types": [
+        "normal",
+        "dragon"
+      ]
+    },
+    {
+      "id": 781,
+      "name": "dhelmise",
+      "generation": 7,
+      "iconAsset": "sprites/781.png",
+      "types": [
+        "ghost",
+        "grass"
+      ]
+    },
+    {
+      "id": 782,
+      "name": "jangmo-o",
+      "generation": 7,
+      "iconAsset": "sprites/782.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 783,
+      "name": "hakamo-o",
+      "generation": 7,
+      "iconAsset": "sprites/783.png",
+      "types": [
+        "fighting",
+        "dragon"
+      ]
+    },
+    {
+      "id": 784,
+      "name": "kommo-o",
+      "generation": 7,
+      "iconAsset": "sprites/784.png",
+      "types": [
+        "fighting",
+        "dragon"
+      ]
+    },
+    {
+      "id": 785,
+      "name": "tapu-koko",
+      "generation": 7,
+      "iconAsset": "sprites/785.png",
+      "types": [
+        "electric",
+        "fairy"
+      ]
+    },
+    {
+      "id": 786,
+      "name": "tapu-lele",
+      "generation": 7,
+      "iconAsset": "sprites/786.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 787,
+      "name": "tapu-bulu",
+      "generation": 7,
+      "iconAsset": "sprites/787.png",
+      "types": [
+        "grass",
+        "fairy"
+      ]
+    },
+    {
+      "id": 788,
+      "name": "tapu-fini",
+      "generation": 7,
+      "iconAsset": "sprites/788.png",
+      "types": [
+        "water",
+        "fairy"
+      ]
+    },
+    {
+      "id": 789,
+      "name": "cosmog",
+      "generation": 7,
+      "iconAsset": "sprites/789.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 790,
+      "name": "cosmoem",
+      "generation": 7,
+      "iconAsset": "sprites/790.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 791,
+      "name": "solgaleo",
+      "generation": 7,
+      "iconAsset": "sprites/791.png",
+      "types": [
+        "steel",
+        "psychic"
+      ]
+    },
+    {
+      "id": 792,
+      "name": "lunala",
+      "generation": 7,
+      "iconAsset": "sprites/792.png",
+      "types": [
+        "ghost",
+        "psychic"
+      ]
+    },
+    {
+      "id": 793,
+      "name": "nihilego",
+      "generation": 7,
+      "iconAsset": "sprites/793.png",
+      "types": [
+        "poison",
+        "rock"
+      ]
+    },
+    {
+      "id": 794,
+      "name": "buzzwole",
+      "generation": 7,
+      "iconAsset": "sprites/794.png",
+      "types": [
+        "fighting",
+        "bug"
+      ]
+    },
+    {
+      "id": 795,
+      "name": "pheromosa",
+      "generation": 7,
+      "iconAsset": "sprites/795.png",
+      "types": [
+        "fighting",
+        "bug"
+      ]
+    },
+    {
+      "id": 796,
+      "name": "xurkitree",
+      "generation": 7,
+      "iconAsset": "sprites/796.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 797,
+      "name": "celesteela",
+      "generation": 7,
+      "iconAsset": "sprites/797.png",
+      "types": [
+        "flying",
+        "steel"
+      ]
+    },
+    {
+      "id": 798,
+      "name": "kartana",
+      "generation": 7,
+      "iconAsset": "sprites/798.png",
+      "types": [
+        "steel",
+        "grass"
+      ]
+    },
+    {
+      "id": 799,
+      "name": "guzzlord",
+      "generation": 7,
+      "iconAsset": "sprites/799.png",
+      "types": [
+        "dragon",
+        "dark"
+      ]
+    },
+    {
+      "id": 800,
+      "name": "necrozma",
+      "generation": 7,
+      "iconAsset": "sprites/800.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 801,
+      "name": "magearna",
+      "generation": 7,
+      "iconAsset": "sprites/801.png",
+      "types": [
+        "steel",
+        "fairy"
+      ]
+    },
+    {
+      "id": 802,
+      "name": "marshadow",
+      "generation": 7,
+      "iconAsset": "sprites/802.png",
+      "types": [
+        "fighting",
+        "ghost"
+      ]
+    },
+    {
+      "id": 803,
+      "name": "poipole",
+      "generation": 7,
+      "iconAsset": "sprites/803.png",
+      "types": [
+        "poison"
+      ]
+    },
+    {
+      "id": 804,
+      "name": "naganadel",
+      "generation": 7,
+      "iconAsset": "sprites/804.png",
+      "types": [
+        "poison",
+        "dragon"
+      ]
+    },
+    {
+      "id": 805,
+      "name": "stakataka",
+      "generation": 7,
+      "iconAsset": "sprites/805.png",
+      "types": [
+        "rock",
+        "steel"
+      ]
+    },
+    {
+      "id": 806,
+      "name": "blacephalon",
+      "generation": 7,
+      "iconAsset": "sprites/806.png",
+      "types": [
+        "ghost",
+        "fire"
+      ]
+    },
+    {
+      "id": 807,
+      "name": "zeraora",
+      "generation": 7,
+      "iconAsset": "sprites/807.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 808,
+      "name": "meltan",
+      "generation": 7,
+      "iconAsset": "sprites/808.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 809,
+      "name": "melmetal",
+      "generation": 7,
+      "iconAsset": "sprites/809.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 810,
+      "name": "grookey",
+      "generation": 8,
+      "iconAsset": "sprites/810.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 811,
+      "name": "thwackey",
+      "generation": 8,
+      "iconAsset": "sprites/811.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 812,
+      "name": "rillaboom",
+      "generation": 8,
+      "iconAsset": "sprites/812.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 813,
+      "name": "scorbunny",
+      "generation": 8,
+      "iconAsset": "sprites/813.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 814,
+      "name": "raboot",
+      "generation": 8,
+      "iconAsset": "sprites/814.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 815,
+      "name": "cinderace",
+      "generation": 8,
+      "iconAsset": "sprites/815.png",
+      "types": [
+        "fire"
+      ]
+    },
+    {
+      "id": 816,
+      "name": "sobble",
+      "generation": 8,
+      "iconAsset": "sprites/816.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 817,
+      "name": "drizzile",
+      "generation": 8,
+      "iconAsset": "sprites/817.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 818,
+      "name": "inteleon",
+      "generation": 8,
+      "iconAsset": "sprites/818.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 819,
+      "name": "skwovet",
+      "generation": 8,
+      "iconAsset": "sprites/819.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 820,
+      "name": "greedent",
+      "generation": 8,
+      "iconAsset": "sprites/820.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 821,
+      "name": "rookidee",
+      "generation": 8,
+      "iconAsset": "sprites/821.png",
+      "types": [
+        "flying"
+      ]
+    },
+    {
+      "id": 822,
+      "name": "corvisquire",
+      "generation": 8,
+      "iconAsset": "sprites/822.png",
+      "types": [
+        "flying"
+      ]
+    },
+    {
+      "id": 823,
+      "name": "corviknight",
+      "generation": 8,
+      "iconAsset": "sprites/823.png",
+      "types": [
+        "flying",
+        "steel"
+      ]
+    },
+    {
+      "id": 824,
+      "name": "blipbug",
+      "generation": 8,
+      "iconAsset": "sprites/824.png",
+      "types": [
+        "bug"
+      ]
+    },
+    {
+      "id": 825,
+      "name": "dottler",
+      "generation": 8,
+      "iconAsset": "sprites/825.png",
+      "types": [
+        "bug",
+        "psychic"
+      ]
+    },
+    {
+      "id": 826,
+      "name": "orbeetle",
+      "generation": 8,
+      "iconAsset": "sprites/826.png",
+      "types": [
+        "bug",
+        "psychic"
+      ]
+    },
+    {
+      "id": 827,
+      "name": "nickit",
+      "generation": 8,
+      "iconAsset": "sprites/827.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 828,
+      "name": "thievul",
+      "generation": 8,
+      "iconAsset": "sprites/828.png",
+      "types": [
+        "dark"
+      ]
+    },
+    {
+      "id": 829,
+      "name": "gossifleur",
+      "generation": 8,
+      "iconAsset": "sprites/829.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 830,
+      "name": "eldegoss",
+      "generation": 8,
+      "iconAsset": "sprites/830.png",
+      "types": [
+        "grass"
+      ]
+    },
+    {
+      "id": 831,
+      "name": "wooloo",
+      "generation": 8,
+      "iconAsset": "sprites/831.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 832,
+      "name": "dubwool",
+      "generation": 8,
+      "iconAsset": "sprites/832.png",
+      "types": [
+        "normal"
+      ]
+    },
+    {
+      "id": 833,
+      "name": "chewtle",
+      "generation": 8,
+      "iconAsset": "sprites/833.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 834,
+      "name": "drednaw",
+      "generation": 8,
+      "iconAsset": "sprites/834.png",
+      "types": [
+        "rock",
+        "water"
+      ]
+    },
+    {
+      "id": 835,
+      "name": "yamper",
+      "generation": 8,
+      "iconAsset": "sprites/835.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 836,
+      "name": "boltund",
+      "generation": 8,
+      "iconAsset": "sprites/836.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 837,
+      "name": "rolycoly",
+      "generation": 8,
+      "iconAsset": "sprites/837.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 838,
+      "name": "carkol",
+      "generation": 8,
+      "iconAsset": "sprites/838.png",
+      "types": [
+        "rock",
+        "fire"
+      ]
+    },
+    {
+      "id": 839,
+      "name": "coalossal",
+      "generation": 8,
+      "iconAsset": "sprites/839.png",
+      "types": [
+        "rock",
+        "fire"
+      ]
+    },
+    {
+      "id": 840,
+      "name": "applin",
+      "generation": 8,
+      "iconAsset": "sprites/840.png",
+      "types": [
+        "grass",
+        "dragon"
+      ]
+    },
+    {
+      "id": 841,
+      "name": "flapple",
+      "generation": 8,
+      "iconAsset": "sprites/841.png",
+      "types": [
+        "grass",
+        "dragon"
+      ]
+    },
+    {
+      "id": 842,
+      "name": "appletun",
+      "generation": 8,
+      "iconAsset": "sprites/842.png",
+      "types": [
+        "grass",
+        "dragon"
+      ]
+    },
+    {
+      "id": 843,
+      "name": "silicobra",
+      "generation": 8,
+      "iconAsset": "sprites/843.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 844,
+      "name": "sandaconda",
+      "generation": 8,
+      "iconAsset": "sprites/844.png",
+      "types": [
+        "ground"
+      ]
+    },
+    {
+      "id": 845,
+      "name": "cramorant",
+      "generation": 8,
+      "iconAsset": "sprites/845.png",
+      "types": [
+        "flying",
+        "water"
+      ]
+    },
+    {
+      "id": 846,
+      "name": "arrokuda",
+      "generation": 8,
+      "iconAsset": "sprites/846.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 847,
+      "name": "barraskewda",
+      "generation": 8,
+      "iconAsset": "sprites/847.png",
+      "types": [
+        "water"
+      ]
+    },
+    {
+      "id": 848,
+      "name": "toxel",
+      "generation": 8,
+      "iconAsset": "sprites/848.png",
+      "types": [
+        "poison",
+        "electric"
+      ]
+    },
+    {
+      "id": 849,
+      "name": "toxtricity",
+      "generation": 8,
+      "iconAsset": "sprites/849.png",
+      "types": [
+        "poison",
+        "electric"
+      ]
+    },
+    {
+      "id": 850,
+      "name": "sizzlipede",
+      "generation": 8,
+      "iconAsset": "sprites/850.png",
+      "types": [
+        "bug",
+        "fire"
+      ]
+    },
+    {
+      "id": 851,
+      "name": "centiskorch",
+      "generation": 8,
+      "iconAsset": "sprites/851.png",
+      "types": [
+        "bug",
+        "fire"
+      ]
+    },
+    {
+      "id": 852,
+      "name": "clobbopus",
+      "generation": 8,
+      "iconAsset": "sprites/852.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 853,
+      "name": "grapploct",
+      "generation": 8,
+      "iconAsset": "sprites/853.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 854,
+      "name": "sinistea",
+      "generation": 8,
+      "iconAsset": "sprites/854.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 855,
+      "name": "polteageist",
+      "generation": 8,
+      "iconAsset": "sprites/855.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 856,
+      "name": "hatenna",
+      "generation": 8,
+      "iconAsset": "sprites/856.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 857,
+      "name": "hattrem",
+      "generation": 8,
+      "iconAsset": "sprites/857.png",
+      "types": [
+        "psychic"
+      ]
+    },
+    {
+      "id": 858,
+      "name": "hatterene",
+      "generation": 8,
+      "iconAsset": "sprites/858.png",
+      "types": [
+        "psychic",
+        "fairy"
+      ]
+    },
+    {
+      "id": 859,
+      "name": "impidimp",
+      "generation": 8,
+      "iconAsset": "sprites/859.png",
+      "types": [
+        "dark",
+        "fairy"
+      ]
+    },
+    {
+      "id": 860,
+      "name": "morgrem",
+      "generation": 8,
+      "iconAsset": "sprites/860.png",
+      "types": [
+        "dark",
+        "fairy"
+      ]
+    },
+    {
+      "id": 861,
+      "name": "grimmsnarl",
+      "generation": 8,
+      "iconAsset": "sprites/861.png",
+      "types": [
+        "dark",
+        "fairy"
+      ]
+    },
+    {
+      "id": 862,
+      "name": "obstagoon",
+      "generation": 8,
+      "iconAsset": "sprites/862.png",
+      "types": [
+        "normal",
+        "dark"
+      ]
+    },
+    {
+      "id": 863,
+      "name": "perrserker",
+      "generation": 8,
+      "iconAsset": "sprites/863.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 864,
+      "name": "cursola",
+      "generation": 8,
+      "iconAsset": "sprites/864.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 865,
+      "name": "sirfetchd",
+      "generation": 8,
+      "iconAsset": "sprites/865.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 866,
+      "name": "mr-rime",
+      "generation": 8,
+      "iconAsset": "sprites/866.png",
+      "types": [
+        "psychic",
+        "ice"
+      ]
+    },
+    {
+      "id": 867,
+      "name": "runerigus",
+      "generation": 8,
+      "iconAsset": "sprites/867.png",
+      "types": [
+        "ground",
+        "ghost"
+      ]
+    },
+    {
+      "id": 868,
+      "name": "milcery",
+      "generation": 8,
+      "iconAsset": "sprites/868.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 869,
+      "name": "alcremie",
+      "generation": 8,
+      "iconAsset": "sprites/869.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 870,
+      "name": "falinks",
+      "generation": 8,
+      "iconAsset": "sprites/870.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 871,
+      "name": "pincurchin",
+      "generation": 8,
+      "iconAsset": "sprites/871.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 872,
+      "name": "snom",
+      "generation": 8,
+      "iconAsset": "sprites/872.png",
+      "types": [
+        "bug",
+        "ice"
+      ]
+    },
+    {
+      "id": 873,
+      "name": "frosmoth",
+      "generation": 8,
+      "iconAsset": "sprites/873.png",
+      "types": [
+        "bug",
+        "ice"
+      ]
+    },
+    {
+      "id": 874,
+      "name": "stonjourner",
+      "generation": 8,
+      "iconAsset": "sprites/874.png",
+      "types": [
+        "rock"
+      ]
+    },
+    {
+      "id": 875,
+      "name": "eiscue",
+      "generation": 8,
+      "iconAsset": "sprites/875.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 876,
+      "name": "indeedee",
+      "generation": 8,
+      "iconAsset": "sprites/876.png",
+      "types": [
+        "normal",
+        "psychic"
+      ]
+    },
+    {
+      "id": 877,
+      "name": "morpeko",
+      "generation": 8,
+      "iconAsset": "sprites/877.png",
+      "types": [
+        "electric",
+        "dark"
+      ]
+    },
+    {
+      "id": 878,
+      "name": "cufant",
+      "generation": 8,
+      "iconAsset": "sprites/878.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 879,
+      "name": "copperajah",
+      "generation": 8,
+      "iconAsset": "sprites/879.png",
+      "types": [
+        "steel"
+      ]
+    },
+    {
+      "id": 880,
+      "name": "dracozolt",
+      "generation": 8,
+      "iconAsset": "sprites/880.png",
+      "types": [
+        "electric",
+        "dragon"
+      ]
+    },
+    {
+      "id": 881,
+      "name": "arctozolt",
+      "generation": 8,
+      "iconAsset": "sprites/881.png",
+      "types": [
+        "electric",
+        "ice"
+      ]
+    },
+    {
+      "id": 882,
+      "name": "dracovish",
+      "generation": 8,
+      "iconAsset": "sprites/882.png",
+      "types": [
+        "water",
+        "dragon"
+      ]
+    },
+    {
+      "id": 883,
+      "name": "arctovish",
+      "generation": 8,
+      "iconAsset": "sprites/883.png",
+      "types": [
+        "water",
+        "ice"
+      ]
+    },
+    {
+      "id": 884,
+      "name": "duraludon",
+      "generation": 8,
+      "iconAsset": "sprites/884.png",
+      "types": [
+        "steel",
+        "dragon"
+      ]
+    },
+    {
+      "id": 885,
+      "name": "dreepy",
+      "generation": 8,
+      "iconAsset": "sprites/885.png",
+      "types": [
+        "ghost",
+        "dragon"
+      ]
+    },
+    {
+      "id": 886,
+      "name": "drakloak",
+      "generation": 8,
+      "iconAsset": "sprites/886.png",
+      "types": [
+        "ghost",
+        "dragon"
+      ]
+    },
+    {
+      "id": 887,
+      "name": "dragapult",
+      "generation": 8,
+      "iconAsset": "sprites/887.png",
+      "types": [
+        "ghost",
+        "dragon"
+      ]
+    },
+    {
+      "id": 888,
+      "name": "zacian",
+      "generation": 8,
+      "iconAsset": "sprites/888.png",
+      "types": [
+        "fairy"
+      ]
+    },
+    {
+      "id": 889,
+      "name": "zamazenta",
+      "generation": 8,
+      "iconAsset": "sprites/889.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 890,
+      "name": "eternatus",
+      "generation": 8,
+      "iconAsset": "sprites/890.png",
+      "types": [
+        "poison",
+        "dragon"
+      ]
+    },
+    {
+      "id": 891,
+      "name": "kubfu",
+      "generation": 8,
+      "iconAsset": "sprites/891.png",
+      "types": [
+        "fighting"
+      ]
+    },
+    {
+      "id": 892,
+      "name": "urshifu",
+      "generation": 8,
+      "iconAsset": "sprites/892.png",
+      "types": [
+        "fighting",
+        "dark"
+      ]
+    },
+    {
+      "id": 893,
+      "name": "zarude",
+      "generation": 8,
+      "iconAsset": "sprites/893.png",
+      "types": [
+        "grass",
+        "dark"
+      ]
+    },
+    {
+      "id": 894,
+      "name": "regieleki",
+      "generation": 8,
+      "iconAsset": "sprites/894.png",
+      "types": [
+        "electric"
+      ]
+    },
+    {
+      "id": 895,
+      "name": "regidrago",
+      "generation": 8,
+      "iconAsset": "sprites/895.png",
+      "types": [
+        "dragon"
+      ]
+    },
+    {
+      "id": 896,
+      "name": "glastrier",
+      "generation": 8,
+      "iconAsset": "sprites/896.png",
+      "types": [
+        "ice"
+      ]
+    },
+    {
+      "id": 897,
+      "name": "spectrier",
+      "generation": 8,
+      "iconAsset": "sprites/897.png",
+      "types": [
+        "ghost"
+      ]
+    },
+    {
+      "id": 898,
+      "name": "calyrex",
+      "generation": 8,
+      "iconAsset": "sprites/898.png",
+      "types": [
+        "grass",
+        "psychic"
+      ]
     }
   ]
 }

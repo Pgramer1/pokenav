@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Pallet, useScrollProgress, type NavConfig } from '@devanshsoni/pallet';
+import { Picker } from './Picker';
 
 /**
  * Live demo for the four bundled sprites.
@@ -41,6 +42,14 @@ export default function Home() {
         connected by a dotted line, each showing a pixel-art sprite for a page or section.
       </p>
 
+      <Picker />
+
+      <h2 className="section" id="variants">Variants</h2>
+      <p className="hint">
+        Everything below is the same component under different theme settings. Click a node
+        to change the active route. Every color comes from one accent value.
+      </p>
+
       <div className="controls">
         <span className="controlsLabel">accentColor</span>
         {ACCENTS.map((color) => (
@@ -56,12 +65,7 @@ export default function Home() {
         ))}
       </div>
 
-      <p className="hint">
-        Click a node to change the active route. Every color comes from that one accent
-        value — nothing is hardcoded.
-      </p>
-
-      <h2 className="section" id="trail-path">Trail path</h2>
+      <h3 className="section" id="trail-path">Trail path</h3>
       <div className="demos" onClick={capture}>
         <section className="demo">
           <h3>
@@ -120,7 +124,7 @@ export default function Home() {
         </section>
       </div>
 
-      <h2 className="section" id="horizontal">Horizontal orientation</h2>
+      <h3 className="section" id="horizontal">Horizontal orientation</h3>
       <p className="hint">
         Labels sit below the node so the trail never runs through them. <code>position</code>
         stays independent — it controls which end the trail packs to.
@@ -169,7 +173,7 @@ export default function Home() {
         </section>
       </div>
 
-      <h2 className="section" id="scroll-fill">Scroll-linked trail fill</h2>
+      <h3 className="section" id="scroll-fill">Scroll-linked trail fill</h3>
       <p className="hint">
         Scroll the page — the trail fills continuously in <code>accentColor</code>, and the
         highlight travels to whichever node the fill has reached. Progress is{' '}
@@ -223,7 +227,7 @@ export default function Home() {
         </section>
       </div>
 
-      <h2 className="section">Custom sprites, no Pokémon</h2>
+      <h3 className="section">Custom sprites, no Pokémon</h3>
       <p className="hint">
         Every item takes a <code>spriteUrl</code>, so the component works with entirely your
         own artwork and never touches the bundled catalogue.

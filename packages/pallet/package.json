@@ -31,6 +31,7 @@
     "dist",
     "sprites",
     "catalogue.json",
+    "sprite-import.mjs",
     "README.md"
   ],
   "scripts": {

@@ -81,9 +81,11 @@ export interface CatalogueEntry {
   id: number;
   /** Lowercase species name, e.g. `"bulbasaur"`. Used in alt text. */
   name: string;
+  /** Generation the species was introduced in, 1–8. What the picker filters on. */
+  generation: number;
   /** Path to the sprite file, relative to the package root. */
   iconAsset: string;
-  /** Pokémon types, e.g. `["grass", "poison"]`. For picker filtering on the docs site. */
+  /** Pokémon types, e.g. `["grass", "poison"]`. */
   types: string[];
 }
 

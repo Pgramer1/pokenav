@@ -56,7 +56,7 @@ type NavConfig = {
   items: Array<{
     label: string;
     href: string;
-    pokemonId?: number;   // pulls from the bundled curated catalogue
+    pokemonId?: number;   // pulls from the bundled catalogue (898 sprites, lazy-loaded)
     spriteUrl?: string;   // escape hatch: any custom sprite/icon, no Pokémon required
   }>;
   theme?: {
@@ -183,13 +183,107 @@ npm workspaces (no Turborepo needed at this scale):
   assets are fan-derived Pokémon artwork, not original work, using the same fan-tool
   precedent framing PokéAPI relies on — linked from the README, not buried.
 
-## 7. Sprite catalogue & picker UI
-- Curate a subset of sprites (starters + fan favorites + anything that stays legible at
-  icon size) rather than shipping all ~1000 Pokémon.
-- Local catalogue: `{ id, name, iconAsset, types }`.
-- Build an interactive picker on the docs site: searchable grid → click a nav item → click
-  a Pokémon → live preview updates → copy out the generated `NavConfig`. This picker is
-  also the primary marketing demo for the launch.
+## 7. Sprite catalogue & picker UI — done
+
+### Scope: complete, not curated
+
+**This supersedes the earlier "curate a subset" plan.** The catalogue ships every Pokémon
+with a consistent icon-style sprite in the source: **898 entries, National Dex ids 1–898,
+generations 1–8, no gaps.** Curation was the right call when every sprite cost bundle
+weight for every consumer; once sprites load lazily, an unused entry costs a row of JSON,
+so the argument for hand-picking evaporated. The picker's search and generation filter do
+the narrowing that curation was going to do, and they do it per consumer instead of once
+for everyone.
+
+- Entry shape is `{ id, name, generation, iconAsset, types }`. `generation` is what the
+  picker filters on.
+- `catalogue.json` is complete and eagerly bundled — 148KB raw, ~13KB gzipped. It is text
+  data the picker needs in full, and lazy-loading it would buy little.
+
+### Sourcing
+
+- Source: `PokeAPI/sprites`, `sprites/pokemon/versions/generation-viii/icons`. Rebuilt any
+  time by `node scripts/build-catalogue.mjs`.
+- **127 ids skipped (899–1025):** the Legends: Arceus additions and all of generation 9
+  have no icon-style sprite in that set, and no `generation-ix` icons directory exists.
+  Per the "skip rather than mismatch" rule they are omitted rather than filled in from a
+  different sprite style. If the source adds them, re-running the script picks them up.
+- **Sprites are trimmed of transparent padding on download.** The source icons are a
+  uniform 68x56 canvas; the artwork inside is much smaller and off-center. Left untrimmed,
+  the sprite normalization in §4 scales the *canvas* to fit the node and every sprite
+  renders tiny. Trimming was verified against the four sprites already in the repo — all
+  four reproduce at exactly their existing dimensions, which also confirms the source.
+- Metadata comes from PokeAPI's aggregate `generation` and `type` endpoints: ~29 requests
+  instead of ~900. Downloads run in batches of 24 with a pause between them.
+- Alternate forms (ids ≥ 10000, and named variants like `201-b.png`) are skipped. The
+  catalogue is keyed by National Dex id, which those would collide on.
+
+### Lazy sprite loading
+
+Sprites are loaded with a dynamic `import()` per id, never a static lookup table. A static
+table inlines all 898 sprites into the package's main chunk and ships them to every
+consumer regardless of which handful their `NavConfig` names.
+
+Getting this to survive the build took three attempts, and the shape of the final answer is
+not obvious:
+
+- A `dataurl` loader inlined all 898 into the **CJS** bundle — 980KB — because esbuild
+  cannot code-split CJS. ESM split fine; CJS silently did not.
+- `external: ['*.png']` does not work. esbuild expands a dynamic-import glob at resolve
+  time, *before* external patterns are matched: it emitted a JS chunk and a copied PNG for
+  every sprite (2704 files, 5.8MB) and leaked a literal `import("../sprites/**/*.png")`
+  into the output.
+- What works: the import lives in **`sprite-import.mjs`, published unbundled** and
+  externalized by an esbuild plugin. Its template literal reaches the consumer's bundler
+  intact, which is the form Webpack, Vite, Next and Rollup all understand.
+
+**Measured, on the docs site's production build (config naming 4 of 898 sprites):**
+
+| | result |
+| --- | --- |
+| Sprite bytes in any JS bundle | none |
+| JS actually downloaded | 198KB across 11 files, of 906 chunks / 4.7MB on disk |
+| Sprites actually fetched | 4 — exactly the ids in the config |
+| Package `dist/` | 8 files, entries 156KB, no sprite data |
+
+**What this does not achieve, and cannot:** the consumer's *build output* still contains
+all 898 sprites as separately-loadable assets. No bundler can know which numeric ids a
+runtime config will name, so it must emit the whole context. Those assets are never
+downloaded — only the referenced ones are — but they do occupy deploy space. Eliminating
+them entirely requires the sprite choice to be statically visible, which is exactly what
+the `spriteUrl` escape hatch already allows:
+
+```ts
+import eevee from '@devanshsoni/pallet/sprites/133.png';
+items: [{ label: 'Home', href: '/', spriteUrl: eevee }]
+```
+
+That form tree-shakes perfectly. `pokemonId` trades it for zero-config convenience.
+
+One consequence worth stating: because sprites resolve asynchronously, they are absent from
+server-rendered HTML and appear after hydration. Nodes render label-only until then, so the
+trail keeps its shape either way. That is the cost of not inlining them.
+
+Bundlers disagree on what an image import yields — Webpack, Vite and Rollup return a URL
+string, Next returns a `StaticImageData` object — so the loader normalizes both. Assuming a
+string made every sprite silently missing in Next, which is how that was found.
+
+### Picker UI
+
+The primary "try it" experience at the top of the docs site: pick a slot → choose a sprite →
+copy the config, with a live `Pallet` preview beside it and ring/trail/axis/accent controls.
+
+- **Generation filter is tabs, not a dropdown.** There are only 8 generations, so tabs fit
+  on one row, cost one click instead of two, and show the whole range at a glance. A
+  dropdown would hide the axis the catalogue is organised by.
+- **Grid cells load their sprite via IntersectionObserver.** Rendering all 898 at once and
+  importing eagerly would fire 898 chunk requests on mount — precisely the problem the lazy
+  API exists to prevent. Verified: loading the page fetches 24 sprites, the visible cells
+  plus the preview, not 898. One shared observer serves every cell.
+- **Choosing a sprite advances to the next slot**, so filling four items is four clicks
+  rather than eight.
+- Slot labels and hrefs are editable inline, and items can be added or removed, so the
+  copied config is genuinely the consumer's rather than a fixed sample.
 
 ## 8. Build phases
 1. **Prototype** (done on devanshsoni.com) — hardcoded 4-node vertical nav, real sprites
@@ -202,8 +296,8 @@ npm workspaces (no Turborepo needed at this scale):
 4. **Theme variants** (done) — accent-color theming, pokéball ring style, wavy trail path,
    horizontal orientation, scroll-linked trail fill. Wavy landed as its own rendering
    approach (measured SVG path vs CSS border), as scoped.
-5. **Catalogue + picker** — build the sprite catalogue and the interactive picker UI on
-   `/apps/docs`. **This is the next step.**
+5. **Catalogue + picker** (done) — full 898-sprite catalogue, lazy sprite loading, and the
+   interactive picker UI on `/apps/docs`. See §7.
 6. **Publish** — npm package, README with GIFs, docs site live, launch posts
    (r/webdev, r/reactjs, Show HN).
 
@@ -212,17 +306,21 @@ npm workspaces (no Turborepo needed at this scale):
   the project gains real traction — precedent tolerance isn't a legal guarantee.
 - **Cries/audio**: deliberately excluded from v1 and v1.x; separate decision required
   before ever bundling.
-- **Catalogue size vs curation quality**: better to ship a smaller, well-chosen set than
-  a comprehensive one that includes sprites that read poorly at icon scale.
+- **Catalogue size vs curation quality**: resolved by shipping the complete set with lazy
+  loading and letting the picker's search and generation filter do the narrowing — see §7.
+  Unused entries no longer cost consumers anything but a row of JSON.
 
 ## 10. Status
-Phases 1–4 are done. The workspace is scaffolded, the component is built against this spec,
-and all theme variants have landed: accent-color theming, both ring styles, both trail
-paths, both orientations, and scroll-linked trail fill.
+Phases 1–5 are done. The workspace is scaffolded, the component is built against this spec,
+all theme variants have landed (accent-color theming, both ring styles, both trail paths,
+both orientations, scroll-linked trail fill), and the complete 898-sprite catalogue ships
+with lazy loading behind the interactive picker on `/apps/docs`.
 
-Four sprites are bundled (magnemite, eevee, porygon, sudowoodo) as a working set, not a
-curated one. Next concrete step is phase 5: curate the sprite catalogue and build the
-picker UI on `/apps/docs`.
+Next concrete step is phase 6, publish. Open items for it: the npm package name
+(`@devanshsoni/pallet` — the bare `pallet` is taken), README GIFs, and a hosting target for
+the docs site.
 
 Still deliberately unbuilt: the capture-flash route transition (§4, nice-to-have) and
-anything audio (§2, §9).
+anything audio (§2, §9). Generation 9 sprites are absent from the upstream source rather
+than skipped by choice — re-running `scripts/build-catalogue.mjs` picks them up if that
+changes (§7).

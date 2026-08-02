@@ -148,3 +148,365 @@ code {
   font-size: 0.8rem;
   font-weight: 500;
 }
+
+/* ------------------------------------------------------------------ picker ---- */
+/*
+ * Still no component selectors here — the picker is docs-site chrome. Everything that
+ * styles the nav itself lives in the package.
+ */
+
+.picker {
+  margin: 2rem 0 3.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+.pickerHeading {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pickerHeading:first-child {
+  margin-top: 0;
+}
+
+.pickerHeading em {
+  font-style: normal;
+  color: var(--fg);
+}
+
+.pickerMain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.pickerLeft {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.pickerPreview {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.previewStage {
+  display: flex;
+  justify-content: center;
+  padding: 1.75rem 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  min-height: 20rem;
+}
+
+.previewStage[data-orientation='horizontal'] {
+  align-items: center;
+  min-height: 12rem;
+}
+
+/* -- slots -- */
+
+.slots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.slots li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1 1 10rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.slot[data-selected] {
+  border-color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+}
+
+.slotSprite {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.slotText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.slotLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.slotMeta {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.slotEdit {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.slotInput {
+  width: 6.5rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.slotRemove,
+.addItem {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+}
+
+.slotRemove {
+  width: 1.9rem;
+  height: 1.9rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.slotRemove:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.addItem {
+  margin-top: 0.6rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* -- style controls -- */
+
+.styleControls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.controlRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlRow .controlsLabel {
+  width: 3.5rem;
+  flex: none;
+}
+
+.toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toggleOption {
+  padding: 0.3rem 0.7rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.toggleOption[data-selected] {
+  background: color-mix(in srgb, var(--fg) 12%, transparent);
+  color: var(--fg);
+}
+
+/* -- grid -- */
+
+.gridControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.search {
+  flex: 1 1 18rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: inherit;
+  font: inherit;
+}
+
+.genTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.genTab {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.genTab[data-selected] {
+  border-color: var(--fg);
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.resultCount {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 0.4rem;
+  max-height: 26rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.gridItem {
+  padding: 0.4rem 0.2rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.gridItem:hover {
+  border-color: var(--border);
+  background: var(--panel);
+}
+
+.gridItem[data-chosen] {
+  border-color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+}
+
+.thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.thumbImg,
+.thumbSkeleton {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.thumbSkeleton {
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--muted) 15%, transparent);
+}
+
+.thumbName {
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* -- output -- */
+
+.output {
+  position: relative;
+}
+
+.json {
+  margin: 0;
+  padding: 1rem;
+  max-height: 18rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.copy {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+}

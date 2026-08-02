@@ -189,11 +189,36 @@ its corners are the binding constraint. Violate it and the ring crops the artwor
 Set `spriteUrl` on every item and the bundled catalogue is never touched — you get the
 route-map navigation with your own art and none of the licensing question.
 
-## Sprite assets
+## Sprite catalogue
 
-Sprites are inlined as `data:` URIs at build time, so the package is self-contained: no
-PokéAPI call, no CDN, no bundler configuration. The raw files are also published under
-`@devanshsoni/pallet/sprites/*` if you'd rather serve them yourself.
+898 sprites ship with the package — National Dex ids 1–898, generations 1–8. Generation 9
+has no icon-style sprite in the upstream source, so those ids are absent rather than filled
+in with a mismatched style.
+
+Sprites are loaded with a dynamic `import()` per id, so **no sprite data lands in your JS
+bundle** and the browser only fetches the ones your `NavConfig` actually names. On the docs
+site, a config naming 4 sprites downloads exactly 4 of the 898.
+
+One caveat worth knowing: your bundler still *emits* all 898 as separately-loadable assets,
+because it cannot know which numeric ids a runtime config will use. They are never
+downloaded, but they occupy build output. If that matters, import the sprite directly and
+pass it as `spriteUrl` — that form is statically analyzable and tree-shakes completely:
+
+```tsx
+import eevee from '@devanshsoni/pallet/sprites/133.png';
+
+items: [{ label: 'Home', href: '/', spriteUrl: eevee }];
+```
+
+Because sprites resolve asynchronously, they are absent from server-rendered HTML and
+appear after hydration; nodes render label-only until then.
+
+`catalogue.json` (`{ id, name, generation, iconAsset, types }`) is exported for building
+your own picker:
+
+```ts
+import { catalogue } from '@devanshsoni/pallet';
+```
 
 Bundled sprites are fan-derived Pokémon artwork, not original work, and are **not** covered
 by this package's MIT license. See
