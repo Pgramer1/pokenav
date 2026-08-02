@@ -120,8 +120,14 @@ visible paths deliberately have no `pathLength`, keeping their dots at constant 
 **The wavy path runs center-to-center and is masked, not trimmed.** A second mask punches a
 circle out at each node so the trail stops at the ring edge instead of crossing the sprite.
 Don't "simplify" this by shortening the path to the ring edges — running center-to-center is
-what keeps segment endpoints exactly on node centers and the tangents continuous. The punch
-radius is measured, so it tracks the active node's scale for free.
+what keeps segment endpoints exactly on node centers and the tangents continuous.
+
+**The punch radius comes from `offsetWidth`, not the bounding rect.** It must exclude the
+highlighted node's scale transform. Transforms don't trigger `ResizeObserver` and haven't
+settled mid-transition, so a rect-derived radius goes stale the moment the highlight moves.
+The errors are also asymmetric: too small is invisible (the ring band paints over the trail
+and covers it), too large leaves a visible gap. Centers still come from the rect — scaling
+is about the center, so that part is unaffected.
 
 **The focus ring uses `outline`, not `box-shadow`.** The active and scroll-reached glows are
 box-shadows with higher specificity than any reasonable focus selector, so a box-shadow

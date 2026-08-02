@@ -139,10 +139,13 @@ import { Pallet, useScrollProgress } from '@devanshsoni/pallet';
 `prefers-reduced-motion` the fill still tracks scroll, it just stops animating between
 values — it's a position readout, so removing it would remove information.
 
-With `scrollProgress` set, the ring glow travels with the fill: as the trail reaches each
-node, that node lights up and is marked `data-reached`. Scale stays on the route-active
-node, so size answers "which route am I on" while the glow answers "how far has the trail
-got". Without `scrollProgress`, the glow stays on the active node as before.
+With `scrollProgress` set, the highlight travels with the fill: exactly one node is lit at a
+time, and it moves as the trail reaches each node (marked `data-reached`). Ring, glow, scale
+and label weight move together, so a node the trail has passed goes back to looking like any
+other — the route-active node hands its highlight over completely rather than competing with
+it. The route is still exposed as `aria-current="page"` for assistive technology.
+
+Without `scrollProgress`, the highlight stays on the active node as before.
 
 ### Orientation and position
 

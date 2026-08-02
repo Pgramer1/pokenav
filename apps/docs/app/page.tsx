@@ -171,8 +171,8 @@ export default function Home() {
 
       <h2 className="section" id="scroll-fill">Scroll-linked trail fill</h2>
       <p className="hint">
-        Scroll the page — the trail fills continuously in <code>accentColor</code>, on top of
-        the route-based active node rather than replacing it. Progress is{' '}
+        Scroll the page — the trail fills continuously in <code>accentColor</code>, and the
+        highlight travels to whichever node the fill has reached. Progress is{' '}
         <code>{scrollProgress.toFixed(2)}</code>, supplied by <code>useScrollProgress()</code>
         , not read inside the component.
       </p>

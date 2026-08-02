@@ -4,9 +4,9 @@ export interface TrailPoint {
   x: number;
   y: number;
   /**
-   * Rendered outer radius of the node's ring. Measured rather than derived so it picks up
-   * the active node's scale transform, and so the trail is punched out at each node's real
-   * on-screen size.
+   * Outer radius of the node's ring in layout pixels, deliberately excluding any scale
+   * transform. See the note in `measure` for why the untransformed value is the correct
+   * one here.
    */
   r: number;
 }
@@ -72,9 +72,25 @@ export function useTrailGeometry(enabled: boolean, count: number): TrailGeometry
       if (!el) return;
       const rect = el.getBoundingClientRect();
       points.push({
+        // Scaling happens about the center, so the transformed rect still yields the right
+        // center — but not the right radius.
         x: rect.left - box.left + rect.width / 2,
         y: rect.top - box.top + rect.height / 2,
-        r: rect.width / 2,
+        /*
+         * `offsetWidth` is the layout width, before the highlighted node's scale transform.
+         * Using it instead of the transformed rect is deliberate on two counts.
+         *
+         * Correctness: transforms do not trigger ResizeObserver, and a transform mid
+         * transition has not settled, so a transform-derived radius goes stale the moment
+         * the highlight moves between nodes and never recovers.
+         *
+         * Asymmetric failure: the two errors are not equally bad. A punch slightly smaller
+         * than the scaled ring is invisible, because the ring band paints above this SVG
+         * and covers the difference. A punch slightly larger leaves a visible gap between
+         * the ring and the start of the trail. The untransformed radius can only ever err
+         * in the harmless direction.
+         */
+        r: el.offsetWidth / 2,
       });
     }
 

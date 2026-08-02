@@ -140,14 +140,24 @@ novelty — someone with zero interest in Pokémon can still use it with their o
     The mask is needed because the visible path is already using its dash array to look
     dotted — the two cannot share it. The mask path carries `pathLength="1"`, which
     renormalizes its dash units so the reveal is length-independent.
-  - **The glow travels with the fill.** When `scrollProgress` is supplied, the ring glow
-    rides the trail instead of sitting on the route-active node: as the fill arrives at a
-    node, that node lights up. The node is marked `data-reached`, chosen with `floor`
-    rather than `round` so the glow marks where the trail *has got to*, never a node the
-    fill is still travelling toward. Scale stays on the route-active node alone, so size
-    still answers "which route am I on" while the glow answers "how far has the trail
-    got"; when both land on the same node it simply gets both. Without `scrollProgress`
-    nothing changes — the glow stays on the active node as before.
+  - **The highlight travels with the fill.** When `scrollProgress` is supplied, emphasis
+    belongs entirely to the node the trail has reached (`data-reached`): exactly one node
+    is lit at a time and it moves with the fill. Ring, glow, scale and label weight all
+    travel together, so a node the trail has left behind returns to looking like any
+    other. The route-active node hands its highlight over completely rather than keeping
+    part of it — two half-emphasised nodes read as two competing indicators, not as two
+    different kinds of information. The route survives as `aria-current="page"` on the
+    active link, so assistive technology keeps what the visual treatment gives up.
+    `data-reached` is chosen with `floor` rather than `round`, so the highlight marks
+    where the trail *has got to*, never a node the fill is still travelling toward.
+    Without `scrollProgress` nothing changes — the highlight stays on the active node.
+  - **The node punch uses the untransformed radius.** Since the highlight moves, so does
+    the scale transform. Transforms do not trigger `ResizeObserver` and have not settled
+    mid-transition, so a transform-derived punch radius goes stale as soon as the
+    highlight moves and never recovers. The layout radius is stable, and the two failure
+    directions are not symmetric: a punch slightly smaller than a scaled ring is invisible
+    because the ring band paints above the trail and covers the difference, while a punch
+    slightly larger leaves a visible gap. The untransformed value can only err harmlessly.
   - **Reduced motion suppresses the transition, not the fill.** The fill is a position
     readout, so removing it would remove information. It updates in step with scroll as a
     static state instead of easing toward a target.

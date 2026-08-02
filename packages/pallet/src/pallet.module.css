@@ -336,21 +336,43 @@
 /* -- travelling glow (scroll fill only) ------------------------------------ */
 
 /*
- * When the consumer drives scroll fill, the glow rides the trail rather than sitting on the
- * route-active node: as the fill reaches each node, that node lights up.
+ * When the consumer drives scroll fill, emphasis belongs entirely to the node the trail has
+ * reached: exactly one node is lit at a time and it travels with the fill. The route-active
+ * node hands its highlight over completely — ring, glow, scale and label all move together,
+ * so a node the trail has left behind returns to looking like any other.
  *
- * The two states stay readable as separate things. Scale is left on the route-active node
- * alone, so "which route am I on" is still answered by size, while "how far has the trail
- * got" is answered by the glow. When both land on the same node it simply gets both.
+ * The route is still exposed as `aria-current="page"` on the active link, so assistive
+ * technology keeps the information the visual treatment gives up.
+ *
+ * The `data-active` rules below re-state the inactive values rather than unsetting them,
+ * because they are overriding earlier rules of equal specificity. The `data-reached` rules
+ * come after them on purpose: when one node is both active and reached, reached wins.
  *
  * None of this applies without `scrollProgress` — the default nav is untouched.
  */
 .nav[data-scroll-fill] .node[data-active] .ring {
   box-shadow: none;
+  transform: none;
+}
+
+.nav[data-scroll-fill][data-ring-style='solid'] .node[data-active] .ring::before {
+  border-width: var(--pallet-ring-thickness);
+  border-color: color-mix(in srgb, var(--pallet-accent) 14%, transparent);
+}
+
+.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-active] .ring::before,
+.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-active] .ring::after {
+  opacity: 0.4;
+}
+
+.nav[data-scroll-fill] .node[data-active] .label {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  font-weight: 500;
 }
 
 .nav[data-scroll-fill] .node[data-reached] .ring {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
+  transform: scale(1.08);
 }
 
 .nav[data-scroll-fill][data-ring-style='solid'] .node[data-reached] .ring::before {
@@ -361,6 +383,11 @@
 .nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::before,
 .nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::after {
   opacity: 1;
+}
+
+.nav[data-scroll-fill] .node[data-reached] .label {
+  color: currentColor;
+  font-weight: 700;
 }
 
 /* --------------------------------------------------------------- sprite ---- */
