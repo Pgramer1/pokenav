@@ -4,14 +4,15 @@ A Pokémon route-map style navigation component for React — a trail of circula
 connected by a dotted line, each showing a pixel-art sprite, like walking a route on the
 world map.
 
-> **Status: pre-alpha scaffold.** The API surface below is real and stable-ish; the
-> rendering is a skeleton. Finished visuals, bundled sprites, and the sprite catalogue are
-> still being ported over. Not published to npm yet.
+> **Status: pre-alpha.** The config API is settled and the base look is in place. The
+> catalogue currently bundles four sprites. Theme variants (`ringStyle: 'pokeball'`,
+> `trailPath: 'wavy'`) and horizontal orientation are declared but not implemented. Not
+> published to npm yet.
 
 ## Install
 
 ```bash
-npm install pallet
+npm install @devanshsoni/pallet
 ```
 
 `react` and `react-dom` (>=18) are peer dependencies.
@@ -19,14 +20,15 @@ npm install pallet
 ## Usage
 
 ```tsx
-import { Pallet, type NavConfig } from 'pallet';
+import { Pallet, type NavConfig } from '@devanshsoni/pallet';
+import '@devanshsoni/pallet/styles.css';
 
 const config: NavConfig = {
   position: 'left',
   orientation: 'vertical',
   items: [
-    { label: 'Home', href: '/', pokemonId: 1 },
-    { label: 'Work', href: '/work', pokemonId: 4 },
+    { label: 'Home', href: '/', pokemonId: 133 },
+    { label: 'Work', href: '/work', pokemonId: 81 },
     { label: 'Contact', href: '/contact', spriteUrl: '/icons/custom.png' },
   ],
   theme: {
@@ -37,6 +39,23 @@ const config: NavConfig = {
 
 export function Nav() {
   return <Pallet {...config} />;
+}
+```
+
+Import the stylesheet once, anywhere in your app (in Next.js App Router, your root
+layout). It's plain CSS with scoped class names — no Tailwind, no framework coupling, and
+nothing to configure.
+
+## Styling
+
+The rendered markup carries `data-*` attributes that are the **stable public contract** for
+external styling — `data-pallet`, `data-position`, `data-orientation`, `data-pallet-node`,
+`data-active`, `data-pallet-ring`, `data-pallet-sprite`, `data-pallet-label`. Target those
+rather than the internal class names:
+
+```css
+[data-pallet-node][data-active] [data-pallet-ring] {
+  border-style: double;
 }
 ```
 
@@ -72,7 +91,7 @@ Without `activeHref`, the component falls back to `window.location.pathname` aft
 | ----------- | -------- | ------------------------------------------------------------ |
 | `label`     | `string` | Visible label, and the section half of the sprite alt text.  |
 | `href`      | `string` | Compared against the active route.                           |
-| `pokemonId` | `number` | National Dex id, resolved against the bundled catalogue.      |
+| `pokemonId` | `number` | National Dex id, resolved against the bundled catalogue. Currently 81, 133, 137, 185. |
 | `spriteUrl` | `string` | Any custom image. Wins over `pokemonId`, skips the catalogue. |
 
 ### `NavTheme`
@@ -102,6 +121,10 @@ Set `spriteUrl` on every item and the bundled catalogue is never touched — you
 route-map navigation with your own art and none of the licensing question.
 
 ## Sprite assets
+
+Sprites are inlined as `data:` URIs at build time, so the package is self-contained: no
+PokéAPI call, no CDN, no bundler configuration. The raw files are also published under
+`@devanshsoni/pallet/sprites/*` if you'd rather serve them yourself.
 
 Bundled sprites are fan-derived Pokémon artwork, not original work, and are **not** covered
 by this package's MIT license. See

@@ -1,0 +1,169 @@
+/*
+ * Base stylesheet for the trail. Self-contained plain CSS Modules — no Tailwind, no
+ * framework-coupled styling — so it works in any consumer app without their config.
+ *
+ * Every color derives from --pallet-accent (PALLET-PLAN.md §4). Nothing here hardcodes a
+ * hue. Labels inherit the consumer's text color so the nav sits inside their typography
+ * rather than fighting it.
+ *
+ * Consumers who want to restyle from the outside should target the `data-*` attributes on
+ * the rendered markup — those are the stable public contract, not these class names.
+ */
+
+.nav {
+  --pallet-node-size: 44px;
+  --pallet-sprite-size: 40px;
+  --pallet-gap: 1.5rem;
+  --pallet-duration: 160ms;
+
+  font-family: var(--pallet-font);
+}
+
+.trail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pallet-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav[data-position='right'] .trail {
+  align-items: flex-end;
+}
+
+.node {
+  position: relative;
+}
+
+/* The dotted trail: one segment per gap, anchored to the node's center line. */
+.node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: var(--pallet-node-size);
+  left: calc(var(--pallet-node-size) / 2 - 1px);
+  height: var(--pallet-gap);
+  border-left: 2px var(--pallet-dot-style) color-mix(in srgb, var(--pallet-accent) 45%, transparent);
+}
+
+.nav[data-position='right'] .node:not(:last-child)::after {
+  left: auto;
+  right: calc(var(--pallet-node-size) / 2 - 1px);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav[data-position='right'] .link {
+  flex-direction: row-reverse;
+}
+
+/*
+ * The node itself keeps the same circular shape whether active or not — active state is a
+ * thicker ring, a glow, and a slight scale-up, never a different shape. That consistency
+ * was a specific fix from the first prototype (PALLET-PLAN.md §1).
+ */
+.ring {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--pallet-node-size);
+  height: var(--pallet-node-size);
+  border: 2px solid color-mix(in srgb, var(--pallet-accent) 15%, transparent);
+  border-radius: 50%;
+  transition:
+    transform var(--pallet-duration) ease,
+    border-color var(--pallet-duration) ease,
+    box-shadow var(--pallet-duration) ease;
+}
+
+.link:hover .ring {
+  border-color: color-mix(in srgb, var(--pallet-accent) 55%, transparent);
+}
+
+.node[data-active] .ring {
+  border-width: 3px;
+  border-color: var(--pallet-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
+  transform: scale(1.08);
+}
+
+.sprite {
+  display: block;
+  width: var(--pallet-sprite-size);
+  height: var(--pallet-sprite-size);
+  /* Sprites are pixel art — never let the browser smooth them. */
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.link:hover .sprite {
+  animation: bounce 480ms ease;
+}
+
+/* Label color and weight shift together, one rule, not two independent states (§4). */
+.label {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  font-weight: 500;
+  transition: color var(--pallet-duration) ease;
+}
+
+.node[data-active] .label {
+  color: currentColor;
+  font-weight: 700;
+}
+
+/* Deliberate focus ring rather than the UA default, which the circle would clip (§5). */
+.link:focus-visible {
+  outline: none;
+}
+
+.link:focus-visible .ring {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pallet-accent) 90%, transparent);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  70% {
+    transform: translateY(-1px);
+  }
+}
+
+/*
+ * Reduced motion means no motion at all, not shortened motion (§4). Both guards are here
+ * on purpose: the media query covers the server-rendered pass before hydration, the data
+ * attribute covers the JS-observed preference.
+ */
+.nav[data-reduced-motion] .ring,
+.nav[data-reduced-motion] .sprite,
+.nav[data-reduced-motion] .label {
+  transition: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring,
+  .sprite,
+  .label {
+    transition: none;
+    animation: none;
+  }
+}
+
+/*
+ * Note that the active node's scale-up survives both guards. It's a static state that
+ * carries meaning (which route you're on), not motion — suppressing it would cost the
+ * affordance without removing any animation.
+ */

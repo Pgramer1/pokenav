@@ -40,42 +40,6 @@ code {
 }
 
 /*
- * Minimal placeholder styling for the component's DOM contract. The real visuals get
- * ported into the package itself — this only exists so the demo below is legible and so
- * the data-* hooks are visibly wired up.
+ * The nav brings its own stylesheet (`@devanshsoni/pallet/styles.css`, imported in
+ * layout.tsx). Nothing here styles the component — that's the package's job.
  */
-[data-pallet] ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-[data-pallet][data-orientation='horizontal'] ol {
-  flex-direction: row;
-}
-
-[data-pallet-node] a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.35rem 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--pallet-accent) 25%, transparent);
-  border-radius: 999px;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-[data-pallet-node][data-active] a {
-  border-color: var(--pallet-accent);
-  color: var(--fg);
-  font-weight: 600;
-}
-
-[data-pallet-sprite] {
-  width: 40px;
-  height: 40px;
-  image-rendering: pixelated;
-}

@@ -1,4 +1,29 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "id": 81,
+      "name": "magnemite",
+      "iconAsset": "sprites/magnemite.png",
+      "types": ["electric", "steel"]
+    },
+    {
+      "id": 133,
+      "name": "eevee",
+      "iconAsset": "sprites/eevee.png",
+      "types": ["normal"]
+    },
+    {
+      "id": 137,
+      "name": "porygon",
+      "iconAsset": "sprites/porygon.png",
+      "types": ["normal"]
+    },
+    {
+      "id": 185,
+      "name": "sudowoodo",
+      "iconAsset": "sprites/sudowoodo.png",
+      "types": ["rock"]
+    }
+  ]
 }

@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@devanshsoni/pallet": "*",
     "next": "^16.2.12",
-    "pallet": "*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getCatalogueEntry } from './catalogue';
 import { resolveTheme } from './defaults';
+import { getSpriteDataUrl } from './sprites';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
+import styles from './pallet.module.css';
 import type { NavConfig, NavItem } from './types';
 
 export interface PalletProps extends NavConfig {
@@ -21,10 +23,10 @@ export interface PalletProps extends NavConfig {
 /**
  * Route-map style navigation: a trail of circular sprite nodes connected by a dotted line.
  *
- * NOTE: this is the API skeleton. The markup below is intentionally minimal — enough to
- * prove config flows through to rendered nodes and to fix the DOM contract (element
- * structure, `data-*` hooks, CSS custom properties). The finished visuals get ported over
- * from the site build on top of this. See PALLET-PLAN.md §8 phase 3.
+ * The base look lives in `pallet.module.css`. The `data-*` attributes below are the public
+ * styling contract — consumers target those, not the hashed class names. Theme variants
+ * (`ringStyle: 'pokeball'`, `trailPath: 'wavy'`) and horizontal orientation are declared in
+ * the types but not implemented yet; they're PALLET-PLAN.md §8 phase 4.
  */
 export function Pallet({
   position,
@@ -42,7 +44,7 @@ export function Pallet({
   return (
     <nav
       aria-label={ariaLabel}
-      className={className}
+      className={className ? `${styles.nav} ${className}` : styles.nav}
       data-pallet=""
       data-position={position}
       data-orientation={orientation}
@@ -54,22 +56,39 @@ export function Pallet({
           '--pallet-accent': resolvedTheme.accentColor,
           '--pallet-dot-style': resolvedTheme.dotStyle,
           '--pallet-font': resolvedTheme.font,
-          fontFamily: 'var(--pallet-font)',
         } as React.CSSProperties
       }
     >
-      <ol data-pallet-trail="">
+      <ol className={styles.trail} data-pallet-trail="">
         {items.map((item) => {
           const isActive = item.href === currentHref;
           const sprite = resolveSprite(item);
 
           return (
-            <li key={item.href} data-pallet-node="" data-active={isActive ? '' : undefined}>
-              <a href={item.href} aria-current={isActive ? 'page' : undefined}>
-                {sprite ? (
-                  <img src={sprite.url} alt={sprite.alt(item.label)} data-pallet-sprite="" />
-                ) : null}
-                <span data-pallet-label="">{item.label}</span>
+            <li
+              key={item.href}
+              className={styles.node}
+              data-pallet-node=""
+              data-active={isActive ? '' : undefined}
+            >
+              <a
+                href={item.href}
+                className={styles.link}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <span className={styles.ring} data-pallet-ring="">
+                  {sprite ? (
+                    <img
+                      src={sprite.url}
+                      alt={sprite.alt}
+                      className={styles.sprite}
+                      data-pallet-sprite=""
+                    />
+                  ) : null}
+                </span>
+                <span className={styles.label} data-pallet-label="">
+                  {item.label}
+                </span>
               </a>
             </li>
           );
@@ -88,18 +107,16 @@ export function Pallet({
  * Alt text follows §5: `"{Pokémon name} — {section name}"`, never the species alone. A
  * custom `spriteUrl` has no species name, so the label carries it.
  */
-function resolveSprite(item: NavItem): { url: string; alt: (label: string) => string } | null {
+function resolveSprite(item: NavItem): { url: string; alt: string } | null {
   if (item.spriteUrl) {
-    return { url: item.spriteUrl, alt: (label) => label };
+    return { url: item.spriteUrl, alt: item.label };
   }
 
   if (item.pokemonId !== undefined) {
     const entry = getCatalogueEntry(item.pokemonId);
-    if (!entry) return null;
-    return {
-      url: entry.iconAsset,
-      alt: (label) => `${capitalize(entry.name)} — ${label}`,
-    };
+    const url = getSpriteDataUrl(item.pokemonId);
+    if (!entry || !url) return null;
+    return { url, alt: `${capitalize(entry.name)} — ${item.label}` };
   }
 
   return null;

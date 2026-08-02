@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Pallet, type NavConfig } from 'pallet';
+import { Pallet, type NavConfig } from '@devanshsoni/pallet';
 
 /**
  * Placeholder demo. Its only job right now is to prove the workspace wiring: the docs app
@@ -13,10 +13,10 @@ const demoConfig: NavConfig = {
   position: 'left',
   orientation: 'vertical',
   items: [
-    { label: 'Home', href: '/', pokemonId: 1 },
-    { label: 'Work', href: '/work', pokemonId: 4 },
-    { label: 'Writing', href: '/writing', pokemonId: 7 },
-    { label: 'Contact', href: '/contact', pokemonId: 25 },
+    { label: 'Home', href: '/', pokemonId: 133 },
+    { label: 'Work', href: '/work', pokemonId: 81 },
+    { label: 'Writing', href: '/writing', pokemonId: 137 },
+    { label: 'Contact', href: '/contact', pokemonId: 185 },
   ],
   theme: {
     accentColor: '#f97316',
@@ -37,10 +37,10 @@ export default function Home() {
 
       <h2>Workspace check</h2>
       <p>
-        The nav below is rendered by the <code>pallet</code> package, resolved through npm
-        workspaces from <code>packages/pallet/dist</code>. Nodes render label-only for now:
-        no sprites are bundled yet, so <code>pokemonId</code> lookups find nothing in the
-        empty catalogue.
+        The nav below is rendered by the <code>@devanshsoni/pallet</code> package, resolved
+        through npm workspaces from <code>packages/pallet/dist</code>. Sprites come from the
+        bundled catalogue as inlined <code>data:</code> URIs — no network request, no
+        bundler configuration.
       </p>
 
       <Pallet {...demoConfig} activeHref={pathname} ariaLabel="Demo navigation" />

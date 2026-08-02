@@ -1,5 +1,5 @@
 {
-  "name": "pallet",
+  "name": "@devanshsoni/pallet",
   "version": "0.0.0",
   "description": "A Pokémon route-map style navigation component for React.",
   "license": "MIT",
@@ -22,6 +22,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./styles.css": "./dist/index.css",
     "./catalogue.json": "./catalogue.json",
     "./sprites/*": "./sprites/*",
     "./package.json": "./package.json"

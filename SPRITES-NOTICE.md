@@ -4,11 +4,10 @@
 sprite assets bundled with the `pallet` package are **not** original work, are **not**
 covered by that MIT license, and are **not** ours to license to you.
 
-> **Status:** no sprite assets are bundled yet. `packages/pallet/sprites/` is currently
-> empty. This notice is in place ahead of them so the disclosure ships from the first
-> commit rather than being retrofitted later.
+> **Status:** four sprite assets are currently bundled — magnemite, eevee, porygon, and
+> sudowoodo. The curated set (PALLET-PLAN.md §7) is still ahead.
 
-## What is (or will be) bundled
+## What is bundled
 
 The `pallet` component renders small pixel-art sprites as navigation nodes. Those sprite
 files are fan-derived artwork based on Pokémon characters. Pokémon and all associated

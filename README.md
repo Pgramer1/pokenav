@@ -6,14 +6,15 @@ like walking a route on the world map.
 
 Named for Pallet Town, where every journey starts.
 
-> **Status: pre-alpha scaffold.** Workspace, build tooling, and docs app are wired up and
-> building. The finished component visuals and the sprite catalogue are still being ported
-> in. Nothing is published to npm yet.
+> **Status: pre-alpha.** Workspace, build tooling, and docs app are wired up and building.
+> The component renders with its base look and four bundled sprites. Theme variants and the
+> sprite picker are still ahead. Nothing is published to npm yet — the package is
+> `@devanshsoni/pallet`.
 
 ## Repo layout
 
 ```
-packages/pallet/   the published component — source, types, bundled sprites, catalogue
+packages/pallet/   @devanshsoni/pallet — source, types, bundled sprites, catalogue
 apps/docs/         Next.js docs site — will host the sprite picker and live demo
 ```
 
