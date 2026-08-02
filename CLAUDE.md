@@ -117,6 +117,17 @@ dash array to look dotted, so the reveal can't share it. The mask path carries
 `pathLength="1"` so its dash units renormalize and the reveal is length-independent. The
 visible paths deliberately have no `pathLength`, keeping their dots at constant px spacing.
 
+**The wavy path runs center-to-center and is masked, not trimmed.** A second mask punches a
+circle out at each node so the trail stops at the ring edge instead of crossing the sprite.
+Don't "simplify" this by shortening the path to the ring edges — running center-to-center is
+what keeps segment endpoints exactly on node centers and the tangents continuous. The punch
+radius is measured, so it tracks the active node's scale for free.
+
+**The focus ring uses `outline`, not `box-shadow`.** The active and scroll-reached glows are
+box-shadows with higher specificity than any reasonable focus selector, so a box-shadow
+focus ring silently loses on exactly the nodes most likely to be focused. Keep them on
+different properties.
+
 ## Not implemented (deliberately)
 
 The capture-flash route transition (plan §4) is an unbuilt nice-to-have.

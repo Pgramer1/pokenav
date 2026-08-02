@@ -3,6 +3,12 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 export interface TrailPoint {
   x: number;
   y: number;
+  /**
+   * Rendered outer radius of the node's ring. Measured rather than derived so it picks up
+   * the active node's scale transform, and so the trail is punched out at each node's real
+   * on-screen size.
+   */
+  r: number;
 }
 
 export interface TrailGeometry {
@@ -68,6 +74,7 @@ export function useTrailGeometry(enabled: boolean, count: number): TrailGeometry
       points.push({
         x: rect.left - box.left + rect.width / 2,
         y: rect.top - box.top + rect.height / 2,
+        r: rect.width / 2,
       });
     }
 
@@ -110,6 +117,9 @@ function isSameGeometry(a: TrailGeometry, b: TrailGeometry): boolean {
     a.height === b.height &&
     a.amplitude === b.amplitude &&
     a.points.length === b.points.length &&
-    a.points.every((point, i) => point.x === b.points[i]?.x && point.y === b.points[i]?.y)
+    a.points.every(
+      (point, i) =>
+        point.x === b.points[i]?.x && point.y === b.points[i]?.y && point.r === b.points[i]?.r,
+    )
   );
 }

@@ -333,6 +333,36 @@
   transform: scale(1.08);
 }
 
+/* -- travelling glow (scroll fill only) ------------------------------------ */
+
+/*
+ * When the consumer drives scroll fill, the glow rides the trail rather than sitting on the
+ * route-active node: as the fill reaches each node, that node lights up.
+ *
+ * The two states stay readable as separate things. Scale is left on the route-active node
+ * alone, so "which route am I on" is still answered by size, while "how far has the trail
+ * got" is answered by the glow. When both land on the same node it simply gets both.
+ *
+ * None of this applies without `scrollProgress` — the default nav is untouched.
+ */
+.nav[data-scroll-fill] .node[data-active] .ring {
+  box-shadow: none;
+}
+
+.nav[data-scroll-fill] .node[data-reached] .ring {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
+}
+
+.nav[data-scroll-fill][data-ring-style='solid'] .node[data-reached] .ring::before {
+  border-width: var(--pallet-ring-thickness-active);
+  border-color: var(--pallet-accent);
+}
+
+.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::before,
+.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::after {
+  opacity: 1;
+}
+
 /* --------------------------------------------------------------- sprite ---- */
 
 /*
@@ -463,15 +493,22 @@
 
 /* ---------------------------------------------------------------- focus ---- */
 
-/* Deliberate focus ring rather than the UA default, which the circle would clip (§5). */
+/*
+ * Deliberate focus ring rather than the UA default, which the circle would clip (§5).
+ *
+ * Drawn with `outline` rather than `box-shadow` on purpose. The active and scroll-reached
+ * states both use box-shadow for their glow and carry higher specificity than any
+ * reasonable focus selector, so a box-shadow focus ring would lose to them exactly on the
+ * nodes most likely to be focused. `outline` is a different property, so it cannot be
+ * overridden by them at all, and modern browsers follow the border radius.
+ */
 .link:focus-visible {
   outline: none;
 }
 
 .link:focus-visible .ring {
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--pallet-accent) 30%, transparent),
-    0 0 0 5px var(--pallet-accent);
+  outline: 3px solid var(--pallet-accent);
+  outline-offset: 3px;
 }
 
 /* --------------------------------------------------------------- motion ---- */

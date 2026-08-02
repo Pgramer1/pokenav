@@ -102,6 +102,14 @@ novelty — someone with zero interest in Pokémon can still use it with their o
   - **The straight trail stays a CSS border.** It needs no measurement, so it survives
     server rendering and no-JS, and it doubles as the fallback the wavy trail shows until
     its geometry has been measured — there is never a frame of disconnected circles.
+  - **The trail is punched out at each node.** A mask removes a circle at every node
+    center, at that node's real rendered radius, so the curve stops at the ring's outer
+    edge instead of running under the ring and across the sprite — matching the straight
+    trail, whose CSS segments only ever span the gap. Done as a mask rather than by
+    shortening the path, so segment endpoints stay exactly on the node centers and the
+    tangents stay continuous; trimming the geometry would trade that away for the same
+    visual result. Measuring the radius rather than deriving it means the punch tracks the
+    active node's scale automatically.
 
 ## 4. Interaction & behavior spec
 - **Hover**: subtle bounce/wiggle on the sprite.
@@ -111,6 +119,10 @@ novelty — someone with zero interest in Pokémon can still use it with their o
   so inactive nodes still visually belong to the same system as the active one.
 - **Labels**: active/inactive label styling follows one consistent rule (color + weight
   shift together), not two independently-designed states.
+- **Focus ring**: drawn with `outline`, not `box-shadow`. The active and scroll-reached
+  glows both use box-shadow and carry higher specificity than any reasonable focus
+  selector, so a box-shadow focus ring would lose to them exactly on the nodes most likely
+  to be focused. A different property cannot be overridden by them at all.
 - **Sprite sizing**: normalize bounding-box scale/centering across all sprites so each one
   carries equal visual weight inside its circle.
 - **Scroll-linked trail fill**: **done.** The trail fills continuously in `accentColor` as
@@ -128,6 +140,14 @@ novelty — someone with zero interest in Pokémon can still use it with their o
     The mask is needed because the visible path is already using its dash array to look
     dotted — the two cannot share it. The mask path carries `pathLength="1"`, which
     renormalizes its dash units so the reveal is length-independent.
+  - **The glow travels with the fill.** When `scrollProgress` is supplied, the ring glow
+    rides the trail instead of sitting on the route-active node: as the fill arrives at a
+    node, that node lights up. The node is marked `data-reached`, chosen with `floor`
+    rather than `round` so the glow marks where the trail *has got to*, never a node the
+    fill is still travelling toward. Scale stays on the route-active node alone, so size
+    still answers "which route am I on" while the glow answers "how far has the trail
+    got"; when both land on the same node it simply gets both. Without `scrollProgress`
+    nothing changes — the glow stays on the active node as before.
   - **Reduced motion suppresses the transition, not the fill.** The fill is a position
     readout, so removing it would remove information. It updates in step with scroll as a
     static state instead of easing toward a target.

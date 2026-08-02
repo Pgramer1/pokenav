@@ -49,9 +49,10 @@ nothing to configure.
 ## Styling
 
 The rendered markup carries `data-*` attributes that are the **stable public contract** for
-external styling — `data-pallet`, `data-position`, `data-orientation`, `data-pallet-node`,
-`data-active`, `data-pallet-ring`, `data-pallet-sprite`, `data-pallet-label`. Target those
-rather than the internal class names:
+external styling — `data-pallet`, `data-position`, `data-orientation`, `data-ring-style`,
+`data-trail-path`, `data-pallet-node`, `data-active`, `data-reached`, `data-scroll-fill`,
+`data-pallet-ring`, `data-pallet-sprite`, `data-pallet-label`. Target those rather than the
+internal class names:
 
 ```css
 [data-pallet-node][data-active] [data-pallet-ring] {
@@ -137,6 +138,11 @@ import { Pallet, useScrollProgress } from '@devanshsoni/pallet';
 `useScrollProgress(ref)` tracks a scrollable element instead of the document. Under
 `prefers-reduced-motion` the fill still tracks scroll, it just stops animating between
 values — it's a position readout, so removing it would remove information.
+
+With `scrollProgress` set, the ring glow travels with the fill: as the trail reaches each
+node, that node lights up and is marked `data-reached`. Scale stays on the route-active
+node, so size answers "which route am I on" while the glow answers "how far has the trail
+got". Without `scrollProgress`, the glow stays on the active node as before.
 
 ### Orientation and position
 

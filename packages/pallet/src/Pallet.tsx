@@ -75,6 +75,7 @@ export function Pallet({
 
   const hasScrollFill = scrollProgress !== undefined;
   const segmentCount = Math.max(items.length - 1, 1);
+  const reachedIndex = reachedNodeIndex(scrollProgress, items.length);
 
   return (
     <nav
@@ -127,6 +128,7 @@ export function Pallet({
                 className={styles.node}
                 data-pallet-node=""
                 data-active={isActive ? '' : undefined}
+                data-reached={index === reachedIndex ? '' : undefined}
                 style={
                   hasScrollFill
                     ? ({
@@ -176,6 +178,22 @@ export function Pallet({
       </div>
     </nav>
   );
+}
+
+/**
+ * Index of the last node the trail fill has actually arrived at, or -1 when scroll fill is
+ * not in use.
+ *
+ * Deliberately `floor` rather than `round`: the glow marks where the trail *has reached*,
+ * so it should not jump to a node the fill is still travelling toward. At 80% of the way to
+ * the next node, the previous one is still the one the trail has got to.
+ */
+function reachedNodeIndex(progress: number | undefined, count: number): number {
+  if (progress === undefined || !Number.isFinite(progress) || count < 1) return -1;
+  const clamped = Math.min(1, Math.max(0, progress));
+  const segments = Math.max(count - 1, 1);
+  // The epsilon absorbs float error at exactly 1.0 so the final node still lights up.
+  return Math.min(count - 1, Math.floor(clamped * segments + 1e-9));
 }
 
 /** Fraction of the segment following `index` that scroll progress has reached, 0–1. */

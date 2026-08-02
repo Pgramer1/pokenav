@@ -140,6 +140,10 @@ export function TrailSvg({
   const showFill = scrollProgress !== undefined;
   const progress = clamp01(scrollProgress ?? 0);
 
+  const nodesMaskId = `${maskId}-nodes`;
+  // Generous bounds: the wave and its stroke both extend past the list's own box.
+  const pad = 64;
+
   return (
     <svg
       className={styles.trailSvg}
@@ -150,8 +154,32 @@ export function TrailSvg({
       focusable="false"
       data-pallet-trail-svg=""
     >
-      {showFill ? (
-        <defs>
+      <defs>
+        {/*
+         * Punches each node's circle out of the trail, so the curve stops at the ring's
+         * outer edge instead of running under the ring and across the sprite. This is what
+         * makes the wavy trail match the straight one, whose CSS segments only ever span
+         * the gap between nodes.
+         *
+         * Done as a mask rather than by shortening the path: the path still runs center to
+         * center, which is what keeps the segment endpoints exactly on the node centers and
+         * the tangents continuous across each node. Trimming the geometry would trade that
+         * away for the same visual result.
+         */}
+        <mask id={nodesMaskId} maskUnits="userSpaceOnUse">
+          <rect
+            x={-pad}
+            y={-pad}
+            width={width + pad * 2}
+            height={height + pad * 2}
+            fill="#fff"
+          />
+          {points.map((point, index) => (
+            <circle key={index} cx={point.x} cy={point.y} r={point.r} fill="#000" />
+          ))}
+        </mask>
+
+        {showFill ? (
           <mask id={maskId} maskUnits="userSpaceOnUse">
             <path
               className={styles.trailMask}
@@ -164,29 +192,31 @@ export function TrailSvg({
               strokeDashoffset={1 - progress}
             />
           </mask>
-        </defs>
-      ) : null}
+        ) : null}
+      </defs>
 
-      <path
-        className={styles.trailBase}
-        d={d}
-        fill="none"
-        strokeWidth={STROKE_WIDTH}
-        strokeDasharray={dash.dasharray}
-        strokeLinecap={dash.linecap}
-      />
-
-      {showFill ? (
+      <g mask={`url(#${nodesMaskId})`}>
         <path
-          className={styles.trailFill}
+          className={styles.trailBase}
           d={d}
           fill="none"
           strokeWidth={STROKE_WIDTH}
           strokeDasharray={dash.dasharray}
           strokeLinecap={dash.linecap}
-          mask={`url(#${maskId})`}
         />
-      ) : null}
+
+        {showFill ? (
+          <path
+            className={styles.trailFill}
+            d={d}
+            fill="none"
+            strokeWidth={STROKE_WIDTH}
+            strokeDasharray={dash.dasharray}
+            strokeLinecap={dash.linecap}
+            mask={`url(#${maskId})`}
+          />
+        ) : null}
+      </g>
     </svg>
   );
 }
