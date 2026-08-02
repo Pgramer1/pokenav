@@ -1,0 +1,56 @@
+{
+  "name": "pallet",
+  "version": "0.0.0",
+  "description": "A Pokémon route-map style navigation component for React.",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "navigation",
+    "nav",
+    "pokemon",
+    "pixel-art",
+    "component"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./catalogue.json": "./catalogue.json",
+    "./sprites/*": "./sprites/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "sprites",
+    "catalogue.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "pallet-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo for pallet — a Pokémon route-map style navigation component for React.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace packages/pallet",
+    "build:all": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspace apps/docs",
+    "dev:pallet": "npm run dev --workspace packages/pallet",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

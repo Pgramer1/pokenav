@@ -1,0 +1,87 @@
+/**
+ * Public type surface for `pallet`.
+ *
+ * Shapes here follow PALLET-PLAN.md §3. Keep them in sync — the plan is the source of
+ * truth for the config API.
+ */
+
+/** Which side of the viewport the trail is anchored to. */
+export type NavPosition = 'left' | 'right';
+
+/** Direction the trail runs. `horizontal` is planned but not implemented yet. */
+export type NavOrientation = 'vertical' | 'horizontal';
+
+/** How the connecting trail between nodes is drawn. */
+export type DotStyle = 'dotted' | 'dashed' | 'solid';
+
+/**
+ * `solid` — single-color ring derived from `accentColor`.
+ * `pokeball` — two-tone red/white split ring. See PALLET-PLAN.md §3.
+ */
+export type RingStyle = 'solid' | 'pokeball';
+
+/**
+ * `straight` — trail rendered as a CSS border/divider.
+ * `wavy` — trail rendered as an SVG bezier `<path>`. Different rendering approach, not a
+ * style toggle; scoped as its own implementation.
+ */
+export type TrailPath = 'straight' | 'wavy';
+
+/** A single node on the trail. */
+export interface NavItem {
+  /** Visible label, and the section half of the sprite's alt text. */
+  label: string;
+  /** Destination. Compared against the active route to decide the active node. */
+  href: string;
+  /** National Dex id, resolved against the bundled catalogue. */
+  pokemonId?: number;
+  /**
+   * Escape hatch: any custom sprite/icon URL. Takes precedence over `pokemonId`, and
+   * skips the bundled Pokémon catalogue entirely.
+   */
+  spriteUrl?: string;
+}
+
+/** Visual theming. Every value is optional and falls back to {@link DEFAULT_THEME}. */
+export interface NavTheme {
+  /**
+   * Single source of truth for active ring, hover ring, and trail color. Nothing in the
+   * component hardcodes a color — it all derives from this.
+   */
+  accentColor?: string;
+  ringStyle?: RingStyle;
+  trailPath?: TrailPath;
+  dotStyle?: DotStyle;
+  /** CSS `font-family` value applied to labels. */
+  font?: string;
+}
+
+/** Top-level configuration for the nav. */
+export interface NavConfig {
+  position: NavPosition;
+  orientation: NavOrientation;
+  items: NavItem[];
+  theme?: NavTheme;
+}
+
+/** Theme with every field filled in. */
+export type ResolvedNavTheme = Required<NavTheme>;
+
+/** One entry in the bundled sprite catalogue (`catalogue.json`). */
+export interface CatalogueEntry {
+  /** National Dex id. Matches `NavItem.pokemonId`. */
+  id: number;
+  /** Lowercase species name, e.g. `"bulbasaur"`. Used in alt text. */
+  name: string;
+  /** Path to the sprite file, relative to the package root. */
+  iconAsset: string;
+  /** Pokémon types, e.g. `["grass", "poison"]`. For picker filtering on the docs site. */
+  types: string[];
+}
+
+/** Shape of `catalogue.json`. */
+export interface Catalogue {
+  /** Bumped when the entry shape changes, so generators can migrate. */
+  version: number;
+  entries: CatalogueEntry[];
+}

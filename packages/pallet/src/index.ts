@@ -1,0 +1,20 @@
+export { Pallet } from './Pallet';
+export type { PalletProps } from './Pallet';
+
+export { catalogue, getCatalogueEntry } from './catalogue';
+export { DEFAULT_THEME, resolveTheme } from './defaults';
+export { usePrefersReducedMotion } from './usePrefersReducedMotion';
+
+export type {
+  Catalogue,
+  CatalogueEntry,
+  DotStyle,
+  NavConfig,
+  NavItem,
+  NavOrientation,
+  NavPosition,
+  NavTheme,
+  ResolvedNavTheme,
+  RingStyle,
+  TrailPath,
+} from './types';
