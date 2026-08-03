@@ -373,7 +373,7 @@ export default function Usage() {
         <strong>not</strong> covered by that license, and rely on the same fan-tolerance
         precedent as PokéAPI — a precedent, not a guarantee. Read{' '}
         <a
-          href="https://github.com/Pgramer1/Pallet/blob/main/SPRITES-NOTICE.md"
+          href="https://github.com/Pgramer1/pokenav/blob/main/SPRITES-NOTICE.md"
           target="_blank"
           rel="noreferrer"
         >

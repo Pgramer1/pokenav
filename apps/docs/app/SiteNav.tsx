@@ -31,7 +31,7 @@ export function SiteNav() {
       </nav>
       <a
         className="siteTab siteTabExternal"
-        href="https://github.com/Pgramer1/Pallet"
+        href="https://github.com/Pgramer1/pokenav"
         target="_blank"
         rel="noreferrer"
       >

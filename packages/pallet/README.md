@@ -4,9 +4,9 @@ A Pokémon route-map style navigation component for React — a trail of circula
 connected by a dotted line, each showing a pixel-art sprite, like walking a route on the
 world map.
 
-**[Playground and full docs → pallet.devanshsoni.com](https://pallet.devanshsoni.com)** —
+**[Playground and full docs → pokenav.devanshsoni.com](https://pokenav.devanshsoni.com)** —
 search all 898 sprites, assign them to nav items, and copy out the generated config.
-Source on [GitHub](https://github.com/Pgramer1/Pallet).
+Source on [GitHub](https://github.com/Pgramer1/pokenav).
 
 > **Status: 0.1.0, early release.** The config API is settled and everything documented
 > here is implemented: both ring styles, both trail paths, both orientations,
@@ -95,7 +95,7 @@ drops into a server component without wrapping.
 | Field         | Type                          | Notes                                    |
 | ------------- | ----------------------------- | ---------------------------------------- |
 | `position`    | `'left' \| 'center' \| 'right'` | Which edge the trail anchors to.       |
-| `orientation` | `'vertical' \| 'horizontal'`  | `horizontal` is planned, not built.      |
+| `orientation` | `'vertical' \| 'horizontal'`  | Which axis the trail runs along.         |
 | `items`       | `NavItem[]`                   | One node per item.                       |
 | `theme`       | `NavTheme`                    | Optional; see below.                     |
 
@@ -105,7 +105,7 @@ drops into a server component without wrapping.
 | ----------- | -------- | ------------------------------------------------------------ |
 | `label`     | `string` | Visible label, and the section half of the sprite alt text.  |
 | `href`      | `string` | Compared against the active route.                           |
-| `pokemonId` | `number` | National Dex id, resolved against the bundled catalogue. Currently 81, 133, 137, 185. |
+| `pokemonId` | `number` | National Dex id, 1–898. Resolved against the bundled catalogue, loaded lazily. |
 | `spriteUrl` | `string` | Any custom image. Wins over `pokemonId`, skips the catalogue. |
 
 ### `NavTheme`
@@ -236,7 +236,7 @@ Bundled sprites are fan-derived Pokémon artwork, not original work, and are **n
 by this package's MIT license. They rely on the same fan-tolerance precedent as PokéAPI —
 a precedent, not a legal guarantee.
 
-Read **[SPRITES-NOTICE.md](https://github.com/Pgramer1/Pallet/blob/main/SPRITES-NOTICE.md)**
+Read **[SPRITES-NOTICE.md](https://github.com/Pgramer1/pokenav/blob/main/SPRITES-NOTICE.md)**
 before shipping anything commercial. A copy also ships inside this package, so it is
 available offline in `node_modules/pokenav/SPRITES-NOTICE.md`.
 

@@ -13,14 +13,14 @@
     "pixel-art",
     "component"
   ],
-  "homepage": "https://pallet.devanshsoni.com",
+  "homepage": "https://pokenav.devanshsoni.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pgramer1/Pallet.git",
+    "url": "git+https://github.com/Pgramer1/pokenav.git",
     "directory": "packages/pallet"
   },
   "bugs": {
-    "url": "https://github.com/Pgramer1/Pallet/issues"
+    "url": "https://github.com/Pgramer1/pokenav/issues"
   },
   "type": "module",
   "sideEffects": false,

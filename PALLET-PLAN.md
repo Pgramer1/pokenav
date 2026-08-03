@@ -324,10 +324,14 @@ all theme variants have landed (accent-color theming, both ring styles, both tra
 both orientations, scroll-linked trail fill), and the complete 898-sprite catalogue ships
 with lazy loading behind the interactive picker on `/apps/docs`.
 
-Next concrete step is phase 6, publish. Open items for it: README GIFs and a hosting target
-for the docs site. The package name is settled — **`pokenav`**, unscoped and confirmed
-unregistered on npm. (`pallet` itself is taken by an abandoned PureScript package manager,
-which is why the name moved.)
+Next concrete step is phase 6, publish. The package name is settled — **`pokenav`**,
+unscoped and confirmed unregistered on npm. (`pallet` itself is taken by an abandoned
+PureScript package manager, which is why the name moved.) The docs site is live at
+**pokenav.devanshsoni.com** and the repo is `Pgramer1/pokenav`.
+
+Open items: README GIFs, and **the repo is currently private** — `repository`, `bugs` and
+every GitHub link in the published README will 404 for anyone installing from npm until it
+is made public.
 
 Still deliberately unbuilt: the capture-flash route transition (§4, nice-to-have) and
 anything audio (§2, §9). Generation 9 sprites are absent from the upstream source rather
