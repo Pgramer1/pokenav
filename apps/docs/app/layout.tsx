@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@devanshsoni/pallet/styles.css';
 import './globals.css';
+import { SiteNav } from './SiteNav';
 
 export const metadata: Metadata = {
   title: 'pallet — docs',
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteNav />
+        {children}
+      </body>
     </html>
   );
 }

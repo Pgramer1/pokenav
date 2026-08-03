@@ -26,6 +26,7 @@ export function Picker() {
   const [ringStyle, setRingStyle] = useState<'solid' | 'pokeball'>('solid');
   const [trailPath, setTrailPath] = useState<'straight' | 'wavy'>('wavy');
   const [orientation, setOrientation] = useState<'vertical' | 'horizontal'>('vertical');
+  const [position, setPosition] = useState<'left' | 'center' | 'right'>('left');
   const [copied, setCopied] = useState(false);
 
   const results = useMemo(() => {
@@ -38,7 +39,7 @@ export function Picker() {
   }, [search, generation]);
 
   const config: NavConfig = {
-    position: 'left',
+    position,
     orientation,
     items,
     theme: { accentColor, ringStyle, trailPath, dotStyle: 'dotted' },
@@ -164,6 +165,14 @@ export function Picker() {
                 value={orientation}
                 onChange={setOrientation}
                 options={['vertical', 'horizontal']}
+              />
+            </div>
+            <div className="controlRow">
+              <span className="controlsLabel">position</span>
+              <Toggle
+                value={position}
+                onChange={setPosition}
+                options={['left', 'center', 'right']}
               />
             </div>
           </div>

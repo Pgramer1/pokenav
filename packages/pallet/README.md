@@ -91,7 +91,7 @@ drops into a server component without wrapping.
 
 | Field         | Type                          | Notes                                    |
 | ------------- | ----------------------------- | ---------------------------------------- |
-| `position`    | `'left' \| 'right'`           | Which side the trail anchors to.         |
+| `position`    | `'left' \| 'center' \| 'right'` | Which edge the trail anchors to.       |
 | `orientation` | `'vertical' \| 'horizontal'`  | `horizontal` is planned, not built.      |
 | `items`       | `NavItem[]`                   | One node per item.                       |
 | `theme`       | `NavTheme`                    | Optional; see below.                     |
@@ -150,7 +150,12 @@ Without `scrollProgress`, the highlight stays on the active node as before.
 ### Orientation and position
 
 These are independent axes. `orientation` is which way the trail runs; `position` is which
-edge it anchors to. All four combinations work.
+edge it anchors to. Every combination works.
+
+`position: 'center'` centers the trail — a plain `justify-content` in horizontal, which is
+the usual case for a top nav. In vertical it centers the list as a block rather than each
+item, because items are as wide as their labels and centering them individually would put
+every ring at a different x and zigzag the trail.
 
 In horizontal, labels sit **below** the node rather than flipping with `position` — beside
 the node would put the trail straight through the neighbouring label's text, and

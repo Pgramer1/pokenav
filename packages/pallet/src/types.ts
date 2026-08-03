@@ -5,8 +5,14 @@
  * truth for the config API.
  */
 
-/** Which side of the viewport the trail is anchored to. */
-export type NavPosition = 'left' | 'right';
+/**
+ * Which edge the trail anchors to.
+ *
+ * `center` centers the trail in its container: `justify-content` in horizontal, and a
+ * centered fixed-width block in vertical. It also decides which side the pokéball button
+ * and (in vertical) the label sit on — `center` follows `left` there.
+ */
+export type NavPosition = 'left' | 'center' | 'right';
 
 /**
  * Direction the trail runs.

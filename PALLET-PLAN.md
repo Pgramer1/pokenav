@@ -9,7 +9,15 @@ extracted here to be installable by anyone.
 
 `orientation` is which axis the trail runs along. `position` is which edge it anchors to,
 and which side the pokéball button and (in vertical) the label sit on. They are deliberately
-not conflated, and both combinations of the two are supported.
+not conflated, and every combination of the two is supported.
+
+`position: 'center'` centers the trail — `justify-content: center` in horizontal, which is
+the common case for a top nav. In vertical it centers the list as a *block* rather than
+centering each item: items are as wide as their own label, so `align-items: center` would
+put every ring at a different x and the trail would zigzag between them. Shrink-wrapping
+the list and centering that keeps every ring on one line, at the cost of the ring column
+sitting slightly left of true center by the width of the longest label. For which side the
+label and pokéball button sit on, `center` follows `left`.
 
 **Horizontal labels sit below the node, always** — they do not flip with `position`.
 Beside the node (the vertical arrangement) would make each item as wide as its label, and
@@ -51,7 +59,7 @@ exactly the point where two neighbours would otherwise collide.
 ## 3. Config API
 ```ts
 type NavConfig = {
-  position: 'left' | 'right';
+  position: 'left' | 'center' | 'right';
   orientation: 'vertical' | 'horizontal';
   items: Array<{
     label: string;

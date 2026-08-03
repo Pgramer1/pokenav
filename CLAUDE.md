@@ -12,6 +12,13 @@ superseded by the plan document.
 Currently at phase 3–4 (component built, theme variants partially landed). Phase 5 is the
 sprite catalogue + picker UI on the docs site.
 
+## Docs site routes
+
+`/` is the playground (picker + variant demos); `/usage` is the written documentation.
+`SiteNav` in the layout is the tab bar. Usage-page examples render a real `<Pallet>` and
+generate their code block from the *same* config object via `CodeExample` — never write a
+snippet by hand next to a live example, or the two drift.
+
 ## Commands
 
 ```bash

@@ -89,6 +89,21 @@
   align-items: flex-end;
 }
 
+/*
+ * Vertical `center` centers the trail as a block rather than centering each item.
+ *
+ * `align-items: center` would be the obvious rule and is wrong here: items are as wide as
+ * their own label, so centering each one individually puts every ring at a different x and
+ * the trail zigzags between them. Shrink-wrapping the list and centering that keeps every
+ * ring on one line, which is what the trail needs. The ring column then sits slightly left
+ * of true center, offset by the widest label — predictable, and the alternative is a
+ * broken trail.
+ */
+.nav[data-position='center'] .trail {
+  width: fit-content;
+  margin-inline: auto;
+}
+
 .node {
   position: relative;
 }
@@ -464,6 +479,17 @@
 
 .nav[data-orientation='horizontal'][data-position='right'] .trail {
   justify-content: flex-end;
+}
+
+/*
+ * Horizontal `center` is a plain `justify-content`, and has to undo the vertical rule
+ * above: a shrink-wrapped row has no free space for justify-content to distribute, so
+ * leaving `width: fit-content` on would silently do nothing.
+ */
+.nav[data-orientation='horizontal'][data-position='center'] .trail {
+  width: auto;
+  margin-inline: 0;
+  justify-content: center;
 }
 
 .nav[data-orientation='horizontal'] .link,

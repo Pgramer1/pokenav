@@ -510,3 +510,203 @@ code {
   font: inherit;
   font-size: 0.78rem;
 }
+
+/* ------------------------------------------------------------- site header ---- */
+
+.siteHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 56rem;
+  margin: 0 auto 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.siteTabs {
+  display: flex;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.siteTab {
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.siteTab:hover {
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+}
+
+.siteTab[data-current] {
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 12%, transparent);
+  font-weight: 600;
+}
+
+.siteTabExternal {
+  flex: none;
+}
+
+/* ---------------------------------------------------------------- prose ---- */
+
+.prose {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.prose h2 {
+  margin: 2.75rem 0 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 1rem;
+}
+
+.prose h3 {
+  margin: 2rem 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.prose p {
+  max-width: 46rem;
+}
+
+.prose a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+.note {
+  padding: 0.85rem 1rem;
+  border-left: 3px solid color-mix(in srgb, var(--muted) 40%, transparent);
+  background: var(--panel);
+  border-radius: 0 8px 8px 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* -- code blocks -- */
+
+.code {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', Menlo, monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.code code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* -- example: code beside live render -- */
+
+.example {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin: 1rem 0 1.5rem;
+}
+
+@media (max-width: 44rem) {
+  .example {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.exampleCode {
+  position: relative;
+  min-width: 0;
+}
+
+.exampleCode .code {
+  height: 100%;
+}
+
+.examplePreview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.exampleTag {
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.exampleStage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.exampleStage[data-orientation='horizontal'] {
+  align-items: center;
+}
+
+/* -- prop tables -- */
+
+.propTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.5rem;
+  font-size: 0.88rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.propTable th,
+.propTable td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.propTable th {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.propTable td:first-child,
+.propTable td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.propTable tr:last-child td {
+  border-bottom: 0;
+}
