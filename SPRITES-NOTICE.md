@@ -1,15 +1,16 @@
 # Sprite Assets Notice
 
 **Short version:** the code in this repository is MIT licensed and original. The Pokémon
-sprite assets bundled with the `pallet` package are **not** original work, are **not**
+sprite assets bundled with the `pokenav` package are **not** original work, are **not**
 covered by that MIT license, and are **not** ours to license to you.
 
-> **Status:** four sprite assets are currently bundled — magnemite, eevee, porygon, and
-> sudowoodo. The curated set (PALLET-PLAN.md §7) is still ahead.
+> **Status:** 898 sprite assets are bundled — National Dex ids 1–898, generations 1–8.
+> Generation 9 has no icon-style sprite in the upstream source, so those ids are absent
+> rather than filled in from a different sprite style.
 
 ## What is bundled
 
-The `pallet` component renders small pixel-art sprites as navigation nodes. Those sprite
+The `pokenav` component renders small pixel-art sprites as navigation nodes. Those sprite
 files are fan-derived artwork based on Pokémon characters. Pokémon and all associated
 names, characters, and artwork are trademarks and copyrights of **Nintendo, Creatures Inc.,
 GAME FREAK inc., and The Pokémon Company**. This project is not affiliated with,
@@ -28,12 +29,12 @@ community and educational use.
 
 **This is a precedent, not a legal guarantee.** Tolerance is not a license. It can be
 withdrawn at any time, and it has been withdrawn from other fan projects before. If you
-build something commercial on top of `pallet`, that tolerance may not extend to you, and
+build something commercial on top of `pokenav`, that tolerance may not extend to you, and
 evaluating that risk is your responsibility, not this project's.
 
 ## Your escape hatch
 
-`pallet` is designed so you never have to ship a single Pokémon sprite. Every nav item
+`pokenav` is designed so you never have to ship a single Pokémon sprite. Every nav item
 accepts a `spriteUrl`, which takes any image you supply:
 
 ```ts
@@ -50,7 +51,7 @@ applies to your build.
 
 Pokémon cries and other game audio are **not** bundled, and are out of scope for v1 and
 v1.x. Copyrighted audio is a materially different risk from sprite artwork and requires its
-own decision before anything ships. See PALLET-PLAN.md §2 and §9.
+own decision before anything ships.
 
 ## Takedown
 
