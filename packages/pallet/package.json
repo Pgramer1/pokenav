@@ -1,16 +1,27 @@
 {
   "name": "pokenav",
-  "version": "0.0.0",
-  "description": "A Pokémon route-map style navigation component for React.",
+  "version": "0.1.0",
+  "description": "A Pokémon route-map style navigation component for React — a trail of circular sprite nodes connected by a dotted line.",
   "license": "MIT",
   "keywords": [
+    "pokemon",
+    "nav",
+    "sidebar",
     "react",
     "navigation",
-    "nav",
-    "pokemon",
+    "route",
     "pixel-art",
     "component"
   ],
+  "homepage": "https://pallet.devanshsoni.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pgramer1/Pallet.git",
+    "directory": "packages/pallet"
+  },
+  "bugs": {
+    "url": "https://github.com/Pgramer1/Pallet/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.cjs",
@@ -32,7 +43,9 @@
     "sprites",
     "catalogue.json",
     "sprite-import.mjs",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "SPRITES-NOTICE.md"
   ],
   "scripts": {
     "build": "tsup",

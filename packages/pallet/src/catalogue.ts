@@ -5,7 +5,7 @@ import type { Catalogue, CatalogueEntry } from './types';
  * The bundled sprite catalogue.
  *
  * Empty until sprites are ported over from the site build — see
- * `packages/pallet/sprites/README.md`. Items using `spriteUrl` never consult this.
+ * `packages/pallet/SPRITES-MAINTENANCE.md`. Items using `spriteUrl` never consult this.
  */
 export const catalogue: Catalogue = catalogueData as Catalogue;
 

@@ -4,10 +4,13 @@ A Pokémon route-map style navigation component for React — a trail of circula
 connected by a dotted line, each showing a pixel-art sprite, like walking a route on the
 world map.
 
-> **Status: pre-alpha.** The config API is settled and the base look is in place. The
-> catalogue currently bundles four sprites. Theme variants (`ringStyle: 'pokeball'`,
-> `trailPath: 'wavy'`) and horizontal orientation are declared but not implemented. Not
-> published to npm yet.
+**[Playground and full docs → pallet.devanshsoni.com](https://pallet.devanshsoni.com)** —
+search all 898 sprites, assign them to nav items, and copy out the generated config.
+Source on [GitHub](https://github.com/Pgramer1/Pallet).
+
+> **Status: 0.1.0, early release.** The config API is settled and everything documented
+> here is implemented: both ring styles, both trail paths, both orientations,
+> accent-colour theming, and scroll-linked trail fill.
 
 ## Install
 
@@ -215,8 +218,12 @@ import eevee from 'pokenav/sprites/133.png';
 items: [{ label: 'Home', href: '/', spriteUrl: eevee }];
 ```
 
-Because sprites resolve asynchronously, they are absent from server-rendered HTML and
-appear after hydration; nodes render label-only until then.
+**Hydration behaviour worth knowing:** because sprites resolve through a dynamic import,
+they are absent from server-rendered HTML and appear after hydration. Nodes render
+label-only until then — the ring and the trail still draw, so the layout does not shift,
+but the artwork pops in. That is the cost of not inlining 898 sprites into your bundle. If
+you need a sprite present in the initial HTML, import it directly and pass it as
+`spriteUrl`.
 
 `catalogue.json` (`{ id, name, generation, iconAsset, types }`) is exported for building
 your own picker:
@@ -226,8 +233,14 @@ import { catalogue } from 'pokenav';
 ```
 
 Bundled sprites are fan-derived Pokémon artwork, not original work, and are **not** covered
-by this package's MIT license. See
-[SPRITES-NOTICE.md](https://github.com/Pgramer1/Pallet/blob/main/SPRITES-NOTICE.md).
+by this package's MIT license. They rely on the same fan-tolerance precedent as PokéAPI —
+a precedent, not a legal guarantee.
+
+Read **[SPRITES-NOTICE.md](https://github.com/Pgramer1/Pallet/blob/main/SPRITES-NOTICE.md)**
+before shipping anything commercial. A copy also ships inside this package, so it is
+available offline in `node_modules/pokenav/SPRITES-NOTICE.md`.
+
+Using `spriteUrl` on every item avoids the question entirely.
 
 ## License
 
