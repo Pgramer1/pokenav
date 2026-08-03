@@ -1,6 +1,6 @@
 /*
  * Docs-site chrome only. Nothing here styles the nav component — that ships with the
- * package (`@devanshsoni/pallet/styles.css`, imported in layout.tsx). Keeping this file
+ * package (`pokenav/styles.css`, imported in layout.tsx). Keeping this file
  * free of any `[data-pallet*]` selector is what proves the component is self-contained.
  *
  * No Tailwind, no CSS framework, no preprocessor anywhere in this app.

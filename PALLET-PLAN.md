@@ -262,7 +262,7 @@ them entirely requires the sprite choice to be statically visible, which is exac
 the `spriteUrl` escape hatch already allows:
 
 ```ts
-import eevee from '@devanshsoni/pallet/sprites/133.png';
+import eevee from 'pokenav/sprites/133.png';
 items: [{ label: 'Home', href: '/', spriteUrl: eevee }]
 ```
 
@@ -324,9 +324,10 @@ all theme variants have landed (accent-color theming, both ring styles, both tra
 both orientations, scroll-linked trail fill), and the complete 898-sprite catalogue ships
 with lazy loading behind the interactive picker on `/apps/docs`.
 
-Next concrete step is phase 6, publish. Open items for it: the npm package name
-(`@devanshsoni/pallet` — the bare `pallet` is taken), README GIFs, and a hosting target for
-the docs site.
+Next concrete step is phase 6, publish. Open items for it: README GIFs and a hosting target
+for the docs site. The package name is settled — **`pokenav`**, unscoped and confirmed
+unregistered on npm. (`pallet` itself is taken by an abandoned PureScript package manager,
+which is why the name moved.)
 
 Still deliberately unbuilt: the capture-flash route transition (§4, nice-to-have) and
 anything audio (§2, §9). Generation 9 sprites are absent from the upstream source rather

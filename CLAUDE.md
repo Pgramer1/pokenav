@@ -71,7 +71,7 @@ runtime in a consumer app. Don't "clean up" either one.
 
 ## Architecture
 
-`packages/pallet` is the published component (`@devanshsoni/pallet`); `apps/docs` is a
+`packages/pallet` is the published component (`pokenav`); `apps/docs` is a
 Next.js site that dogfoods it. npm workspaces, no task runner.
 
 **No ambient state.** `activeHref` and `scrollProgress` are plain props. The component holds
@@ -83,7 +83,7 @@ and embedded panels.
 
 **Self-contained styling is a hard requirement**, not a preference. Plain CSS Modules in
 `src/pallet.module.css`, emitted to `dist/index.css` and exported as
-`@devanshsoni/pallet/styles.css`. No Tailwind, no preprocessor, no framework coupling —
+`pokenav/styles.css`. No Tailwind, no preprocessor, no framework coupling —
 the package must work for a consumer who uses none of those. `apps/docs/app/globals.css`
 deliberately contains zero `[data-pallet*]` selectors; keeping it that way is what proves
 the component is self-contained.

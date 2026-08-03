@@ -1,20 +1,22 @@
-# pallet
+# pokenav
 
 A Pokémon route-map style navigation component for React. A trail of circular nodes
 connected by a dotted line, each node showing a pixelated sprite for a page or section —
 like walking a route on the world map.
 
-Named for Pallet Town, where every journey starts.
+The published package is **`pokenav`**. The repo and the workspace folder are still named
+`pallet`, after Pallet Town where every journey starts — the internal layout doesn't have to
+match the published name.
 
 > **Status: pre-alpha.** Workspace, build tooling, and docs app are wired up and building.
 > The component renders with its base look and four bundled sprites. Theme variants and the
 > sprite picker are still ahead. Nothing is published to npm yet — the package is
-> `@devanshsoni/pallet`.
+> `pokenav`.
 
 ## Repo layout
 
 ```
-packages/pallet/   @devanshsoni/pallet — source, types, bundled sprites, catalogue
+packages/pallet/   pokenav — source, types, bundled sprites, catalogue
 apps/docs/         Next.js docs site — will host the sprite picker and live demo
 ```
 

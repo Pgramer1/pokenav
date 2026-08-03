@@ -1,5 +1,5 @@
 {
-  "name": "@devanshsoni/pallet",
+  "name": "pokenav",
   "version": "0.0.0",
   "description": "A Pokémon route-map style navigation component for React.",
   "license": "MIT",

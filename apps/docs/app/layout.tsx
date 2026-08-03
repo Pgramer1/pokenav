@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import '@devanshsoni/pallet/styles.css';
+import 'pokenav/styles.css';
 import './globals.css';
 import { SiteNav } from './SiteNav';
 
 export const metadata: Metadata = {
-  title: 'pallet — docs',
+  title: 'pokenav — docs',
   description: 'A Pokémon route-map style navigation component for React.',
 };
 

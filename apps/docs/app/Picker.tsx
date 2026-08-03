@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Pallet, catalogue, type NavConfig } from '@devanshsoni/pallet';
+import { Pallet, catalogue, type NavConfig } from 'pokenav';
 import { SpriteThumb } from './SpriteThumb';
 
 const ACCENTS = ['#f97316', '#2563eb', '#16a34a', '#db2777', '#7c3aed'];

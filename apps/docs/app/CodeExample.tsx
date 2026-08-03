@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Pallet, type NavConfig } from '@devanshsoni/pallet';
+import { Pallet, type NavConfig } from 'pokenav';
 
 /**
  * A code block and a live rendering of the *same* config object.
@@ -57,8 +57,8 @@ function formatExample(config: NavConfig, showImports: boolean): string {
   const lines: string[] = [];
 
   if (showImports) {
-    lines.push(`import { Pallet } from '@devanshsoni/pallet';`);
-    lines.push(`import '@devanshsoni/pallet/styles.css';`);
+    lines.push(`import { Pallet } from 'pokenav';`);
+    lines.push(`import 'pokenav/styles.css';`);
     lines.push('');
   }
 

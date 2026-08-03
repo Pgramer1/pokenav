@@ -1,4 +1,4 @@
-# pallet
+# pokenav
 
 A Pokémon route-map style navigation component for React — a trail of circular nodes
 connected by a dotted line, each showing a pixel-art sprite, like walking a route on the
@@ -12,7 +12,7 @@ world map.
 ## Install
 
 ```bash
-npm install @devanshsoni/pallet
+npm install pokenav
 ```
 
 `react` and `react-dom` (>=18) are peer dependencies.
@@ -20,8 +20,8 @@ npm install @devanshsoni/pallet
 ## Usage
 
 ```tsx
-import { Pallet, type NavConfig } from '@devanshsoni/pallet';
-import '@devanshsoni/pallet/styles.css';
+import { Pallet, type NavConfig } from 'pokenav';
+import 'pokenav/styles.css';
 
 const config: NavConfig = {
   position: 'left',
@@ -130,7 +130,7 @@ component still works inside a scroll container, a virtualized list, or driven b
 that isn't scroll at all. For the ordinary page-scroll case:
 
 ```tsx
-import { Pallet, useScrollProgress } from '@devanshsoni/pallet';
+import { Pallet, useScrollProgress } from 'pokenav';
 
 <Pallet {...config} scrollProgress={useScrollProgress()} />;
 ```
@@ -210,7 +210,7 @@ downloaded, but they occupy build output. If that matters, import the sprite dir
 pass it as `spriteUrl` — that form is statically analyzable and tree-shakes completely:
 
 ```tsx
-import eevee from '@devanshsoni/pallet/sprites/133.png';
+import eevee from 'pokenav/sprites/133.png';
 
 items: [{ label: 'Home', href: '/', spriteUrl: eevee }];
 ```
@@ -222,7 +222,7 @@ appear after hydration; nodes render label-only until then.
 your own picker:
 
 ```ts
-import { catalogue } from '@devanshsoni/pallet';
+import { catalogue } from 'pokenav';
 ```
 
 Bundled sprites are fan-derived Pokémon artwork, not original work, and are **not** covered

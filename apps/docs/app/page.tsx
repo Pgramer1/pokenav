@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Pallet, useScrollProgress, type NavConfig } from '@devanshsoni/pallet';
+import { Pallet, useScrollProgress, type NavConfig } from 'pokenav';
 import { Picker } from './Picker';
 
 /**
@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>pallet</h1>
+      <h1>pokenav</h1>
       <p className="lede">
         A Pokémon route-map style navigation component for React. A trail of circular nodes
         connected by a dotted line, each showing a pixel-art sprite for a page or section.

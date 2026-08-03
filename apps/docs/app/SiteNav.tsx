@@ -14,7 +14,7 @@ export function SiteNav() {
   return (
     <header className="siteHeader">
       <Link href="/" className="brand">
-        pallet
+        pokenav
       </Link>
       <nav className="siteTabs" aria-label="Documentation sections">
         {TABS.map((tab) => (

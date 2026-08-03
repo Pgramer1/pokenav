@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { NavConfig } from '@devanshsoni/pallet';
+import type { NavConfig } from 'pokenav';
 import { CodeExample } from '../CodeExample';
 
 /**
@@ -48,14 +48,14 @@ export default function Usage() {
     <main className="prose">
       <h1>Usage</h1>
       <p className="lede">
-        Everything you need to drop <code>pallet</code> into a React app. Prefer picking
+        Everything you need to drop <code>pokenav</code> into a React app. Prefer picking
         sprites visually? Use the <Link href="/">playground</Link> and copy the config it
         generates.
       </p>
 
       <h2 id="install">Install</h2>
       <pre className="code">
-        <code>npm install @devanshsoni/pallet</code>
+        <code>npm install pokenav</code>
       </pre>
       <p>
         <code>react</code> and <code>react-dom</code> (&gt;=18) are peer dependencies. Import
@@ -63,7 +63,7 @@ export default function Usage() {
         layout:
       </p>
       <pre className="code">
-        <code>{`import '@devanshsoni/pallet/styles.css';`}</code>
+        <code>{`import 'pokenav/styles.css';`}</code>
       </pre>
 
       <h2 id="minimal">Minimal example</h2>
