@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Pallet, type NavConfig } from 'pokenav';
+import { CopyButton } from './CopyButton';
 
 /**
  * A code block and a live rendering of the *same* config object.
@@ -20,26 +20,22 @@ export function CodeExample({
   caption?: string;
 }) {
   const code = formatExample(config, showImports);
-  const [copied, setCopied] = useState(false);
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
-  };
 
   return (
     <div className="example">
       <div className="exampleCode">
-        <button type="button" className="copy" onClick={copy}>
-          {copied ? 'Copied' : 'Copy'}
-        </button>
+        <div className="codeHead">
+          <span className="codeLang">tsx</span>
+          <CopyButton value={code} className="copy copyInline" />
+        </div>
         <pre className="code">
           <code>{code}</code>
         </pre>
       </div>
       <div className="examplePreview">
-        <span className="exampleTag">Live — rendered from the config on the left</span>
+        <div className="codeHead">
+          <span className="exampleTag">Live — rendered from this config</span>
+        </div>
         <div className="exampleStage" data-orientation={config.orientation}>
           <Pallet
             {...config}

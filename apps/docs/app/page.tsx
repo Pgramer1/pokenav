@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Pallet, useScrollProgress, type NavConfig } from 'pokenav';
 import { Picker } from './Picker';
+import { CopyButton } from './CopyButton';
 
 /**
- * Live demo for the four bundled sprites.
+ * Live demo for the bundled sprites.
  *
  * Note what is NOT here: no `usePathname`, no router import, and no internal scroll
  * listener inside the component. `activeHref` is ordinary state and `scrollProgress` comes
@@ -21,6 +23,9 @@ const items: NavConfig['items'] = [
 
 const ACCENTS = ['#f97316', '#2563eb', '#16a34a', '#db2777'];
 
+/** Pokéball red — the hero keeps its own accent so it never depends on the controls below. */
+const HERO_ACCENT = '#e3350d';
+
 export default function Home() {
   const [activeHref, setActiveHref] = useState('/');
   const [accentColor, setAccentColor] = useState(ACCENTS[0]);
@@ -35,222 +40,286 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <h1>pokenav</h1>
-      <p className="lede">
-        A Pokémon route-map style navigation component for React. A trail of circular nodes
-        connected by a dotted line, each showing a pixel-art sprite for a page or section.
-      </p>
+    <main id="main">
+      <header className="hero">
+        <div className="heroCopy">
+          <span className="eyebrow">React component · zero runtime deps</span>
+          <h1 className="heroTitle">pokenav</h1>
+          <p className="heroLede">
+            A Pokémon route-map style navigation for React — a trail of circular nodes joined
+            by a dotted line, each showing a pixel-art sprite for a page or section.
+          </p>
 
+          <div className="installBar">
+            <code className="installCmd">
+              <span className="installPrompt" aria-hidden="true">
+                $
+              </span>
+              npm install pokenav
+            </code>
+            <CopyButton value="npm install pokenav" className="copy installCopy" />
+          </div>
+
+          <div className="heroActions">
+            <Link className="btn btnPrimary" href="/usage">
+              Read the docs
+            </Link>
+            <a className="btn" href="#build">
+              Build a nav
+            </a>
+          </div>
+
+          <ul className="heroFacts">
+            <li>898 sprites, loaded lazily</li>
+            <li>Plain CSS — no Tailwind, no framework coupling</li>
+            <li>Bring your own artwork with <code>spriteUrl</code></li>
+          </ul>
+        </div>
+
+        <div className="heroStage" onClick={capture}>
+          <Pallet
+            position="left"
+            orientation="vertical"
+            items={items}
+            activeHref={activeHref}
+            ariaLabel="Example navigation"
+            theme={{ accentColor: HERO_ACCENT, trailPath: 'wavy', dotStyle: 'dotted' }}
+          />
+          <span className="stageHint">Click a node</span>
+        </div>
+      </header>
+
+      <div id="build" className="anchorTarget" />
       <Picker />
 
-      <h2 className="section" id="variants">Variants</h2>
-      <p className="hint">
-        Everything below is the same component under different theme settings. Click a node
-        to change the active route. Every color comes from one accent value.
-      </p>
+      <section className="block" aria-labelledby="variants">
+        <div className="blockHead">
+          <span className="eyebrow">Theming</span>
+          <h2 id="variants">One accent, every variant</h2>
+          <p className="hint">
+            Everything below is the same component under different theme settings — ring,
+            trail, hover, focus and fill colors all derive from a single <code>accentColor</code>.
+            Click a node to change the active route.
+          </p>
+        </div>
 
-      <div className="controls">
-        <span className="controlsLabel">accentColor</span>
-        {ACCENTS.map((color) => (
-          <button
-            key={color}
-            type="button"
-            className="swatch"
-            data-selected={color === accentColor ? '' : undefined}
-            style={{ background: color }}
-            onClick={() => setAccentColor(color)}
-            aria-label={`Use accent ${color}`}
-          />
-        ))}
-      </div>
+        <div className="controls">
+          <span className="controlsLabel" id="accent-label">
+            accentColor
+          </span>
+          <span className="swatches" role="group" aria-labelledby="accent-label">
+            {ACCENTS.map((color) => (
+              <button
+                key={color}
+                type="button"
+                className="swatch"
+                data-selected={color === accentColor ? '' : undefined}
+                aria-pressed={color === accentColor}
+                style={{ background: color }}
+                onClick={() => setAccentColor(color)}
+                aria-label={`Use accent ${color}`}
+              />
+            ))}
+          </span>
+        </div>
 
-      <h3 className="section" id="trail-path">Trail path</h3>
-      <div className="demos" onClick={capture}>
-        <section className="demo">
-          <h3>
-            <code>straight</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Straight trail demo"
-            theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
-          />
-        </section>
+        <h3 className="subhead" id="trail-path">
+          Trail path
+        </h3>
+        <div className="demos" onClick={capture}>
+          <Demo tags={['straight']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Straight trail demo"
+              theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
+            />
+          </Demo>
 
-        <section className="demo">
-          <h3>
-            <code>wavy</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Wavy trail demo"
-            theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
-          />
-        </section>
+          <Demo tags={['wavy']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Wavy trail demo"
+              theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
+            />
+          </Demo>
 
-        <section className="demo">
-          <h3>
-            <code>wavy</code> + <code>pokeball</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Wavy pokeball demo"
-            theme={{ accentColor, trailPath: 'wavy', ringStyle: 'pokeball', dotStyle: 'dashed' }}
-          />
-        </section>
+          <Demo tags={['wavy', 'pokeball']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Wavy pokeball demo"
+              theme={{ accentColor, trailPath: 'wavy', ringStyle: 'pokeball', dotStyle: 'dashed' }}
+            />
+          </Demo>
 
-        <section className="demo">
-          <h3>
-            <code>wavy</code> + <code>position: right</code>
-          </h3>
-          <Pallet
-            position="right"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Wavy right demo"
-            theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
-          />
-        </section>
-      </div>
+        </div>
 
-      <h3 className="section" id="horizontal">Horizontal orientation</h3>
-      <p className="hint">
-        Labels sit below the node so the trail never runs through them. <code>position</code>
-        stays independent — it controls which end the trail packs to.
-      </p>
-      <div className="demosStacked" onClick={capture}>
-        <section className="demo">
-          <h3>
-            <code>horizontal</code> + <code>straight</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="horizontal"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Horizontal straight demo"
-            theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
-          />
-        </section>
+        <h3 className="subhead" id="horizontal">
+          Horizontal orientation
+        </h3>
+        <p className="hint">
+          Labels sit below the node so the trail never runs through them. <code>position</code>{' '}
+          stays independent — it controls which end the trail packs to.
+        </p>
+        <div className="demosStacked" onClick={capture}>
+          <Demo tags={['horizontal', 'straight']}>
+            <Pallet
+              position="left"
+              orientation="horizontal"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Horizontal straight demo"
+              theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
+            />
+          </Demo>
 
-        <section className="demo">
-          <h3>
-            <code>horizontal</code> + <code>wavy</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="horizontal"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Horizontal wavy demo"
-            theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
-          />
-        </section>
+          <Demo tags={['horizontal', 'wavy']}>
+            <Pallet
+              position="left"
+              orientation="horizontal"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Horizontal wavy demo"
+              theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
+            />
+          </Demo>
 
-        <section className="demo">
-          <h3>
-            <code>horizontal</code> + <code>pokeball</code> + <code>position: right</code>
-          </h3>
-          <Pallet
-            position="right"
-            orientation="horizontal"
-            items={items}
-            activeHref={activeHref}
-            ariaLabel="Horizontal pokeball right demo"
-            theme={{ accentColor, trailPath: 'wavy', ringStyle: 'pokeball', dotStyle: 'dashed' }}
-          />
-        </section>
-      </div>
+          <Demo tags={['horizontal', 'pokeball', 'position: right']}>
+            <Pallet
+              position="right"
+              orientation="horizontal"
+              items={items}
+              activeHref={activeHref}
+              ariaLabel="Horizontal pokeball right demo"
+              theme={{ accentColor, trailPath: 'wavy', ringStyle: 'pokeball', dotStyle: 'dashed' }}
+            />
+          </Demo>
+        </div>
+      </section>
 
-      <h3 className="section" id="scroll-fill">Scroll-linked trail fill</h3>
-      <p className="hint">
-        Scroll the page — the trail fills continuously in <code>accentColor</code>, and the
-        highlight travels to whichever node the fill has reached. Progress is{' '}
-        <code>{scrollProgress.toFixed(2)}</code>, supplied by <code>useScrollProgress()</code>
-        , not read inside the component.
-      </p>
-      <div className="demos" onClick={capture}>
-        <section className="demo">
-          <h3>
-            <code>straight</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            scrollProgress={scrollProgress}
-            ariaLabel="Scroll fill straight demo"
-            theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
-          />
-        </section>
+      <section className="block" aria-labelledby="scroll-fill">
+        <div className="blockHead">
+          <span className="eyebrow">Scroll linking</span>
+          <h2 id="scroll-fill">Scroll-linked trail fill</h2>
+          <p className="hint">
+            Scroll the page — the trail fills continuously in <code>accentColor</code>, and the
+            highlight travels to whichever node the fill has reached. Progress comes from{' '}
+            <code>useScrollProgress()</code>, not from inside the component.
+          </p>
+        </div>
 
-        <section className="demo">
-          <h3>
-            <code>wavy</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="vertical"
-            items={items}
-            activeHref={activeHref}
-            scrollProgress={scrollProgress}
-            ariaLabel="Scroll fill wavy demo"
-            theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
-          />
-        </section>
+        <div className="meter" role="img" aria-label={`Scroll progress ${Math.round(scrollProgress * 100)} percent`}>
+          <div className="meterTrack">
+            <div className="meterFill" style={{ width: `${scrollProgress * 100}%` }} />
+          </div>
+          <code className="meterValue">{scrollProgress.toFixed(2)}</code>
+        </div>
 
-        <section className="demo">
-          <h3>
-            <code>horizontal</code> + <code>wavy</code>
-          </h3>
-          <Pallet
-            position="left"
-            orientation="horizontal"
-            items={items}
-            activeHref={activeHref}
-            scrollProgress={scrollProgress}
-            ariaLabel="Scroll fill horizontal demo"
-            theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
-          />
-        </section>
-      </div>
+        <div className="demos" onClick={capture}>
+          <Demo tags={['straight']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              items={items}
+              activeHref={activeHref}
+              scrollProgress={scrollProgress}
+              ariaLabel="Scroll fill straight demo"
+              theme={{ accentColor, trailPath: 'straight', dotStyle: 'dotted' }}
+            />
+          </Demo>
 
-      <h3 className="section">Custom sprites, no Pokémon</h3>
-      <p className="hint">
-        Every item takes a <code>spriteUrl</code>, so the component works with entirely your
-        own artwork and never touches the bundled catalogue.
-      </p>
-      <div className="demos" onClick={capture}>
-        <section className="demo">
-          <Pallet
-            position="left"
-            orientation="vertical"
-            activeHref={activeHref}
-            ariaLabel="Custom sprite demo"
-            items={[
-              { label: 'Home', href: '/', spriteUrl: swatchSprite('#f43f5e') },
-              { label: 'Work', href: '/work', spriteUrl: swatchSprite('#8b5cf6') },
-              { label: 'Writing', href: '/writing', spriteUrl: swatchSprite('#0ea5e9') },
-            ]}
-            theme={{ accentColor, trailPath: 'wavy' }}
-          />
-        </section>
-      </div>
+          <Demo tags={['wavy']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              items={items}
+              activeHref={activeHref}
+              scrollProgress={scrollProgress}
+              ariaLabel="Scroll fill wavy demo"
+              theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
+            />
+          </Demo>
+        </div>
 
-      <div className="scrollRoom" aria-hidden="true" />
+        {/* Full width, not a third of the row: a horizontal trail is wider than a card in a
+            three-across grid, and squeezing it there puts the last node under the scroll
+            edge where its highlight ring gets clipped. */}
+        <div className="demosStacked" onClick={capture}>
+          <Demo tags={['horizontal', 'wavy']}>
+            <Pallet
+              position="left"
+              orientation="horizontal"
+              items={items}
+              activeHref={activeHref}
+              scrollProgress={scrollProgress}
+              ariaLabel="Scroll fill horizontal demo"
+              theme={{ accentColor, trailPath: 'wavy', dotStyle: 'dotted' }}
+            />
+          </Demo>
+        </div>
+      </section>
+
+      <section className="block" aria-labelledby="custom-sprites">
+        <div className="blockHead">
+          <span className="eyebrow">Not just Pokémon</span>
+          <h2 id="custom-sprites">Custom sprites</h2>
+          <p className="hint">
+            Every item takes a <code>spriteUrl</code>, so the component works with entirely your
+            own artwork and never touches the bundled catalogue — which is also the answer to
+            the sprite licensing question.
+          </p>
+        </div>
+        <div className="demos" onClick={capture}>
+          <Demo tags={['spriteUrl']}>
+            <Pallet
+              position="left"
+              orientation="vertical"
+              activeHref={activeHref}
+              ariaLabel="Custom sprite demo"
+              items={[
+                { label: 'Home', href: '/', spriteUrl: swatchSprite('#f43f5e') },
+                { label: 'Work', href: '/work', spriteUrl: swatchSprite('#8b5cf6') },
+                { label: 'Writing', href: '/writing', spriteUrl: swatchSprite('#0ea5e9') },
+              ]}
+              theme={{ accentColor, trailPath: 'wavy' }}
+            />
+          </Demo>
+        </div>
+      </section>
+
+      <section className="cta">
+        <h2>Ready to drop it in?</h2>
+        <p className="hint">
+          The usage docs cover install, the full <code>NavConfig</code> reference, custom
+          sprites and accessibility.
+        </p>
+        <Link className="btn btnPrimary" href="/usage">
+          Read the docs
+        </Link>
+      </section>
+
     </main>
+  );
+}
+
+function Demo({ tags, children }: { tags: string[]; children: React.ReactNode }) {
+  return (
+    <section className="demo">
+      <h4 className="demoHead">
+        {tags.map((tag) => (
+          <code key={tag}>{tag}</code>
+        ))}
+      </h4>
+      <div className="demoStage">{children}</div>
+    </section>
   );
 }
 

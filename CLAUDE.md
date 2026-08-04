@@ -14,10 +14,37 @@ sprite catalogue + picker UI on the docs site.
 
 ## Docs site routes
 
-`/` is the playground (picker + variant demos); `/usage` is the written documentation.
+`/` is the playground (hero + picker + variant demos); `/usage` is the written documentation.
 `SiteNav` in the layout is the tab bar. Usage-page examples render a real `<Pallet>` and
 generate their code block from the *same* config object via `CodeExample` — never write a
 snippet by hand next to a live example, or the two drift.
+
+Shared docs chrome: `CopyButton` (every copy affordance — don't re-implement the copied/failed
+timer), `ThemeToggle`, `Footer`, and `usage/Toc` (the "on this page" rail).
+
+**Theme is `prefers-color-scheme` until the visitor overrides it.** The toggle writes
+`pokenav-theme` and the inline script in `layout.tsx` replays it in `<head>` before first
+paint — that script is why `<html>` carries `suppressHydrationWarning`. The `[data-theme]`
+token blocks must stay *after* the `prefers-color-scheme` media query in `globals.css`, or a
+stored choice loses to the OS setting in one direction.
+
+### Two flex/grid traps that already cost real layout bugs
+
+Both are silent — the build passes and the page looks plausible until you check a narrow
+viewport or measure a card.
+
+- **`flex-basis` is an axis, not a width.** `.demo` is used in both `.demos` (row) and
+  `.demosStacked` (column), so a basis set on the class itself became a 240px *height* in the
+  stacked container. Set the basis on `.demos > .demo` / `.demosStacked > .demo`, never on the
+  shared class. The same bug hit `.slot` once `.slotRow` flips to a column on mobile.
+- **`margin: 0 auto` on a grid item disables stretch.** The base `main` rule centers the page
+  that way; inside `.docsLayout`'s grid that made `main` shrink-to-fit its *min-content*
+  (565px) instead of filling its 358px track, putting the whole usage page into horizontal
+  scroll on a phone. `.docsLayout main` resets `margin` for exactly this reason.
+
+Bare `<input>` reports a ~20-character intrinsic min-width, so any flex row containing one
+needs `min-width: 0` on the row or it will not shrink. Check page overflow with
+`document.documentElement.scrollWidth` against the viewport, not by eye.
 
 ## Commands
 
