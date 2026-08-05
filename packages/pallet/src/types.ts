@@ -17,8 +17,11 @@ export type NavPosition = 'left' | 'center' | 'right';
 /**
  * Direction the trail runs.
  *
- * `horizontal` is **not implemented yet** and currently renders vertically. The value is
- * accepted so the config shape stays stable (PALLET-PLAN.md §1).
+ * Independent of {@link NavPosition}: `orientation` is which way the trail runs, `position`
+ * is which edge it anchors to. Every combination works.
+ *
+ * In `horizontal`, labels sit *below* the node rather than flipping with `position` —
+ * beside the node would run the trail through the neighbouring label's text.
  */
 export type NavOrientation = 'vertical' | 'horizontal';
 
@@ -32,12 +35,12 @@ export type DotStyle = 'dotted' | 'dashed' | 'solid';
 export type RingStyle = 'solid' | 'pokeball';
 
 /**
- * `straight` — trail rendered as a CSS border/divider.
+ * `straight` — trail rendered as a CSS border/divider. Needs no measurement, so it survives
+ * server rendering and no-JS.
  *
- * `wavy` — **not implemented yet.** It requires an SVG bezier `<path>` with a dash-array
- * along the curve, a different rendering approach from a CSS border rather than a style
- * toggle, and is scoped as its own piece of work. Passing it today renders the straight
- * trail; the value is accepted so the config shape stays stable.
+ * `wavy` — an SVG path drawn through measured node centers. Because it needs layout to
+ * exist first, the straight trail renders until the geometry is measured, which is what
+ * prevents a frame of disconnected circles.
  */
 export type TrailPath = 'straight' | 'wavy';
 

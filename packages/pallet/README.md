@@ -8,9 +8,9 @@ world map.
 search all 898 sprites, assign them to nav items, and copy out the generated config.
 Source on [GitHub](https://github.com/Pgramer1/pokenav).
 
-> **Status: 0.1.0, early release.** The config API is settled and everything documented
-> here is implemented: both ring styles, both trail paths, both orientations,
-> accent-colour theming, and scroll-linked trail fill.
+> **Status: 0.1.1.** The config API is settled and everything documented here is
+> implemented: both ring styles, both trail paths, both orientations, accent-colour
+> theming, and scroll-linked trail fill.
 
 ## Install
 

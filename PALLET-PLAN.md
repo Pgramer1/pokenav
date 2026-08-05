@@ -306,8 +306,8 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
    approach (measured SVG path vs CSS border), as scoped.
 5. **Catalogue + picker** (done) — full 898-sprite catalogue, lazy sprite loading, and the
    interactive picker UI on `/apps/docs`. See §7.
-6. **Publish** — npm package, README with GIFs, docs site live, launch posts
-   (r/webdev, r/reactjs, Show HN).
+6. **Publish** (done) — `pokenav` is live on npm, docs site is live. Outstanding: README
+   GIFs, making the GitHub repo public, launch posts (r/webdev, r/reactjs, Show HN).
 
 ## 9. Open risks
 - **Sprite copyright**: leans on the same fan-tolerance precedent as PokéAPI. Revisit if
@@ -319,19 +319,24 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
   Unused entries no longer cost consumers anything but a row of JSON.
 
 ## 10. Status
-Phases 1–5 are done. The workspace is scaffolded, the component is built against this spec,
+Phases 1–6 are done. The workspace is scaffolded, the component is built against this spec,
 all theme variants have landed (accent-color theming, both ring styles, both trail paths,
-both orientations, scroll-linked trail fill), and the complete 898-sprite catalogue ships
-with lazy loading behind the interactive picker on `/apps/docs`.
+both orientations, scroll-linked trail fill), the complete 898-sprite catalogue ships with
+lazy loading behind the interactive picker on `/apps/docs`, and **`pokenav` is published to
+npm**. Release history is in `packages/pallet/CHANGELOG.md`.
 
-Next concrete step is phase 6, publish. The package name is settled — **`pokenav`**,
-unscoped and confirmed unregistered on npm. (`pallet` itself is taken by an abandoned
-PureScript package manager, which is why the name moved.) The docs site is live at
+The package name is settled — **`pokenav`**, unscoped. (`pallet` itself is taken by an
+abandoned PureScript package manager, which is why the name moved.) The docs site is live at
 **pokenav.devanshsoni.com** and the repo is `Pgramer1/pokenav`.
 
-Open items: README GIFs, and **the repo is currently private** — `repository`, `bugs` and
-every GitHub link in the published README will 404 for anyone installing from npm until it
-is made public.
+Publishing requires npm 2FA or a granular access token with 2FA bypass; a 403 on `PUT` with
+no other explanation is that gate, not a name conflict.
+
+Open items:
+- **The repo is still private.** `repository`, `bugs` and every GitHub link in the published
+  README 404 for anyone installing from npm. This is now live-facing rather than
+  pre-release — it is the highest-priority remaining item, and it needs no republish.
+- README GIFs.
 
 Still deliberately unbuilt: the capture-flash route transition (§4, nice-to-have) and
 anything audio (§2, §9). Generation 9 sprites are absent from the upstream source rather

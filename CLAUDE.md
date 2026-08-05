@@ -9,8 +9,11 @@ the behavior spec, and the build phases. When a request conflicts with it, the p
 unless the user explicitly overrides — and a shape stated in an earlier chat message is
 superseded by the plan document.
 
-Currently at phase 3–4 (component built, theme variants partially landed). Phase 5 is the
-sprite catalogue + picker UI on the docs site.
+Phases 1–6 are done: the component is built, all theme variants have landed, the full
+898-sprite catalogue ships behind the picker, and `pokenav` is published to npm.
+Further work is versioned releases on top of a settled config API — treat the documented
+public surface (`data-*` attributes, `NavConfig`, CSS custom properties) as a contract that
+breaks consumers if changed.
 
 ## Docs site routes
 
@@ -129,11 +132,20 @@ The sprite box is a square inside a circle, so its *corners* bind, not its edges
 this pushes the artwork under the ring band, where it gets painted over. Recheck the
 inequality whenever node size, sprite size, or pokéball thickness changes.
 
-**Adding a sprite touches two files** that must stay in sync: `catalogue.json` (the
-`{id, name, iconAsset, types}` entry) and `src/sprites.ts` (the import that inlines it as a
-`data:` URI at build time). Once the set grows past a handful, generate both from one
-source rather than hand-editing. Sprites are inlined, not fetched — the package has no
-runtime dependency on PokéAPI or any CDN, by design.
+**`sprites/` and `catalogue.json` are generated, not hand-maintained.** Both come out of
+`scripts/build-catalogue.mjs` in one pass (898 entries, `{id, name, generation, iconAsset,
+types}`, ids 1–898). Hand-edit neither — a manual entry is lost on the next regeneration.
+See `packages/pallet/SPRITES-MAINTENANCE.md`.
+
+**Sprites load through a dynamic `import()` per id, not as inlined `data:` URIs.** That's
+what keeps 898 sprites out of every consumer's bundle — only the ids a `NavConfig` names are
+fetched. Two constraints hold it up: `sprite-import.mjs` is published *unbundled* and
+excluded from tsup (esbuild would expand the glob into 898 chunks and inline them into the
+CJS build), and its template literal must stay inline — hoisting the path into a variable
+makes it unanalyzable to every bundler and sprites stop resolving in production. `sprites.ts`
+must also keep normalizing the import result: Next hands back `StaticImageData`, not a
+string, so a string-only check treats every sprite in a Next app as missing. The package
+still has no runtime dependency on PokéAPI or any CDN — the assets ship in the tarball.
 
 **`spriteUrl` bypasses the catalogue entirely.** It's what makes this a general nav library
 rather than a Pokémon novelty, and it's the answer to the licensing question for consumers.

@@ -1,6 +1,6 @@
 {
   "name": "pokenav",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Pokémon route-map style navigation component for React — a trail of circular sprite nodes connected by a dotted line.",
   "license": "MIT",
   "keywords": [
@@ -44,6 +44,7 @@
     "catalogue.json",
     "sprite-import.mjs",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE",
     "SPRITES-NOTICE.md"
   ],
