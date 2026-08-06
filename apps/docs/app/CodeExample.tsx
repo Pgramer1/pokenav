@@ -1,6 +1,6 @@
 'use client';
 
-import { Pallet, type NavConfig } from 'pokenav';
+import { Pokenav, type NavConfig } from 'pokenav/pokemon';
 import { CopyButton } from './CopyButton';
 
 /**
@@ -37,7 +37,7 @@ export function CodeExample({
           <span className="exampleTag">Live — rendered from this config</span>
         </div>
         <div className="exampleStage" data-orientation={config.orientation}>
-          <Pallet
+          <Pokenav
             {...config}
             activeHref={config.items[0]?.href}
             ariaLabel={caption ?? 'Example navigation'}
@@ -53,12 +53,14 @@ function formatExample(config: NavConfig, showImports: boolean): string {
   const lines: string[] = [];
 
   if (showImports) {
-    lines.push(`import { Pallet } from 'pokenav';`);
+    // Which entry point a config needs is a property of the config, so derive it rather
+    // than hardcoding one: an example that names a pokemonId cannot use the core entry.
+    lines.push(`import { Pokenav } from '${entryPointFor(config)}';`);
     lines.push(`import 'pokenav/styles.css';`);
     lines.push('');
   }
 
-  lines.push('<Pallet');
+  lines.push('<Pokenav');
   lines.push(`  position="${config.position}"`);
   lines.push(`  orientation="${config.orientation}"`);
   lines.push('  items={[');
@@ -66,7 +68,8 @@ function formatExample(config: NavConfig, showImports: boolean): string {
   for (const item of config.items) {
     const fields = [`label: '${item.label}'`, `href: '${item.href}'`];
     if (item.pokemonId !== undefined) fields.push(`pokemonId: ${item.pokemonId}`);
-    if (item.spriteUrl !== undefined) fields.push(`spriteUrl: '${item.spriteUrl}'`);
+    if (item.spriteUrl !== undefined) fields.push(`spriteUrl: '${spriteUrlOf(item.spriteUrl)}'`);
+    if (item.alt !== undefined) fields.push(`alt: '${item.alt}'`);
     lines.push(`    { ${fields.join(', ')} },`);
   }
 
@@ -79,8 +82,23 @@ function formatExample(config: NavConfig, showImports: boolean): string {
     }
   }
 
+  if (typeof config.matchActive === 'string') {
+    lines.push(`  matchActive="${config.matchActive}"`);
+  }
+
   lines.push('  activeHref={pathname}');
   lines.push('/>');
 
   return lines.join('\n');
+}
+
+function entryPointFor(config: NavConfig): string {
+  return config.items.some((item) => item.pokemonId !== undefined)
+    ? 'pokenav/pokemon'
+    : 'pokenav';
+}
+
+/** `spriteUrl` accepts a bundler's static-import object as well as a plain string. */
+function spriteUrlOf(spriteUrl: NonNullable<NavConfig['items'][number]['spriteUrl']>): string {
+  return typeof spriteUrl === 'string' ? spriteUrl : spriteUrl.src;
 }

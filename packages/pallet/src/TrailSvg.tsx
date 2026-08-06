@@ -150,6 +150,16 @@ export function TrailSvg({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
+      /*
+       * The size is repeated as a CSS declaration, not left to the presentation attributes
+       * above. The element is absolutely positioned with `inset: 0`, and an authored width
+       * is what over-constrains that and keeps the box at its natural size instead of
+       * stretching to the wrapper. It only matters for the computed (pre-measurement) path,
+       * whose box is the ring column rather than the whole wrapper — but relying on
+       * presentation-attribute precedence to decide whether a trail is stretched is not a
+       * thing worth being subtle about.
+       */
+      style={{ width, height }}
       aria-hidden="true"
       focusable="false"
       data-pallet-trail-svg=""

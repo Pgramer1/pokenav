@@ -64,21 +64,31 @@ type NavConfig = {
   items: Array<{
     label: string;
     href: string;
-    pokemonId?: number;   // pulls from the bundled catalogue (898 sprites, lazy-loaded)
-    spriteUrl?: string;   // escape hatch: any custom sprite/icon, no Pokémon required
+    spriteUrl?: string | { src: string };  // any custom sprite/icon, or a static import
+    alt?: string;                          // explicit accessible name; '' = decorative
+    pokemonId?: number;   // bundled catalogue (898 sprites, lazy) — `pokenav/pokemon` only
   }>;
   theme?: {
     accentColor?: string;              // drives active ring, hover ring, trail color —
                                          // no hardcoded orange, user's brand color end to end
+    surfaceColor?: string;              // background behind the nav; pokéball ring only
     ringStyle?: 'solid' | 'pokeball';   // pokeball = red/white split ring
     trailPath?: 'straight' | 'wavy';    // wavy = curved SVG path, not a CSS border
     dotStyle?: 'dotted' | 'dashed' | 'solid';
     font?: string;
   };
+  matchActive?: 'exact' | 'prefix' | ((itemHref: string, activeHref: string) => boolean);
 };
 ```
 The `spriteUrl` escape hatch is what makes this a real reusable nav library rather than a
 novelty — someone with zero interest in Pokémon can still use it with their own art.
+
+**As of 0.2.0 the escape hatch is also the default entry point.** `pokenav` resolves
+`spriteUrl` only; `pokenav/pokemon` adds `pokemonId`. Same component, same props, same
+stylesheet — the split exists because the sprite loader's dynamic `import()` builds a
+*static* context over all 898 PNGs in the consumer's bundler, so no runtime flag can stop
+those chunks being emitted. Only an import graph that never reaches the catalogue can. See
+§7 and the 0.2.0 changelog.
 
 ### Theme/style variants (from user feedback on the first live build)
 - **`accentColor`**: single source of truth for active-ring color, hover-ring color, and
@@ -308,6 +318,15 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
    interactive picker UI on `/apps/docs`. See §7.
 6. **Publish** (done) — `pokenav` is live on npm, docs site is live. Outstanding: README
    GIFs, making the GitHub repo public, launch posts (r/webdev, r/reactjs, Show HN).
+7. **Consumer-integration fixes** (done, 0.2.0) — the first round of changes driven by
+   installing the package into a real site rather than by the plan. Component renamed
+   `Pallet` → `Pokenav` (old name kept as a deprecated alias for one version); the package
+   split into `pokenav` / `pokenav/pokemon`; `spriteUrl` routed through the same URL
+   normalizer as the catalogue path and widened to accept a bundler's static-import object;
+   the stylesheet dropped to specificity 0 via `:where()`; `matchActive`, `alt`,
+   `surfaceColor` and dev-mode sprite warnings added; the wavy trail made
+   server-renderable; the pokéball ring made theme-aware. Full detail in the 0.2.0
+   changelog.
 
 ## 9. Open risks
 - **Sprite copyright**: leans on the same fan-tolerance precedent as PokéAPI. Revisit if
@@ -319,11 +338,19 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
   Unused entries no longer cost consumers anything but a row of JSON.
 
 ## 10. Status
-Phases 1–6 are done. The workspace is scaffolded, the component is built against this spec,
+Phases 1–7 are done. The workspace is scaffolded, the component is built against this spec,
 all theme variants have landed (accent-color theming, both ring styles, both trail paths,
 both orientations, scroll-linked trail fill), the complete 898-sprite catalogue ships with
 lazy loading behind the interactive picker on `/apps/docs`, and **`pokenav` is published to
 npm**. Release history is in `packages/pallet/CHANGELOG.md`.
+
+**0.2.0 is the first release driven by consumer feedback rather than by this plan**, and it
+is the first to break compatibility: `pokemonId` moved to the `pokenav/pokemon` entry point
+and the component is now `Pokenav`. Both are covered in the changelog's migration notes.
+That shifts what "the plan wins" means from here on — the config API is a shipped contract
+with installs behind it, so a change to `data-*` attributes, `NavConfig` or the CSS custom
+properties now costs consumers a migration regardless of what this document says. Treat
+§3's shape as a record of what is published, not as a proposal.
 
 The package name is settled — **`pokenav`**, unscoped. (`pallet` itself is taken by an
 abandoned PureScript package manager, which is why the name moved.) The docs site is live at

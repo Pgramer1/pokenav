@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Pallet, useScrollProgress, type NavConfig } from 'pokenav';
+import { Pokenav, useScrollProgress, type NavConfig } from 'pokenav/pokemon';
 import { Picker } from './Picker';
 import { CopyButton } from './CopyButton';
 
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
 
         <div className="heroStage" onClick={capture}>
-          <Pallet
+          <Pokenav
             position="left"
             orientation="vertical"
             items={items}
@@ -128,7 +128,7 @@ export default function Home() {
         </h3>
         <div className="demos" onClick={capture}>
           <Demo tags={['straight']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               items={items}
@@ -139,7 +139,7 @@ export default function Home() {
           </Demo>
 
           <Demo tags={['wavy']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               items={items}
@@ -150,7 +150,7 @@ export default function Home() {
           </Demo>
 
           <Demo tags={['wavy', 'pokeball']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               items={items}
@@ -171,7 +171,7 @@ export default function Home() {
         </p>
         <div className="demosStacked" onClick={capture}>
           <Demo tags={['horizontal', 'straight']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="horizontal"
               items={items}
@@ -182,7 +182,7 @@ export default function Home() {
           </Demo>
 
           <Demo tags={['horizontal', 'wavy']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="horizontal"
               items={items}
@@ -193,7 +193,7 @@ export default function Home() {
           </Demo>
 
           <Demo tags={['horizontal', 'pokeball', 'position: right']}>
-            <Pallet
+            <Pokenav
               position="right"
               orientation="horizontal"
               items={items}
@@ -225,7 +225,7 @@ export default function Home() {
 
         <div className="demos" onClick={capture}>
           <Demo tags={['straight']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               items={items}
@@ -237,7 +237,7 @@ export default function Home() {
           </Demo>
 
           <Demo tags={['wavy']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               items={items}
@@ -254,7 +254,7 @@ export default function Home() {
             edge where its highlight ring gets clipped. */}
         <div className="demosStacked" onClick={capture}>
           <Demo tags={['horizontal', 'wavy']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="horizontal"
               items={items}
@@ -279,7 +279,7 @@ export default function Home() {
         </div>
         <div className="demos" onClick={capture}>
           <Demo tags={['spriteUrl']}>
-            <Pallet
+            <Pokenav
               position="left"
               orientation="vertical"
               activeHref={activeHref}

@@ -11,10 +11,16 @@ like walking a route on the world map.
 npm install pokenav
 ```
 
-> **Status: published on npm.** The config API is settled and everything documented is
-> implemented — both ring styles, both trail paths, both orientations, accent-colour
-> theming, scroll-linked trail fill, and the full 898-sprite catalogue behind the
-> interactive picker.
+> **Status: published on npm, currently 0.2.0.** The config API is settled and everything
+> documented is implemented — both ring styles, both trail paths, both orientations,
+> accent-colour theming, scroll-linked trail fill, and the full 898-sprite catalogue behind
+> the interactive picker.
+
+The component ships from two entry points: **`pokenav`** resolves `spriteUrl` and is the one
+to reach for by default, **`pokenav/pokemon`** adds `pokemonId` and the bundled catalogue.
+The split keeps the 898 sprite chunks out of builds that never ask for a Pokémon. 0.2.0 also
+renamed the component `Pallet` → `Pokenav`; see
+[the changelog](packages/pallet/CHANGELOG.md) for migration notes.
 
 The published package is **`pokenav`**. The workspace folder is still `packages/pallet`,
 after Pallet Town where every journey starts — the internal layout doesn't have to match the

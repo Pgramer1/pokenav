@@ -1,5 +1,5 @@
 /*
- * pallet — base stylesheet.
+ * pokenav — base stylesheet.
  *
  * Self-contained plain CSS Modules. No Tailwind, no preprocessor, no framework coupling,
  * nothing for the consumer to configure beyond importing this file once.
@@ -18,7 +18,40 @@
  *
  * Consumers restyling from outside should target the data-* attributes on the markup —
  * those are the stable public contract, not these class names.
+ *
+ * ---------------------------------------------------------------------------------------
+ * Specificity: every class selector in this file is wrapped in :where().
+ *
+ * A CSS Module class and a consumer's `[data-pallet]` rule are both specificity (0,1,0), so
+ * which one wins came down to stylesheet order — meaning whether the consumer happened to
+ * import `pokenav/styles.css` before or after their own global CSS. That is not a contract
+ * anyone can rely on, and it silently reversed the custom-property defaults below.
+ *
+ * :where() contributes zero specificity, so every rule here now scores on its attribute and
+ * pseudo-class selectors alone, and the defaults block scores zero outright. Two
+ * consequences worth knowing before editing:
+ *
+ *   1. Consumers win. Any rule targeting the documented data-* attributes outranks the
+ *      package rule for the same state, in either import order.
+ *   2. Internal precedence is unchanged. Every rule dropped by exactly its class count, and
+ *      the pairs that depended on out-ranking each other — horizontal over vertical,
+ *      [data-reached] over [data-active], wavy over the straight segments — all kept the
+ *      same relative order, because they carry the same class structure. Where two rules
+ *      tie, source order decides, which is why the sections below are ordered
+ *      base → hover → active → scroll-fill → orientation → focus → motion. Keep them that
+ *      way when adding rules.
  */
+
+/*
+ * Registered so it can be transitioned. The pokéball ring recedes by mixing toward the page
+ * surface (see the ring section), and an unregistered custom property animates discretely —
+ * the ring would snap between states instead of easing like every other transition here.
+ */
+@property --pallet-pokeball-mix {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 40%;
+}
 
 /*
  * Geometry constraint worth stating, because getting it wrong crops the artwork:
@@ -31,8 +64,13 @@
  * With the values below: inner hole = 64 - (2 x 6) = 52px, and 36 x 1.415 = 50.9px. Fits,
  * with ~1px to spare. Change any of node size, sprite size, or pokéball thickness and that
  * inequality has to be rechecked.
+ *
+ * --pallet-node-size and --pallet-gap are also mirrored as constants in
+ * `analyticGeometry.ts`, which computes the wavy trail before layout exists so the curve
+ * can be server-rendered. Changing a value here without changing it there costs a corrective
+ * re-render on first paint, not correctness — measurement still has the last word.
  */
-.nav {
+:where(.nav) {
   --pallet-node-size: 64px;
   --pallet-sprite-size: 36px;
   --pallet-gap: 1.75rem;
@@ -49,9 +87,17 @@
    */
   --pallet-wave-amplitude: 12px;
 
+  /*
+   * The background the nav is painted on. Only the pokéball ring reads it. `Canvas` is the
+   * system color for page background, so it already follows the document's `color-scheme`;
+   * the `surfaceColor` theme value overrides it for sites whose dark theme is hand-rolled.
+   */
+  --pallet-surface: Canvas;
+
   /* Pokéball variant only. Definitional colors, still overridable. */
   --pallet-pokeball-red: #ee1c25;
   --pallet-pokeball-white: #f8f8f8;
+  --pallet-pokeball-seam: color-mix(in srgb, var(--pallet-pokeball-red) 70%, #000);
   --pallet-pokeball-thickness: 6px;
   /* Matches the band thickness exactly, so the button sits fully inside the ring and
      never breaks the circular silhouette. */
@@ -60,7 +106,7 @@
   font-family: var(--pallet-font);
 }
 
-.nav[data-ring-style='pokeball'] {
+:where(.nav)[data-ring-style='pokeball'] {
   --pallet-ring-thickness: var(--pallet-pokeball-thickness);
   --pallet-ring-thickness-active: var(--pallet-pokeball-thickness);
 }
@@ -68,15 +114,15 @@
 /* ---------------------------------------------------------------- trail ---- */
 
 /*
- * Positioned box shared by the list and the SVG overlay, so measured node centers and the
- * path are in one coordinate space. Kept `display: block` so the list still fills the nav's
- * width exactly as it did before this wrapper existed.
+ * Positioned box shared by the list and the SVG overlay, so node centers and the path are
+ * in one coordinate space. Kept `display: block` so the list still fills the nav's width
+ * exactly as it did before this wrapper existed.
  */
-.trailWrap {
+:where(.trailWrap) {
   position: relative;
 }
 
-.trail {
+:where(.trail) {
   display: flex;
   flex-direction: column;
   gap: var(--pallet-gap);
@@ -85,7 +131,7 @@
   list-style: none;
 }
 
-.nav[data-position='right'] .trail {
+:where(.nav)[data-position='right'] :where(.trail) {
   align-items: flex-end;
 }
 
@@ -98,13 +144,19 @@
  * ring on one line, which is what the trail needs. The ring column then sits slightly left
  * of true center, offset by the widest label — predictable, and the alternative is a
  * broken trail.
+ *
+ * The shrink-wrap is applied to the WRAPPER, not to the list, which matters for one reason
+ * beyond tidiness: it makes the wrapper's left edge the ring column's left edge. The
+ * server-rendered wavy trail is drawn in ring-column coordinates and anchored to that edge,
+ * and centering the list inside a full-width wrapper would have left the offset between the
+ * two unknowable without measuring — the one thing the analytic path cannot do.
  */
-.nav[data-position='center'] .trail {
+:where(.nav)[data-position='center'] :where(.trailWrap) {
   width: fit-content;
   margin-inline: auto;
 }
 
-.node {
+:where(.node) {
   position: relative;
 }
 
@@ -113,11 +165,10 @@
  * the node's center line.
  *
  * This stays a CSS border rather than moving into the SVG with the wavy trail. It needs no
- * measurement, so it renders correctly during server rendering and without JavaScript,
- * which is worth keeping for the default configuration. It also doubles as the fallback
- * the wavy trail shows until its geometry has been measured.
+ * measurement and no JavaScript at all, which is worth keeping for the default
+ * configuration.
  */
-.node:not(:last-child)::after {
+:where(.node):not(:last-child)::after {
   content: '';
   position: absolute;
   top: var(--pallet-node-size);
@@ -127,7 +178,7 @@
     color-mix(in srgb, var(--pallet-accent) 45%, transparent);
 }
 
-.nav[data-position='right'] .node:not(:last-child)::after {
+:where(.nav)[data-position='right'] :where(.node):not(:last-child)::after {
   left: auto;
   right: calc(var(--pallet-node-size) / 2 - 1px);
 }
@@ -135,22 +186,46 @@
 /* -- wavy trail ------------------------------------------------------------ */
 
 /*
- * The curve replaces the straight segments only once every node center has been measured.
- * Before that `data-trail-measured` is absent and the CSS segments above stay visible, so
- * there is never a frame showing disconnected circles.
+ * The curve replaces the straight segments whenever an SVG trail is on screen.
+ *
+ * `data-trail-svg` rather than `data-trail-measured`: the wavy path is now computed from
+ * the geometry constants above before any layout read, so it is present in server-rendered
+ * HTML and in the first client paint. Keying this on measurement would leave both trails
+ * drawn at once for that first frame.
  */
-.nav[data-trail-path='wavy'][data-trail-measured] .node:not(:last-child)::after {
+:where(.nav)[data-trail-path='wavy'][data-trail-svg] :where(.node):not(:last-child)::after {
   content: none;
 }
 
-.trailSvg {
+:where(.trailSvg) {
   position: absolute;
   inset: 0;
   overflow: visible;
   pointer-events: none;
 }
 
-.trailBase {
+/*
+ * Anchoring for the computed (pre-measurement) path.
+ *
+ * Measured geometry spans the whole wrapper, so it needs no anchoring — its coordinates are
+ * already the wrapper's. The computed path cannot be: the wrapper's width depends on label
+ * text, so it is drawn in a box exactly as wide as the ring column and pinned to the edge
+ * the trail packs to. The SVG carries an explicit width and height, which over-constrains
+ * the offsets below and leaves it at its natural size rather than stretching.
+ */
+:where(.nav)[data-trail-analytic][data-position='right'] :where(.trailSvg) {
+  left: auto;
+  right: 0;
+}
+
+:where(.nav)[data-trail-analytic][data-orientation='horizontal'][data-position='center']
+  :where(.trailSvg) {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+:where(.trailBase) {
   stroke: color-mix(in srgb, var(--pallet-accent) 45%, transparent);
 }
 
@@ -161,11 +236,11 @@
  * on at once: the active node marks where you navigated to, the fill marks how far you
  * have read.
  */
-.trailFill {
+:where(.trailFill) {
   stroke: var(--pallet-accent);
 }
 
-.trailMask {
+:where(.trailMask) {
   transition: stroke-dashoffset var(--pallet-duration) linear;
 }
 
@@ -173,7 +248,7 @@
  * Straight-trail equivalent of the mask: each node carries the fill fraction of the segment
  * that follows it, and this pseudo-element draws that fraction over the muted segment.
  */
-.nav[data-scroll-fill] .node:not(:last-child)::before {
+:where(.nav)[data-scroll-fill] :where(.node):not(:last-child)::before {
   content: '';
   position: absolute;
   top: var(--pallet-node-size);
@@ -183,29 +258,40 @@
   transition: height var(--pallet-duration) linear;
 }
 
-.nav[data-scroll-fill][data-position='right'] .node:not(:last-child)::before {
+:where(.nav)[data-scroll-fill][data-position='right'] :where(.node):not(:last-child)::before {
   left: auto;
   right: calc(var(--pallet-node-size) / 2 - 1px);
 }
 
 /* The SVG mask owns the fill for the wavy trail; this would double-draw it. */
-.nav[data-scroll-fill][data-trail-path='wavy'][data-trail-measured]
-  .node:not(:last-child)::before {
+:where(.nav)[data-scroll-fill][data-trail-path='wavy'][data-trail-svg]
+  :where(.node):not(:last-child)::before {
   content: none;
 }
 
 /* ----------------------------------------------------------------- link ---- */
 
-.link {
+:where(.link) {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
   color: inherit;
   text-decoration: none;
+  /*
+   * Not cosmetic. An inline-flex box sits on its line box's baseline, so the node inherited
+   * whatever descender leading the consumer's line-height produced — 6px at line-height
+   * 1.5, 18px at 3. That made the visual gap between nodes `--pallet-gap` plus an unknown,
+   * so the documented gap was not the real one and the trail's node pitch could not be
+   * computed without measuring. Top alignment removes the strut from the equation and
+   * fixes the node's height at exactly --pallet-node-size.
+   *
+   * No effect in horizontal, where .link is a flex item and vertical-align does not apply.
+   */
+  vertical-align: top;
 }
 
 /* Mirror the whole node so the label sits inboard of the trail on a right-side nav. */
-.nav[data-position='right'] .link {
+:where(.nav)[data-position='right'] :where(.link) {
   flex-direction: row-reverse;
 }
 
@@ -217,7 +303,7 @@
  * prototype turned the active node into a pill and broke the trail's visual consistency;
  * this is the fix (PALLET-PLAN.md §1).
  */
-.ring {
+:where(.ring) {
   position: relative;
   display: grid;
   place-items: center;
@@ -227,11 +313,12 @@
   border-radius: 50%;
   transition:
     transform var(--pallet-duration) ease,
-    box-shadow var(--pallet-duration) ease;
+    box-shadow var(--pallet-duration) ease,
+    --pallet-pokeball-mix var(--pallet-duration) ease;
 }
 
 /* The ring itself, as an overlay so ring thickness never disturbs the sprite. */
-.ring::before {
+:where(.ring)::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -240,24 +327,23 @@
   pointer-events: none;
   transition:
     border-color var(--pallet-duration) ease,
-    border-width var(--pallet-duration) ease,
-    opacity var(--pallet-duration) ease;
+    border-width var(--pallet-duration) ease;
 }
 
 /* -- solid ring ------------------------------------------------------------ */
 
 /* Inactive rings are the brand color at low opacity, never flat grey, so every node
    reads as part of one system (PALLET-PLAN.md §4). */
-.nav[data-ring-style='solid'] .ring::before {
+:where(.nav)[data-ring-style='solid'] :where(.ring)::before {
   border: var(--pallet-ring-thickness) solid
     color-mix(in srgb, var(--pallet-accent) 14%, transparent);
 }
 
-.nav[data-ring-style='solid'] .link:hover .ring::before {
+:where(.nav)[data-ring-style='solid'] :where(.link):hover :where(.ring)::before {
   border-color: color-mix(in srgb, var(--pallet-accent) 55%, transparent);
 }
 
-.nav[data-ring-style='solid'] .node[data-active] .ring::before {
+:where(.nav)[data-ring-style='solid'] :where(.node)[data-active] :where(.ring)::before {
   border-width: var(--pallet-ring-thickness-active);
   border-color: var(--pallet-accent);
 }
@@ -271,12 +357,38 @@
  * The mask cuts the center out entirely, so the ring is a true ring: the sprite sits in
  * open space inside it and is never overlapped or cropped. `closest-side` makes 100% equal
  * the radius, so the transparent hole is exactly (radius - thickness).
+ *
+ * How an inactive node recedes is the one thing here that is not obvious. It mixes both
+ * halves toward --pallet-surface rather than dropping opacity, because opacity quietly
+ * assumes a light background: a white half at 40% opacity over a dark surface does not
+ * recede at all, it turns into a pale halo and reads as a glow around the node. Mixing
+ * toward the surface means "receded" is defined as "closer to whatever you painted behind
+ * it", which is correct on any background. The mix percentage is one inherited custom
+ * property so the ring and its button always move together.
  */
-.nav[data-ring-style='pokeball'] .ring::before {
+:where(.nav)[data-ring-style='pokeball'] :where(.ring) {
+  --pallet-pokeball-mix: 40%;
+}
+
+:where(.nav)[data-ring-style='pokeball'] :where(.link):hover :where(.ring) {
+  --pallet-pokeball-mix: 72%;
+}
+
+:where(.nav)[data-ring-style='pokeball'] :where(.node)[data-active] :where(.ring) {
+  --pallet-pokeball-mix: 100%;
+}
+
+:where(.nav)[data-ring-style='pokeball'] :where(.ring)::before {
   background: linear-gradient(
     to bottom,
-    var(--pallet-pokeball-red) 0 50%,
-    var(--pallet-pokeball-white) 50% 100%
+    color-mix(in srgb, var(--pallet-pokeball-red) var(--pallet-pokeball-mix), var(--pallet-surface))
+      0 50%,
+    color-mix(
+        in srgb,
+        var(--pallet-pokeball-white) var(--pallet-pokeball-mix),
+        var(--pallet-surface)
+      )
+      50% 100%
   );
   -webkit-mask: radial-gradient(
     circle closest-side,
@@ -288,16 +400,6 @@
     transparent 0 calc(100% - var(--pallet-ring-thickness)),
     #000 calc(100% - var(--pallet-ring-thickness)) 100%
   );
-  /* Inactive pokéball nodes recede the same way inactive solid rings do. */
-  opacity: 0.4;
-}
-
-.nav[data-ring-style='pokeball'] .link:hover .ring::before {
-  opacity: 0.72;
-}
-
-.nav[data-ring-style='pokeball'] .node[data-active] .ring::before {
-  opacity: 1;
 }
 
 /*
@@ -310,7 +412,7 @@
  * sprite. This is the exact constraint in PALLET-PLAN.md §3: no horizontal band across
  * the artwork.
  */
-.nav[data-ring-style='pokeball'] .ring::after {
+:where(.nav)[data-ring-style='pokeball'] :where(.ring)::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -319,31 +421,30 @@
   height: var(--pallet-pokeball-button);
   box-sizing: border-box;
   border-radius: 50%;
-  background: var(--pallet-pokeball-white);
-  border: 1.5px solid color-mix(in srgb, var(--pallet-pokeball-red) 70%, #000);
+  background: color-mix(
+    in srgb,
+    var(--pallet-pokeball-white) var(--pallet-pokeball-mix),
+    var(--pallet-surface)
+  );
+  border: 1.5px solid
+    color-mix(
+      in srgb,
+      var(--pallet-pokeball-seam) var(--pallet-pokeball-mix),
+      var(--pallet-surface)
+    );
   transform: translate(-50%, -50%);
   pointer-events: none;
-  opacity: 0.4;
-  transition: opacity var(--pallet-duration) ease;
 }
 
-.nav[data-position='right'][data-ring-style='pokeball'] .ring::after {
+:where(.nav)[data-position='right'][data-ring-style='pokeball'] :where(.ring)::after {
   left: auto;
   right: calc(var(--pallet-ring-thickness) / 2);
   transform: translate(50%, -50%);
 }
 
-.nav[data-ring-style='pokeball'] .link:hover .ring::after {
-  opacity: 0.72;
-}
-
-.nav[data-ring-style='pokeball'] .node[data-active] .ring::after {
-  opacity: 1;
-}
-
 /* -- active emphasis (shared by both ring styles) -------------------------- */
 
-.node[data-active] .ring {
+:where(.node)[data-active] :where(.ring) {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
   transform: scale(1.08);
 }
@@ -365,42 +466,48 @@
  *
  * None of this applies without `scrollProgress` — the default nav is untouched.
  */
-.nav[data-scroll-fill] .node[data-active] .ring {
+:where(.nav)[data-scroll-fill] :where(.node)[data-active] :where(.ring) {
   box-shadow: none;
   transform: none;
 }
 
-.nav[data-scroll-fill][data-ring-style='solid'] .node[data-active] .ring::before {
+:where(.nav)[data-scroll-fill][data-ring-style='solid']
+  :where(.node)[data-active]
+  :where(.ring)::before {
   border-width: var(--pallet-ring-thickness);
   border-color: color-mix(in srgb, var(--pallet-accent) 14%, transparent);
 }
 
-.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-active] .ring::before,
-.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-active] .ring::after {
-  opacity: 0.4;
+:where(.nav)[data-scroll-fill][data-ring-style='pokeball']
+  :where(.node)[data-active]
+  :where(.ring) {
+  --pallet-pokeball-mix: 40%;
 }
 
-.nav[data-scroll-fill] .node[data-active] .label {
+:where(.nav)[data-scroll-fill] :where(.node)[data-active] :where(.label) {
   color: color-mix(in srgb, currentColor 60%, transparent);
   font-weight: 500;
 }
 
-.nav[data-scroll-fill] .node[data-reached] .ring {
+:where(.nav)[data-scroll-fill] :where(.node)[data-reached] :where(.ring) {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
   transform: scale(1.08);
 }
 
-.nav[data-scroll-fill][data-ring-style='solid'] .node[data-reached] .ring::before {
+:where(.nav)[data-scroll-fill][data-ring-style='solid']
+  :where(.node)[data-reached]
+  :where(.ring)::before {
   border-width: var(--pallet-ring-thickness-active);
   border-color: var(--pallet-accent);
 }
 
-.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::before,
-.nav[data-scroll-fill][data-ring-style='pokeball'] .node[data-reached] .ring::after {
-  opacity: 1;
+:where(.nav)[data-scroll-fill][data-ring-style='pokeball']
+  :where(.node)[data-reached]
+  :where(.ring) {
+  --pallet-pokeball-mix: 100%;
 }
 
-.nav[data-scroll-fill] .node[data-reached] .label {
+:where(.nav)[data-scroll-fill] :where(.node)[data-reached] :where(.label) {
   color: currentColor;
   font-weight: 700;
 }
@@ -413,7 +520,7 @@
  * the same visual weight in their circles instead of tracking their raw pixel dimensions.
  * `contain` preserves aspect ratio; grid centering handles the centering half.
  */
-.sprite {
+:where(.sprite) {
   display: block;
   width: var(--pallet-sprite-size);
   height: var(--pallet-sprite-size);
@@ -430,20 +537,20 @@
   z-index: 1;
 }
 
-.link:hover .sprite {
+:where(.link):hover :where(.sprite) {
   animation: bounce 480ms ease;
 }
 
 /* ---------------------------------------------------------------- label ---- */
 
 /* Color and weight shift together as one rule, not two independently-styled states (§4). */
-.label {
+:where(.label) {
   color: color-mix(in srgb, currentColor 60%, transparent);
   font-weight: 500;
   transition: color var(--pallet-duration) ease;
 }
 
-.node[data-active] .label {
+:where(.node)[data-active] :where(.label) {
   color: currentColor;
   font-weight: 700;
 }
@@ -470,30 +577,33 @@
  * the vertical position rules on specificity rather than on source order.
  */
 
-.nav[data-orientation='horizontal'] .trail,
-.nav[data-orientation='horizontal'][data-position='right'] .trail {
+:where(.nav)[data-orientation='horizontal'] :where(.trail),
+:where(.nav)[data-orientation='horizontal'][data-position='right'] :where(.trail) {
   flex-direction: row;
   /* Keeps every ring center on one line even when labels wrap to different heights. */
   align-items: flex-start;
 }
 
-.nav[data-orientation='horizontal'][data-position='right'] .trail {
+:where(.nav)[data-orientation='horizontal'][data-position='right'] :where(.trail) {
   justify-content: flex-end;
 }
 
 /*
  * Horizontal `center` is a plain `justify-content`, and has to undo the vertical rule
- * above: a shrink-wrapped row has no free space for justify-content to distribute, so
+ * above: a shrink-wrapped wrapper has no free space for justify-content to distribute, so
  * leaving `width: fit-content` on would silently do nothing.
  */
-.nav[data-orientation='horizontal'][data-position='center'] .trail {
+:where(.nav)[data-orientation='horizontal'][data-position='center'] :where(.trailWrap) {
   width: auto;
   margin-inline: 0;
+}
+
+:where(.nav)[data-orientation='horizontal'][data-position='center'] :where(.trail) {
   justify-content: center;
 }
 
-.nav[data-orientation='horizontal'] .link,
-.nav[data-orientation='horizontal'][data-position='right'] .link {
+:where(.nav)[data-orientation='horizontal'] :where(.link),
+:where(.nav)[data-orientation='horizontal'][data-position='right'] :where(.link) {
   flex-direction: column;
   align-items: center;
   gap: 0.55rem;
@@ -504,7 +614,7 @@
  * deterministic: the segment can start at the node's own edge because that edge is always
  * half a node from the ring center, whatever the label does.
  */
-.nav[data-orientation='horizontal'] .node {
+:where(.nav)[data-orientation='horizontal'] :where(.node) {
   display: flex;
   justify-content: center;
   width: var(--pallet-node-size);
@@ -514,13 +624,14 @@
  * Labels are allowed to spill into the gap on each side and wrap beyond that, which bounds
  * them at exactly the point where two neighbours would otherwise collide.
  */
-.nav[data-orientation='horizontal'] .label {
+:where(.nav)[data-orientation='horizontal'] :where(.label) {
   max-width: calc(var(--pallet-node-size) + var(--pallet-gap));
   text-align: center;
 }
 
-.nav[data-orientation='horizontal'] .node:not(:last-child)::after,
-.nav[data-orientation='horizontal'][data-position='right'] .node:not(:last-child)::after {
+:where(.nav)[data-orientation='horizontal'] :where(.node):not(:last-child)::after,
+:where(.nav)[data-orientation='horizontal'][data-position='right']
+  :where(.node):not(:last-child)::after {
   top: calc(var(--pallet-node-size) / 2 - 1px);
   right: auto;
   left: var(--pallet-node-size);
@@ -531,9 +642,10 @@
     color-mix(in srgb, var(--pallet-accent) 45%, transparent);
 }
 
-.nav[data-scroll-fill][data-orientation='horizontal'] .node:not(:last-child)::before,
-.nav[data-scroll-fill][data-orientation='horizontal'][data-position='right']
-  .node:not(:last-child)::before {
+:where(.nav)[data-scroll-fill][data-orientation='horizontal']
+  :where(.node):not(:last-child)::before,
+:where(.nav)[data-scroll-fill][data-orientation='horizontal'][data-position='right']
+  :where(.node):not(:last-child)::before {
   top: calc(var(--pallet-node-size) / 2 - 1px);
   right: auto;
   left: var(--pallet-node-size);
@@ -555,11 +667,11 @@
  * nodes most likely to be focused. `outline` is a different property, so it cannot be
  * overridden by them at all, and modern browsers follow the border radius.
  */
-.link:focus-visible {
+:where(.link):focus-visible {
   outline: none;
 }
 
-.link:focus-visible .ring {
+:where(.link):focus-visible :where(.ring) {
   outline: 3px solid var(--pallet-accent);
   outline-offset: 3px;
 }
@@ -588,25 +700,25 @@
  * route you are on, not motion — suppressing it would cost the affordance without
  * removing a single animation.
  */
-.nav[data-reduced-motion] .ring,
-.nav[data-reduced-motion] .ring::before,
-.nav[data-reduced-motion] .ring::after,
-.nav[data-reduced-motion] .sprite,
-.nav[data-reduced-motion] .label,
-.nav[data-reduced-motion] .node::before,
-.nav[data-reduced-motion] .trailMask {
+:where(.nav)[data-reduced-motion] :where(.ring),
+:where(.nav)[data-reduced-motion] :where(.ring)::before,
+:where(.nav)[data-reduced-motion] :where(.ring)::after,
+:where(.nav)[data-reduced-motion] :where(.sprite),
+:where(.nav)[data-reduced-motion] :where(.label),
+:where(.nav)[data-reduced-motion] :where(.node)::before,
+:where(.nav)[data-reduced-motion] :where(.trailMask) {
   transition: none;
   animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ring,
-  .ring::before,
-  .ring::after,
-  .sprite,
-  .label,
-  .node::before,
-  .trailMask {
+  :where(.ring),
+  :where(.ring)::before,
+  :where(.ring)::after,
+  :where(.sprite),
+  :where(.label),
+  :where(.node)::before,
+  :where(.trailMask) {
     transition: none;
     animation: none;
   }

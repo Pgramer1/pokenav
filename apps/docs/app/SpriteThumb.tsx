@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { loadSprite } from 'pokenav';
+import { loadSprite } from 'pokenav/pokemon';
 
 /**
  * One sprite in the picker grid, loaded only once it is near the viewport.

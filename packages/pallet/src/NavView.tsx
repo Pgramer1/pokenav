@@ -1,86 +1,101 @@
-import { useId } from 'react';
-import { getCatalogueEntry } from './catalogue';
+import { useId, useMemo } from 'react';
+import { analyticGeometry } from './analyticGeometry';
 import { resolveTheme } from './defaults';
+import { isItemActive } from './matchActive';
 import { TrailSvg } from './TrailSvg';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
-import { useSpriteUrls } from './useSpriteUrls';
 import { useTrailGeometry } from './useTrailGeometry';
 import styles from './pallet.module.css';
-import type { NavConfig, NavItem } from './types';
+import type { MatchActive, NavOrientation, NavPosition, NavTheme } from './types';
 
-export interface PalletProps extends NavConfig {
+/**
+ * A node whose sprite has already been resolved to a URL.
+ *
+ * The split between this and `NavItem` is what makes the two entry points possible. Sprite
+ * *resolution* is the only thing `pokenav` and `pokenav/pokemon` do differently, and it is
+ * the only thing that pulls in the catalogue and the 898 sprite chunks. Isolating it above
+ * this component means the renderer — every bit of geometry, styling and accessibility
+ * below — is shared verbatim, and the core entry point genuinely never references the
+ * catalogue rather than merely avoiding it at runtime.
+ */
+export interface NavViewItem {
+  label: string;
+  href: string;
   /**
-   * The href of the currently active route.
-   *
-   * Deliberately a plain prop with no router coupling: the component does a string
-   * comparison and nothing else. The consumer decides how to compute it — `usePathname()`
-   * in the Next App Router, `useRouter().asPath` in Pages, `useLocation()` in React
-   * Router, a static string in a one-page site, or their own scroll-spy for section
-   * navigation. Omit it and no node is active.
+   * Resolved sprite URL. `undefined` covers both "this item has no sprite" and "its sprite
+   * is still loading", which render identically on purpose: a label-only node, with the
+   * ring and trail still drawn so nothing shifts when the artwork arrives.
    */
+  url: string | undefined;
+  /**
+   * Accessible name for the sprite image. An empty string marks it decorative, which hands
+   * the accessible name back to the visible label.
+   */
+  alt: string;
+}
+
+export interface NavViewProps {
+  position: NavPosition;
+  orientation: NavOrientation;
+  items: NavViewItem[];
+  theme?: NavTheme;
+  matchActive?: MatchActive;
   activeHref?: string;
-  /**
-   * Scroll position as a 0–1 fraction. Progressively fills the trail in `accentColor`.
-   *
-   * Same reasoning as `activeHref`: sourced from the consumer rather than read off
-   * `window` internally, so the component works anywhere — inside a scroll container, a
-   * virtualized list, an embedded panel, or driven by something that isn't scroll at all.
-   * `useScrollProgress()` is exported for the ordinary page-scroll case.
-   *
-   * Omit it and no fill layer renders. This is a separate visual layer from the
-   * route-based active node, which is unaffected.
-   */
   scrollProgress?: number;
-  /** Accessible name for the `<nav>` landmark. */
   ariaLabel?: string;
-  /** Merged onto the root element's own class. */
   className?: string;
 }
 
 /**
- * Route-map style navigation: a trail of circular sprite nodes connected by a dotted line.
+ * The rendering half of the nav, shared by both entry points.
  *
  * Rendering notes:
  * - The ring, its pokéball detailing, and the straight trail are drawn in CSS via
- *   pseudo-elements. Only the wavy trail needs an element, because a curve through measured
- *   points cannot be expressed as a border.
+ *   pseudo-elements. Only the wavy trail needs an element, because a curve through node
+ *   centers cannot be expressed as a border.
  * - The `data-*` attributes below are the public styling contract. They are what the
  *   stylesheet keys off, and what consumers should target to restyle from outside.
  * - The component holds no route state and subscribes to nothing.
  */
-export function Pallet({
+export function NavView({
   position,
   orientation,
   items,
   theme,
+  matchActive,
   activeHref,
   scrollProgress,
   ariaLabel = 'Site navigation',
   className,
-}: PalletProps) {
+}: NavViewProps) {
   const resolvedTheme = resolveTheme(theme);
   const prefersReducedMotion = usePrefersReducedMotion();
   const maskId = `pallet-trail-${useId()}`;
 
   const isWavy = resolvedTheme.trailPath === 'wavy';
-  const { containerRef, setNodeRef, points, width, height, amplitude } = useTrailGeometry(
-    isWavy,
-    items.length,
+
+  /*
+   * The curve the stylesheet's defaults imply, available on the very first render — server
+   * included. Memoized because the measuring hook compares against it and holds it in an
+   * effect dependency; a fresh object each render would re-run measurement every pass.
+   */
+  const computed = useMemo(
+    () => (isWavy ? analyticGeometry(items.length, orientation) : null),
+    [isWavy, items.length, orientation],
   );
 
-  // Only true once every node has been measured. Until then the CSS straight trail stays
-  // visible, so server-rendered and no-JS output still shows a connected trail rather than
-  // a row of orphaned circles.
-  const isMeasured = points.length === items.length && items.length > 1;
+  // Non-null only when the real layout disagrees with `computed` — see useTrailGeometry.
+  const { geometry: measured, containerRef, setNodeRef } = useTrailGeometry(
+    isWavy,
+    items.length,
+    computed,
+  );
+
+  const trail = measured ?? computed;
 
   const hasScrollFill = scrollProgress !== undefined;
   const segmentCount = Math.max(items.length - 1, 1);
   const reachedIndex = reachedNodeIndex(scrollProgress, items.length);
-
-  // Only the ids this nav actually names are ever loaded.
-  const spriteUrls = useSpriteUrls(
-    items.map((item) => (item.spriteUrl ? undefined : item.pokemonId)).filter(isNumber),
-  );
 
   return (
     <nav
@@ -91,12 +106,23 @@ export function Pallet({
       data-orientation={orientation}
       data-ring-style={resolvedTheme.ringStyle}
       data-trail-path={resolvedTheme.trailPath}
-      data-trail-measured={isMeasured ? '' : undefined}
+      /*
+       * Three attributes rather than one, because they answer three different questions.
+       * `data-trail-svg` says an SVG trail is on screen, which is what tells the stylesheet
+       * to stand its CSS segments down — true during server rendering now that the curve
+       * can be computed. `data-trail-analytic` says that SVG is in ring-column coordinates
+       * and needs edge anchoring. `data-trail-measured` says layout has been read and
+       * disagreed, and is kept because it was already part of the rendered surface.
+       */
+      data-trail-svg={trail ? '' : undefined}
+      data-trail-analytic={trail && !measured ? '' : undefined}
+      data-trail-measured={measured ? '' : undefined}
       data-scroll-fill={hasScrollFill ? '' : undefined}
       data-reduced-motion={prefersReducedMotion ? '' : undefined}
       style={
         {
           '--pallet-accent': resolvedTheme.accentColor,
+          '--pallet-surface': resolvedTheme.surfaceColor,
           '--pallet-dot-style': resolvedTheme.dotStyle,
           '--pallet-font': resolvedTheme.font,
         } as React.CSSProperties
@@ -105,15 +131,15 @@ export function Pallet({
       {/*
        * The wrapper exists so the SVG has a positioned box to fill that is a valid sibling
        * of the list. An <svg> cannot be a child of <ol>, and the overlay has to share the
-       * list's coordinate space for the measured points to line up.
+       * list's coordinate space for the points to line up.
        */}
       <div className={styles.trailWrap} ref={containerRef} data-pallet-trail-wrap="">
-        {isWavy && isMeasured ? (
+        {trail ? (
           <TrailSvg
-            points={points}
-            width={width}
-            height={height}
-            amplitude={amplitude}
+            points={trail.points}
+            width={trail.width}
+            height={trail.height}
+            amplitude={trail.amplitude}
             orientation={orientation}
             dotStyle={resolvedTheme.dotStyle}
             wavy
@@ -124,8 +150,7 @@ export function Pallet({
 
         <ol className={styles.trail} data-pallet-trail="">
           {items.map((item, index) => {
-            const isActive = item.href === activeHref;
-            const sprite = resolveSprite(item, spriteUrls);
+            const isActive = isItemActive(item.href, activeHref, matchActive);
 
             return (
               <li
@@ -151,27 +176,29 @@ export function Pallet({
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <span className={styles.ring} data-pallet-ring="" ref={setNodeRef(index)}>
-                    {sprite ? (
+                    {item.url ? (
                       <img
-                        src={sprite.url}
-                        alt={sprite.alt}
+                        src={item.url}
+                        alt={item.alt}
                         className={styles.sprite}
                         data-pallet-sprite=""
                       />
                     ) : null}
                   </span>
                   {/*
-                   * When a sprite is present its alt text already carries the section name
-                   * (§5: "{Pokémon name} — {section name}"), so the link's accessible name is
+                   * A sprite with a non-empty alt already carries the section name (§5:
+                   * "{Pokémon name} — {section name}"), so the link's accessible name is
                    * complete without this span. Leaving it exposed would make a screen
                    * reader announce the section twice — "Eevee — Home, Home". Hiding it is
                    * what keeps the §5 alt-text rule and a clean announcement compatible.
-                   * With no sprite there is no alt text, so the label must stay exposed.
+                   *
+                   * With no sprite, or a deliberately decorative one (`alt: ''`), there is
+                   * no alt text to carry the name, so the label must stay exposed.
                    */}
                   <span
                     className={styles.label}
                     data-pallet-label=""
-                    aria-hidden={sprite ? 'true' : undefined}
+                    aria-hidden={item.url && item.alt ? 'true' : undefined}
                   >
                     {item.label}
                   </span>
@@ -206,43 +233,4 @@ function segmentFill(progress: number | undefined, segments: number, index: numb
   if (progress === undefined || !Number.isFinite(progress)) return 0;
   const clamped = Math.min(1, Math.max(0, progress));
   return Math.min(1, Math.max(0, clamped * segments - index));
-}
-
-/**
- * Resolves an item to its sprite.
- *
- * `spriteUrl` always wins and bypasses the catalogue entirely — that escape hatch is what
- * makes this a general navigation library rather than a Pokémon-only one (§3).
- *
- * Alt text follows §5: `"{Pokémon name} — {section name}"`, never the species alone. A
- * custom sprite has no species name, so the label carries the whole accessible name.
- */
-function resolveSprite(
-  item: NavItem,
-  spriteUrls: Record<number, string>,
-): { url: string; alt: string } | null {
-  if (item.spriteUrl) {
-    return { url: item.spriteUrl, alt: item.label };
-  }
-
-  if (item.pokemonId !== undefined) {
-    const entry = getCatalogueEntry(item.pokemonId);
-    const url = spriteUrls[item.pokemonId];
-    // Three cases collapse to the same graceful result: an id with no catalogue entry, an
-    // id with no bundled sprite, and a sprite that simply has not finished loading yet.
-    // All render a label-only node rather than a broken image, and the ring still draws so
-    // the trail keeps its shape.
-    if (!entry || !url) return null;
-    return { url, alt: `${capitalize(entry.name)} — ${item.label}` };
-  }
-
-  return null;
-}
-
-function isNumber(value: number | undefined): value is number {
-  return typeof value === 'number';
-}
-
-function capitalize(value: string): string {
-  return value.charAt(0).toUpperCase() + value.slice(1);
 }

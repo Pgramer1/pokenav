@@ -1,7 +1,17 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  /*
+   * Two entry points, and the split is load-bearing rather than organisational.
+   *
+   * `pokemon` is the only one whose import graph reaches `sprites.ts`, and therefore the
+   * dynamic `import()` that a consumer's bundler expands into a lazy context over all 898
+   * sprite PNGs — roughly 894 emitted wrapper chunks. That context is built statically, so
+   * no runtime flag can opt out of it; the only thing that keeps those chunks out of a
+   * build is the import graph never reaching the module. Consumers who only use `spriteUrl`
+   * import `pokenav` and never pay for it.
+   */
+  entry: ['src/index.ts', 'src/pokemon.ts'],
   format: ['esm', 'cjs'],
   dts: true,
   sourcemap: true,

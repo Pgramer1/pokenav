@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 export const SECTIONS = [
   { id: 'install', label: 'Install' },
   { id: 'minimal', label: 'Minimal example' },
+  { id: 'entry-points', label: 'Two entry points' },
   { id: 'reference', label: 'NavConfig reference' },
   { id: 'centered', label: 'Centered horizontal nav' },
-  { id: 'custom-sprites', label: 'Custom sprites' },
+  { id: 'matching', label: 'Active route matching' },
+  { id: 'fixed-rail', label: 'Fixed rail' },
   { id: 'playground', label: 'Pick sprites visually' },
   { id: 'accessibility', label: 'Accessibility' },
   { id: 'licensing', label: 'Sprite licensing' },
