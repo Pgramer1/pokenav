@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 /**
  * Convenience hook for the common case of "how far down the page am I", returning 0–1.
  *
- * `Pallet` deliberately does NOT call this. Scroll progress reaches the component as a
+ * `Pokenav` deliberately does NOT call this. Scroll progress reaches the component as a
  * prop, exactly like `activeHref`, so the component stays usable where a window scroll
  * position is the wrong source or does not exist — a scroll container, a virtualized list,
  * an embedded panel, a Storybook story, a slide deck driven by keyboard. This hook is the
  * ergonomic default for consumers who *do* just want page scroll, opt-in and separable:
  *
  * ```tsx
- * <Pallet {...config} scrollProgress={useScrollProgress()} />
+ * <Pokenav {...config} scrollProgress={useScrollProgress()} />
  * ```
  *
  * Pass a `target` to track a scrollable element instead of the document.

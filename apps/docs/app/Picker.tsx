@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Pallet, catalogue, type NavConfig } from 'pokenav';
+import { Pokenav, catalogue, type NavConfig } from 'pokenav/pokemon';
 import { SpriteThumb } from './SpriteThumb';
 import { CopyButton } from './CopyButton';
 
@@ -257,7 +257,7 @@ export function Picker() {
             <div className="asideBlock">
               <span className="asideTitle">Live preview</span>
               <div className="previewStage" data-orientation={orientation}>
-                <Pallet
+                <Pokenav
                   {...config}
                   activeHref={items[selected]?.href}
                   ariaLabel="Preview navigation"

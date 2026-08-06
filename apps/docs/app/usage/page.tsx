@@ -16,19 +16,19 @@ const MINIMAL: NavConfig = {
   position: 'left',
   orientation: 'vertical',
   items: [
-    { label: 'Home', href: '/', pokemonId: 133 },
-    { label: 'Work', href: '/work', pokemonId: 81 },
-    { label: 'Contact', href: '/contact', pokemonId: 185 },
-  ],
-};
-
-const CUSTOM_SPRITES: NavConfig = {
-  position: 'left',
-  orientation: 'vertical',
-  items: [
     { label: 'Home', href: '/', spriteUrl: '/icons/star.svg' },
     { label: 'Work', href: '/work', spriteUrl: '/icons/leaf.svg' },
     { label: 'Contact', href: '/contact', spriteUrl: '/icons/bolt.svg' },
+  ],
+};
+
+const POKEMON: NavConfig = {
+  position: 'left',
+  orientation: 'vertical',
+  items: [
+    { label: 'Home', href: '/', pokemonId: 133 },
+    { label: 'Work', href: '/work', pokemonId: 81 },
+    { label: 'Contact', href: '/contact', pokemonId: 185 },
   ],
   theme: { accentColor: '#8b5cf6' },
 };
@@ -79,6 +79,63 @@ export default function Usage() {
           each item&apos;s <code>href</code> and imports no router. Use{' '}
           <code>usePathname()</code> in the App Router, <code>useRouter().pathname</code> in
           Pages, <code>useLocation().pathname</code> in React Router, or your own scroll-spy.
+        </p>
+
+        <H2 id="entry-points">Two entry points</H2>
+        <p>
+          <code>pokenav</code> resolves <code>spriteUrl</code>. <code>pokenav/pokemon</code>{' '}
+          resolves <code>spriteUrl</code> <em>and</em> <code>pokemonId</code>. Same component,
+          same props, same styling — the difference is what ends up in your build.
+        </p>
+        <div className="tableWrap">
+          <table className="propTable">
+            <thead>
+              <tr>
+                <th>Import</th>
+                <th>Resolves</th>
+                <th>Use when</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>pokenav</code>
+                </td>
+                <td>
+                  <code>spriteUrl</code>
+                </td>
+                <td>
+                  <strong>Default.</strong> Your own artwork, any image source. Renders sprites
+                  in server HTML.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>pokenav/pokemon</code>
+                </td>
+                <td>
+                  <code>spriteUrl</code> + <code>pokemonId</code>
+                </td>
+                <td>You want the bundled Pokémon catalogue.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Reach for <code>pokenav</code> unless you need <code>pokemonId</code>. The core entry
+          ships no <code>catalogue.json</code> and no dynamic-import context over the 898
+          bundled sprites, so your bundler emits nothing for them. Adding{' '}
+          <code>pokenav/pokemon</code> brings a separately-loadable chunk per sprite, because
+          the import context is built statically and your bundler cannot know which numeric ids
+          a runtime config will pick. Those chunks are never <em>downloaded</em> unless a config
+          names them, but they occupy build output, and no runtime flag removes them.
+        </p>
+        <CodeExample config={POKEMON} showImports caption="Pokémon sprite example" />
+        <p className="note">
+          Want a handful of the bundled sprites without the catalogue? Import them directly —{' '}
+          <code>import eevee from &apos;pokenav/sprites/133.png&apos;</code> — and pass them as{' '}
+          <code>spriteUrl</code>. That form is statically analyzable, so your bundler emits
+          exactly the sprites you named, and it server-renders.
         </p>
 
         <H2 id="reference">NavConfig reference</H2>
@@ -146,6 +203,23 @@ export default function Usage() {
                 </td>
                 <td>Optional styling. See below.</td>
               </tr>
+              <tr>
+                <td>
+                  <code>matchActive</code>
+                </td>
+                <td>
+                  <code>
+                    &apos;exact&apos; | &apos;prefix&apos; | (item, active) =&gt; boolean
+                  </code>
+                </td>
+                <td>
+                  <code>exact</code>
+                </td>
+                <td>
+                  How <code>activeHref</code> is compared to each item&apos;s <code>href</code>.
+                  See below.
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -183,25 +257,43 @@ export default function Usage() {
               </tr>
               <tr>
                 <td>
+                  <code>spriteUrl</code>
+                </td>
+                <td>
+                  <code>string | {'{ src: string }'}</code>
+                </td>
+                <td>
+                  Any custom image, or a static import — Next.js hands back{' '}
+                  <code>StaticImageData</code> rather than a string, and both work. Wins over{' '}
+                  <code>pokemonId</code> and skips the catalogue entirely.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>alt</code>
+                </td>
+                <td>
+                  <code>string?</code>
+                </td>
+                <td>
+                  Explicit accessible name for the sprite. Without it, the name depends on the
+                  resolution path — <code>pokemonId</code> gives &quot;Eevee — Home&quot;,{' '}
+                  <code>spriteUrl</code> gives &quot;Home&quot;. Set <code>&apos;&apos;</code> to
+                  mark the sprite decorative and let the visible label carry the name.
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <code>pokemonId</code>
                 </td>
                 <td>
                   <code>number?</code>
                 </td>
                 <td>
-                  National Dex id, 1–898. Resolved from the bundled catalogue, loaded lazily.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <code>spriteUrl</code>
-                </td>
-                <td>
-                  <code>string?</code>
-                </td>
-                <td>
-                  Any custom image. Wins over <code>pokemonId</code> and skips the catalogue
-                  entirely.
+                  National Dex id, 1–898. Resolved from the bundled catalogue, loaded lazily.{' '}
+                  <strong>
+                    Requires the <code>pokenav/pokemon</code> entry point.
+                  </strong>
                 </td>
               </tr>
             </tbody>
@@ -233,6 +325,24 @@ export default function Usage() {
                 <td>
                   Single source of truth for the active ring, hover ring, inactive ring, trail
                   and focus ring. No color is hardcoded.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>surfaceColor</code>
+                </td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  <code>Canvas</code>
+                </td>
+                <td>
+                  The background you paint behind the nav. Only <code>ringStyle: pokeball</code>{' '}
+                  reads it — an inactive node recedes by mixing its halves toward this color
+                  rather than dropping opacity, which is what stops a white half reading as a
+                  glow on a dark surface. The default follows the page&apos;s{' '}
+                  <code>color-scheme</code>.
                 </td>
               </tr>
               <tr>
@@ -360,13 +470,62 @@ export default function Usage() {
         </p>
         <CodeExample config={CENTERED} caption="Centered horizontal example" />
 
-        <H2 id="custom-sprites">Custom sprites — no Pokémon required</H2>
+        <H2 id="matching">Active route matching</H2>
         <p>
-          Set <code>spriteUrl</code> on an item and the bundled catalogue is never touched. Use
-          it on every item and you get the route-map navigation with entirely your own art,
-          and none of the licensing question below applies to your build.
+          By default <code>activeHref</code> must equal an item&apos;s <code>href</code>{' '}
+          exactly. Set <code>matchActive=&quot;prefix&quot;</code> to keep a section&apos;s node
+          lit on its sub-pages — <code>/blog</code> stays active on <code>/blog/some-post</code>.
         </p>
-        <CodeExample config={CUSTOM_SPRITES} caption="Custom sprite example" />
+        <Command value={`<Pokenav {...config} activeHref={pathname} matchActive="prefix" />`} prompt={false} />
+        <p className="note">
+          Prefix matching handles the cases a bare <code>startsWith</code> gets wrong:{' '}
+          <code>/</code> matches only <code>/</code> rather than lighting up on every page,{' '}
+          <code>/blog</code> does not claim <code>/blogroll</code>, and trailing slashes, query
+          strings and hashes are normalized away. For anything else — locale prefixes, hash
+          routing — pass a function{' '}
+          <code>(itemHref, activeHref) =&gt; boolean</code>.
+        </p>
+
+        <H2 id="fixed-rail">Fixed rail</H2>
+        <p>
+          The layout this component was built for: pinned to the side of the page, vertically
+          centered in the space below a sticky header, hidden where there is no room for it.
+        </p>
+        <Snippet
+          lang="tsx"
+          value={`<div className="nav-rail">
+  <Pokenav
+    position="left"
+    orientation="vertical"
+    items={items}
+    activeHref={usePathname()}
+    matchActive="prefix"
+  />
+</div>`}
+        />
+        <Snippet
+          lang="css"
+          value={`.nav-rail {
+  position: fixed;
+  left: 2rem;
+  /* Centered below the header, not in the viewport, so it never sits
+     behind it. dvh so collapsing mobile browser chrome doesn't shift it. */
+  top: calc(var(--header-height) + (100dvh - var(--header-height)) / 2);
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+@media (max-width: 900px) {
+  /* display:none, not opacity/visibility — it must leave the tab order too. */
+  .nav-rail { display: none; }
+}`}
+        />
+        <p className="note">
+          <strong>Tab order follows the DOM, not the screen.</strong> A fixed rail is usually
+          mounted at the end of a layout with the other overlays, which puts it after the entire
+          page in the tab sequence even though it reads as the first thing on screen. Render it
+          before <code>&lt;main&gt;</code> in source order, or pair it with a skip link.
+        </p>
 
         <H2 id="playground">Pick sprites visually</H2>
         <p>
@@ -377,16 +536,24 @@ export default function Usage() {
 
         <H2 id="accessibility">Accessibility</H2>
         <p>
-          Sprites carry alt text in the form{' '}
+          A <code>pokemonId</code> sprite carries alt text in the form{' '}
           <code>
             &quot;{'{Pokémon name}'} — {'{section name}'}&quot;
           </code>
-          , and the visible label is hidden from assistive technology when a sprite is present
-          so the section is not announced twice. Nodes are ordinary links, so keyboard
-          navigation works by default, with a deliberate focus ring drawn in your accent color.
-          All motion — hover bounce, ring transitions, trail fill — is suppressed under{' '}
-          <code>prefers-reduced-motion</code>, while state that carries meaning, like the active
-          node&apos;s scale and the scroll fill position, is kept.
+          ; a <code>spriteUrl</code> sprite has no species name, so it carries the label alone.
+          Set <code>alt</code> on an item to override both and get one consistent name whichever
+          path it uses. Either way the visible label is hidden from assistive technology while a
+          named sprite is present, so the section is not announced twice — set{' '}
+          <code>alt=&quot;&quot;</code> to mark the sprite decorative and hand the name back to
+          the label.
+        </p>
+        <p>
+          Nodes are ordinary links, so keyboard navigation works by default, with a deliberate
+          focus ring drawn in your accent color. All motion — hover bounce, ring transitions,
+          trail fill — is suppressed under <code>prefers-reduced-motion</code>, while state that
+          carries meaning, like the active node&apos;s scale and the scroll fill position, is
+          kept. If you position the nav as a <Link href="#fixed-rail">fixed rail</Link>, check
+          where it lands in the tab order.
         </p>
 
         <H2 id="licensing">Sprite licensing</H2>
@@ -425,6 +592,24 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
 
 function H3({ children }: { children: React.ReactNode }) {
   return <h3>{children}</h3>;
+}
+
+/**
+ * A multi-line snippet. `Command` is a single-line affordance — its text is `nowrap` and
+ * scrolls sideways — so anything with newlines needs this instead.
+ */
+function Snippet({ lang, value }: { lang: string; value: string }) {
+  return (
+    <div className="exampleCode snippet">
+      <div className="codeHead">
+        <span className="codeLang">{lang}</span>
+        <CopyButton value={value} className="copy copyInline" />
+      </div>
+      <pre className="code">
+        <code>{value}</code>
+      </pre>
+    </div>
+  );
 }
 
 /** A shell command or import line, with its own copy button. */

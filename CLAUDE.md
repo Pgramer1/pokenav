@@ -9,11 +9,18 @@ the behavior spec, and the build phases. When a request conflicts with it, the p
 unless the user explicitly overrides — and a shape stated in an earlier chat message is
 superseded by the plan document.
 
-Phases 1–6 are done: the component is built, all theme variants have landed, the full
-898-sprite catalogue ships behind the picker, and `pokenav` is published to npm.
+Phases 1–7 are done: the component is built, all theme variants have landed, the full
+898-sprite catalogue ships behind the picker, `pokenav` is published to npm, and 0.2.0
+landed the first round of consumer-integration fixes.
 Further work is versioned releases on top of a settled config API — treat the documented
 public surface (`data-*` attributes, `NavConfig`, CSS custom properties) as a contract that
 breaks consumers if changed.
+
+**The component is `Pokenav`, not `Pallet`.** `Pallet`/`PalletProps` survive as
+`@deprecated` aliases from both entry points for one version and are removed in the next
+major. The workspace folder stays `packages/pallet` and the CSS module stays
+`pallet.module.css` — internal layout doesn't have to match the published name, and the
+`--pallet-*` custom properties are a shipped contract that cannot be renamed cheaply.
 
 ## Docs site routes
 
@@ -104,6 +111,18 @@ runtime in a consumer app. Don't "clean up" either one.
 `packages/pallet` is the published component (`pokenav`); `apps/docs` is a
 Next.js site that dogfoods it. npm workspaces, no task runner.
 
+**Two entry points, and the split is load-bearing.** `pokenav` (`src/index.ts`) resolves
+`spriteUrl` only. `pokenav/pokemon` (`src/pokemon.ts`) adds `pokemonId`, and is the only
+one whose import graph reaches `catalogue.json` and `sprites.ts`. Nothing reachable from
+`src/index.ts` may import either — that is the whole mechanism, since the sprite loader's
+`import()` builds a *static* context over all 898 PNGs that no runtime flag can gate. The
+core entry is 21KB CJS against pokemon's 162KB; if that gap closes, something leaked.
+
+`NavView.tsx` is the shared renderer and holds every bit of geometry, styling and
+accessibility. `Pokenav.tsx` and `PokemonNav.tsx` are thin resolvers above it that turn a
+`NavItem` into a `NavViewItem` (a resolved `url` + `alt`). Put rendering changes in
+`NavView`, not in the resolvers — duplicating there is how the two entry points drift.
+
 **No ambient state.** `activeHref` and `scrollProgress` are plain props. The component holds
 no route state, reads no `window.scrollY`, subscribes to nothing, and imports no router —
 consumers supply both values. `useScrollProgress()` is exported as an opt-in convenience and
@@ -117,6 +136,14 @@ and embedded panels.
 the package must work for a consumer who uses none of those. `apps/docs/app/globals.css`
 deliberately contains zero `[data-pallet*]` selectors; keeping it that way is what proves
 the component is self-contained.
+
+**Every class selector in that stylesheet is wrapped in `:where()`.** A CSS Module class and
+a consumer's `[data-pallet]` rule are both (0,1,0), so which won depended on whether
+`pokenav/styles.css` was imported before or after their global CSS. Keep new rules in the
+same form: wrap the classes, leave attributes and pseudo-classes outside. Every rule lost
+exactly its class count, so internal precedence is unchanged — but where two rules now tie,
+source order decides, which is why the file is ordered base → hover → active → scroll-fill
+→ orientation → focus → motion. Adding a rule out of that order is how you break it.
 
 **The ring is a pseudo-element overlay, not a border on the sprite's box.** That separation
 is why ring thickness can change on hover/active without shifting the sprite, and it's the
@@ -142,21 +169,41 @@ what keeps 898 sprites out of every consumer's bundle — only the ids a `NavCon
 fetched. Two constraints hold it up: `sprite-import.mjs` is published *unbundled* and
 excluded from tsup (esbuild would expand the glob into 898 chunks and inline them into the
 CJS build), and its template literal must stay inline — hoisting the path into a variable
-makes it unanalyzable to every bundler and sprites stop resolving in production. `sprites.ts`
-must also keep normalizing the import result: Next hands back `StaticImageData`, not a
-string, so a string-only check treats every sprite in a Next app as missing. The package
+makes it unanalyzable to every bundler and sprites stop resolving in production. The package
 still has no runtime dependency on PokéAPI or any CDN — the assets ship in the tarball.
 
+**Both sprite paths normalize through `toUrl.ts`, and that sharing is the point.** A
+bundler may return a URL string or a `StaticImageData`-shaped object for the *same* import
+— a package-subpath PNG comes back as a bare string under Turbopack while a local one comes
+back as an object. `spriteUrl` originally skipped the normalizer the catalogue path already
+had and rendered `[object Object]`; that is the same bug fixed on one side and left standing
+on the other. Don't reintroduce a second normalizer.
+
 **`spriteUrl` bypasses the catalogue entirely.** It's what makes this a general nav library
-rather than a Pokémon novelty, and it's the answer to the licensing question for consumers.
-Keep it working.
+rather than a Pokémon novelty, it's the answer to the licensing question for consumers, and
+since 0.2.0 it's the only path the default entry point supports. Keep it working.
 
 **Two trail renderers, on purpose.** The straight trail is a CSS border; the wavy trail is
-an SVG path through *measured* node centers. Don't unify them. The straight one needs no
-measurement, so it survives server rendering and no-JS, and it's the fallback the wavy trail
-shows until `data-trail-measured` appears — which is what prevents a frame of disconnected
-circles. Scroll fill follows the same split: a CSS custom property per segment for straight,
-an SVG mask for wavy.
+an SVG path. Don't unify them — the straight one needs no measurement and no JS at all.
+Scroll fill follows the same split: a CSS custom property per segment for straight, an SVG
+mask for wavy.
+
+**The wavy path is computed first and measured second.** `analyticGeometry.ts` derives node
+centers from constants mirroring `--pallet-node-size` and `--pallet-gap`, so the curve
+exists in server HTML and the first paint; it used to render straight and bend after
+hydration. `useTrailGeometry` still measures, but returns `null` while the measurement
+agrees, so the common case costs zero re-renders — check `data-trail-measured` in a
+post-hydration DOM dump to confirm nothing switched over. Three attributes, three
+questions: `data-trail-svg` (an SVG trail is on screen — what stands the CSS segments
+down), `data-trail-analytic` (it's in ring-column coordinates and needs edge anchoring),
+`data-trail-measured` (layout was read and disagreed).
+
+That anchoring is why `[data-position='center']` shrink-wraps `.trailWrap` rather than
+`.trail`: the wrapper's left edge has to *be* the ring column's left edge, or the offset
+between computed coordinates and real ones is unknowable without measuring. Node height has
+to be deterministic for the same reason, which is what `vertical-align: top` on `.link` is
+for — an `inline-flex` box sits on the baseline and picks up the consumer's line-height as
+descender leading, so the real gap was `--pallet-gap` plus an unknown.
 
 **The wavy fill needs a mask, not a dash offset.** The visible path is already using its
 dash array to look dotted, so the reveal can't share it. The mask path carries

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { isSameShape } from './analyticGeometry';
 
 export interface TrailPoint {
   x: number;
@@ -17,8 +18,6 @@ export interface TrailGeometry {
   height: number;
   amplitude: number;
 }
-
-const EMPTY: TrailGeometry = { points: [], width: 0, height: 0, amplitude: 0 };
 
 /** Default wave amplitude in px, used when --pallet-wave-amplitude is not set. */
 const FALLBACK_AMPLITUDE = 10;
@@ -40,17 +39,28 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
  * need to sit exactly where the path passes"). Measuring costs a layout read; being wrong
  * costs the whole illusion.
  *
+ * Returns `null` while the measured geometry agrees with `expected` — the geometry the
+ * stylesheet's defaults imply, which the caller has already drawn without waiting for
+ * layout. Reporting a result that describes the same curve would re-render for an identical
+ * picture, so measurement here is a *correction* channel rather than the primary source:
+ * silent when computation was right, authoritative when it wasn't.
+ *
  * Note that the active node carries a `scale()` transform. `getBoundingClientRect` reports
  * the transformed box, but scaling happens about the center, so the center we care about is
  * unaffected.
  */
-export function useTrailGeometry(enabled: boolean, count: number): TrailGeometry & {
+export function useTrailGeometry(
+  enabled: boolean,
+  count: number,
+  expected: TrailGeometry | null,
+): {
+  geometry: TrailGeometry | null;
   containerRef: React.RefObject<HTMLDivElement | null>;
   setNodeRef: (index: number) => (el: HTMLElement | null) => void;
 } {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const nodeRefs = useRef<Array<HTMLElement | null>>([]);
-  const [geometry, setGeometry] = useState<TrailGeometry>(EMPTY);
+  const [geometry, setGeometry] = useState<TrailGeometry | null>(null);
 
   const setNodeRef = useCallback(
     (index: number) => (el: HTMLElement | null) => {
@@ -99,14 +109,22 @@ export function useTrailGeometry(enabled: boolean, count: number): TrailGeometry
     const amplitude = Number.isFinite(parsed) ? parsed : FALLBACK_AMPLITUDE;
 
     const next: TrailGeometry = { points, width: box.width, height: box.height, amplitude };
+
+    // Computation already drew this exact curve, so stay out of the way. Holding `null`
+    // keeps the caller on its analytic path and skips the re-render entirely.
+    if (expected && isSameShape(expected, next)) {
+      setGeometry((prev) => (prev === null ? prev : null));
+      return;
+    }
+
     // Bail out of identical updates — the ResizeObserver below would otherwise be able to
     // trade re-renders with itself.
     setGeometry((prev) => (isSameGeometry(prev, next) ? prev : next));
-  }, [count]);
+  }, [count, expected]);
 
   useIsomorphicLayoutEffect(() => {
     if (!enabled) {
-      setGeometry((prev) => (prev === EMPTY ? prev : EMPTY));
+      setGeometry((prev) => (prev === null ? prev : null));
       return;
     }
 
@@ -124,10 +142,11 @@ export function useTrailGeometry(enabled: boolean, count: number): TrailGeometry
     return () => observer.disconnect();
   }, [enabled, measure]);
 
-  return { ...geometry, containerRef, setNodeRef };
+  return { geometry, containerRef, setNodeRef };
 }
 
-function isSameGeometry(a: TrailGeometry, b: TrailGeometry): boolean {
+function isSameGeometry(a: TrailGeometry | null, b: TrailGeometry): boolean {
+  if (!a) return false;
   return (
     a.width === b.width &&
     a.height === b.height &&

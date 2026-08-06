@@ -1544,6 +1544,15 @@ code {
 }
 
 /*
+ * A code block standing on its own rather than in the two-column `.example` grid. The grid
+ * supplies spacing through its own `gap` and margin, so `.exampleCode` carries none — which
+ * leaves a standalone one butted against the surrounding prose.
+ */
+.snippet {
+  margin: 1rem 0 1.5rem;
+}
+
+/*
  * A header strip rather than a button floated over the first line — with the copy control
  * absolutely positioned it sat on top of the code and clipped the longest import.
  */
