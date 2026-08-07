@@ -343,7 +343,7 @@
   border-color: color-mix(in srgb, var(--pallet-accent) 55%, transparent);
 }
 
-:where(.nav)[data-ring-style='solid'] :where(.node)[data-active] :where(.ring)::before {
+:where(.nav)[data-ring-style='solid'] :where(.node)[data-current] :where(.ring)::before {
   border-width: var(--pallet-ring-thickness-active);
   border-color: var(--pallet-accent);
 }
@@ -374,7 +374,7 @@
   --pallet-pokeball-mix: 72%;
 }
 
-:where(.nav)[data-ring-style='pokeball'] :where(.node)[data-active] :where(.ring) {
+:where(.nav)[data-ring-style='pokeball'] :where(.node)[data-current] :where(.ring) {
   --pallet-pokeball-mix: 100%;
 }
 
@@ -442,74 +442,28 @@
   transform: translate(50%, -50%);
 }
 
-/* -- active emphasis (shared by both ring styles) -------------------------- */
-
-:where(.node)[data-active] :where(.ring) {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
-  transform: scale(1.08);
-}
-
-/* -- travelling glow (scroll fill only) ------------------------------------ */
+/* -- current-node emphasis (shared by both ring styles) -------------------- */
 
 /*
- * When the consumer drives scroll fill, emphasis belongs entirely to the node the trail has
- * reached: exactly one node is lit at a time and it travels with the fill. The route-active
- * node hands its highlight over completely — ring, glow, scale and label all move together,
- * so a node the trail has left behind returns to looking like any other.
+ * Exactly one node is emphasised, and `data-current` is the attribute that says which.
  *
- * The route is still exposed as `aria-current="page"` on the active link, so assistive
- * technology keeps the information the visual treatment gives up.
+ * It replaces what used to be a two-part arrangement: `data-active` carried the highlight
+ * normally, and a block of `[data-scroll-fill]` rules took it away again and handed it to
+ * `data-reached` whenever the consumer drove the fill. That worked visually but split the
+ * definition of "the current node" across the stylesheet and the component — and the
+ * component's other answer, `aria-current`, stayed on the route the whole time. A screen
+ * reader announced one stop while the page showed another.
  *
- * The `data-active` rules below re-state the inactive values rather than unsetting them,
- * because they are overriding earlier rules of equal specificity. The `data-reached` rules
- * come after them on purpose: when one node is both active and reached, reached wins.
+ * Now the component picks the current node once (the reached node when scroll fill is on,
+ * the matched route otherwise) and marks it. `aria-current` goes on the same node by
+ * construction, and the handover rules are gone rather than merely correct.
  *
- * None of this applies without `scrollProgress` — the default nav is untouched.
+ * `data-active` and `data-reached` are still emitted and still fine to style against; they
+ * just no longer decide emphasis on their own.
  */
-:where(.nav)[data-scroll-fill] :where(.node)[data-active] :where(.ring) {
-  box-shadow: none;
-  transform: none;
-}
-
-:where(.nav)[data-scroll-fill][data-ring-style='solid']
-  :where(.node)[data-active]
-  :where(.ring)::before {
-  border-width: var(--pallet-ring-thickness);
-  border-color: color-mix(in srgb, var(--pallet-accent) 14%, transparent);
-}
-
-:where(.nav)[data-scroll-fill][data-ring-style='pokeball']
-  :where(.node)[data-active]
-  :where(.ring) {
-  --pallet-pokeball-mix: 40%;
-}
-
-:where(.nav)[data-scroll-fill] :where(.node)[data-active] :where(.label) {
-  color: color-mix(in srgb, currentColor 60%, transparent);
-  font-weight: 500;
-}
-
-:where(.nav)[data-scroll-fill] :where(.node)[data-reached] :where(.ring) {
+:where(.node)[data-current] :where(.ring) {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--pallet-accent) 18%, transparent);
   transform: scale(1.08);
-}
-
-:where(.nav)[data-scroll-fill][data-ring-style='solid']
-  :where(.node)[data-reached]
-  :where(.ring)::before {
-  border-width: var(--pallet-ring-thickness-active);
-  border-color: var(--pallet-accent);
-}
-
-:where(.nav)[data-scroll-fill][data-ring-style='pokeball']
-  :where(.node)[data-reached]
-  :where(.ring) {
-  --pallet-pokeball-mix: 100%;
-}
-
-:where(.nav)[data-scroll-fill] :where(.node)[data-reached] :where(.label) {
-  color: currentColor;
-  font-weight: 700;
 }
 
 /* --------------------------------------------------------------- sprite ---- */
@@ -550,7 +504,7 @@
   transition: color var(--pallet-duration) ease;
 }
 
-:where(.node)[data-active] :where(.label) {
+:where(.node)[data-current] :where(.label) {
   color: currentColor;
   font-weight: 700;
 }

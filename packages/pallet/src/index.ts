@@ -14,6 +14,9 @@ export { Pokenav };
 export { DEFAULT_THEME, resolveTheme } from './defaults';
 export { usePrefersReducedMotion } from './usePrefersReducedMotion';
 export { useScrollProgress } from './useScrollProgress';
+export { useSectionProgress } from './useSectionProgress';
+
+export type { SectionProgress, SectionProgressOptions } from './useSectionProgress';
 
 export type {
   Catalogue,
@@ -21,6 +24,7 @@ export type {
   DotStyle,
   MatchActive,
   NavConfig,
+  NavGeometry,
   NavItem,
   NavOrientation,
   NavPosition,

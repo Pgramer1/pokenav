@@ -1,7 +1,8 @@
 import { useId, useMemo } from 'react';
 import { analyticGeometry } from './analyticGeometry';
-import { resolveTheme } from './defaults';
-import { isItemActive } from './matchActive';
+import { currentNodeIndex, reachedNodeIndex } from './currentNode';
+import { geometryCustomProperties, resolveTheme } from './defaults';
+import { ariaCurrentToken, isItemActive } from './matchActive';
 import { TrailSvg } from './TrailSvg';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 import { useTrailGeometry } from './useTrailGeometry';
@@ -79,9 +80,13 @@ export function NavView({
    * included. Memoized because the measuring hook compares against it and holds it in an
    * effect dependency; a fresh object each render would re-run measurement every pass.
    */
+  const { nodeSize, gap, waveAmplitude } = resolvedTheme.geometry;
   const computed = useMemo(
-    () => (isWavy ? analyticGeometry(items.length, orientation) : null),
-    [isWavy, items.length, orientation],
+    () =>
+      isWavy
+        ? analyticGeometry(items.length, orientation, { nodeSize, gap, waveAmplitude })
+        : null,
+    [isWavy, items.length, orientation, nodeSize, gap, waveAmplitude],
   );
 
   // Non-null only when the real layout disagrees with `computed` — see useTrailGeometry.
@@ -96,6 +101,25 @@ export function NavView({
   const hasScrollFill = scrollProgress !== undefined;
   const segmentCount = Math.max(items.length - 1, 1);
   const reachedIndex = reachedNodeIndex(scrollProgress, items.length);
+
+  /*
+   * One computation, two consumers. `data-current` drives every bit of visual emphasis and
+   * `aria-current` marks the same node, so the announcement and the highlight cannot point
+   * at different stops — which they did whenever `scrollProgress` was set, because the glow
+   * followed the fill while `aria-current` stayed on the route.
+   *
+   * `data-active` and `data-reached` are still emitted, unchanged, as the raw facts they
+   * always were: which items the route matches, and which node the fill has arrived at.
+   * They remain part of the styling contract; they are simply no longer *separately*
+   * responsible for the highlight.
+   */
+  const activeFlags = items.map((item) => isItemActive(item.href, activeHref, matchActive));
+  const currentIndex = currentNodeIndex(
+    items.map((item) => item.href),
+    activeFlags,
+    reachedIndex,
+    hasScrollFill,
+  );
 
   return (
     <nav
@@ -125,6 +149,8 @@ export function NavView({
           '--pallet-surface': resolvedTheme.surfaceColor,
           '--pallet-dot-style': resolvedTheme.dotStyle,
           '--pallet-font': resolvedTheme.font,
+          // Only the geometry the consumer set explicitly — see geometryCustomProperties.
+          ...geometryCustomProperties(theme?.geometry),
         } as React.CSSProperties
       }
     >
@@ -150,15 +176,16 @@ export function NavView({
 
         <ol className={styles.trail} data-pallet-trail="">
           {items.map((item, index) => {
-            const isActive = isItemActive(item.href, activeHref, matchActive);
+            const isCurrent = index === currentIndex;
 
             return (
               <li
                 key={item.href}
                 className={styles.node}
                 data-pallet-node=""
-                data-active={isActive ? '' : undefined}
+                data-active={activeFlags[index] ? '' : undefined}
                 data-reached={index === reachedIndex ? '' : undefined}
+                data-current={isCurrent ? '' : undefined}
                 style={
                   hasScrollFill
                     ? ({
@@ -173,7 +200,9 @@ export function NavView({
                 <a
                   href={item.href}
                   className={styles.link}
-                  aria-current={isActive ? 'page' : undefined}
+                  // `location` for an in-page anchor, `page` for a route — see
+                  // ariaCurrentToken. Derived from the href, so nothing to configure.
+                  aria-current={isCurrent ? ariaCurrentToken(item.href) : undefined}
                 >
                   <span className={styles.ring} data-pallet-ring="" ref={setNodeRef(index)}>
                     {item.url ? (
@@ -210,22 +239,6 @@ export function NavView({
       </div>
     </nav>
   );
-}
-
-/**
- * Index of the last node the trail fill has actually arrived at, or -1 when scroll fill is
- * not in use.
- *
- * Deliberately `floor` rather than `round`: the glow marks where the trail *has reached*,
- * so it should not jump to a node the fill is still travelling toward. At 80% of the way to
- * the next node, the previous one is still the one the trail has got to.
- */
-function reachedNodeIndex(progress: number | undefined, count: number): number {
-  if (progress === undefined || !Number.isFinite(progress) || count < 1) return -1;
-  const clamped = Math.min(1, Math.max(0, progress));
-  const segments = Math.max(count - 1, 1);
-  // The epsilon absorbs float error at exactly 1.0 so the final node still lights up.
-  return Math.min(count - 1, Math.floor(clamped * segments + 1e-9));
 }
 
 /** Fraction of the segment following `index` that scroll progress has reached, 0–1. */

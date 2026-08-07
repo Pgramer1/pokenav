@@ -327,6 +327,14 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
    `surfaceColor` and dev-mode sprite warnings added; the wavy trail made
    server-renderable; the pokéball ring made theme-aware. Full detail in the 0.2.0
    changelog.
+8. **Review fixes + scroll-spy** (done, 0.3.0) — a correctness pass over 0.2.0, and the
+   first tests in the project. `matchActive: 'prefix'` matched every fragment-only href
+   against every other; `aria-current` and the visual highlight were computed independently
+   and diverged under `scrollProgress`; `aria-current="page"` was the wrong token for
+   in-page anchors; the trail geometry constants were hardcoded rather than generated from
+   the stylesheet; dev warnings escaped to production wherever `process` is absent. Adds
+   `useSectionProgress`, `theme.geometry` and the `data-current` attribute. Full detail in
+   the 0.3.0 changelog.
 
 ## 9. Open risks
 - **Sprite copyright**: leans on the same fan-tolerance precedent as PokéAPI. Revisit if
@@ -338,7 +346,7 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
   Unused entries no longer cost consumers anything but a row of JSON.
 
 ## 10. Status
-Phases 1–7 are done. The workspace is scaffolded, the component is built against this spec,
+Phases 1–8 are done. The workspace is scaffolded, the component is built against this spec,
 all theme variants have landed (accent-color theming, both ring styles, both trail paths,
 both orientations, scroll-linked trail fill), the complete 898-sprite catalogue ships with
 lazy loading behind the interactive picker on `/apps/docs`, and **`pokenav` is published to

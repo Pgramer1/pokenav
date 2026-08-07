@@ -70,7 +70,30 @@ npm run build --workspace apps/docs # production build of the docs site
 The docs app imports the package's **built output**, not its source. Run `npm run build`
 at least once before `npm run dev`, or run `dev:pallet` alongside it.
 
-**No test framework is configured.** Nothing to run, and don't assume a runner exists.
+```bash
+npm test                           # node --test in packages/pallet
+```
+
+**Tests run on Node's built-in runner — no framework, no dependency.** Two kinds, and the
+split is forced rather than stylistic:
+
+- `test/*.test.ts` import source directly through Node's type stripping, which only resolves
+  *type-only* imports (the rest of `src` uses extensionless specifiers a bundler resolves,
+  and Node will not). So only leaf modules — `matchActive`, `sectionProgress`,
+  `currentNode`, `analyticGeometry`, `warn` — can be tested this way. Keep them that way.
+- `test/*.test.mjs` import `dist/`, which needs `npm run build` first and has the side
+  benefit of testing what actually ships. Anything with runtime imports goes here.
+
+Node's `--test` glob does not take a bare directory; `node --test` with no arguments
+auto-discovers. `tsconfig.test.json` typechecks the tests separately so `@types/node` never
+enters `src`'s scope — `npm run typecheck` runs both.
+
+**Headless Chrome cannot test scroll behaviour.** Under `--virtual-time-budget` it fires
+roughly one scroll event and one rAF callback for an entire sweep, no matter how many times
+you set `scrollTop` — measured, not assumed. Anything rAF-driven (`useScrollProgress`,
+`useSectionProgress`, trail re-measurement) has to be verified by unit-testing the
+arithmetic and checking the wiring in a real browser. Don't read a headless "mismatch" in
+scroll code as a bug without first counting the events.
 
 ## Verifying visual work
 
@@ -188,10 +211,22 @@ an SVG path. Don't unify them — the straight one needs no measurement and no J
 Scroll fill follows the same split: a CSS custom property per segment for straight, an SVG
 mask for wavy.
 
+**One computation decides the current node.** `currentNode.ts` picks it — the reached node
+when `scrollProgress` is set, the longest-matching route otherwise — and both the
+`data-current` attribute the stylesheet styles and the `aria-current` the component renders
+read that one answer. They were separate before, and diverged under `scrollProgress`: the
+glow followed the fill while `aria-current` stayed on the route. Don't reintroduce a second
+source. `data-active` and `data-reached` are still emitted as raw facts, but nothing in the
+package's own CSS keys emphasis off them.
+
 **The wavy path is computed first and measured second.** `analyticGeometry.ts` derives node
-centers from constants mirroring `--pallet-node-size` and `--pallet-gap`, so the curve
-exists in server HTML and the first paint; it used to render straight and bend after
-hydration. `useTrailGeometry` still measures, but returns `null` while the measurement
+centers from `cssGeometry.ts`, which `scripts/build-css-geometry.mjs` generates from the
+`:where(.nav)` block of `pallet.module.css` — the numbers live in the stylesheet only, and a
+test fails if the generated mirror drifts. So the curve exists in server HTML and the first
+paint; it used to render straight and bend after hydration. A consumer overriding those
+custom properties *in CSS* still gets one corrective redraw, because no build step can read
+their stylesheet; `theme.geometry` is the escape hatch that feeds the computation and emits
+the properties from one value. `useTrailGeometry` still measures, but returns `null` while the measurement
 agrees, so the common case costs zero re-renders — check `data-trail-measured` in a
 post-hydration DOM dump to confirm nothing switched over. Three attributes, three
 questions: `data-trail-svg` (an SVG trail is on screen — what stands the CSS segments
