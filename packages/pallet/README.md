@@ -169,6 +169,112 @@ sequence, even though it reads as the first thing on screen. Render it before `<
 source order, or pair it with a skip link. Position is a paint-time concern; focus order
 isn't.
 
+## Horizontal bar (the mobile companion)
+
+A vertical margin rail is desktop-only by nature — below about 900px there is no margin to
+put it in. The horizontal orientation is the other half of that layout: the same component
+and the same config, pinned to one edge, shown exactly where the rail is hidden.
+
+```tsx
+export function Nav() {
+  const pathname = usePathname();
+  return (
+    <>
+      <div className="nav-rail">
+        <Pokenav position="left" orientation="vertical" items={items} activeHref={pathname} />
+      </div>
+      <div className="nav-bar">
+        <Pokenav position="center" orientation="horizontal" items={items} activeHref={pathname} />
+      </div>
+    </>
+  );
+}
+```
+
+```css
+.nav-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  /* Clears the home-indicator strip on iOS; 0 everywhere else. */
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  z-index: 10;
+  /* Six nodes plus labels overflow a narrow phone. Let it scroll rather than wrap —
+     wrapping breaks the trail across two lines. */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* The two are mutually exclusive. Same breakpoint, opposite sides of it. */
+.nav-bar { display: block; }
+.nav-rail { display: none; }
+
+@media (min-width: 900px) {
+  .nav-bar { display: none; }
+  .nav-rail { display: block; }
+}
+```
+
+Three things worth knowing:
+
+- **Reserve the space.** A fixed bar sits over the bottom of the page, so the last thing on
+  every page ends up underneath it. Add `padding-bottom` to your main content matching the
+  bar's height.
+- **`display: none`, not opacity.** Both directions. Rendering both navs and hiding one
+  visually leaves an invisible duplicate in the tab order and a duplicate landmark for
+  screen readers. If you keep both mounted, give them different `ariaLabel`s.
+- **Labels get tight.** In horizontal, labels sit below the node and wrap at
+  `--pallet-node-size + --pallet-gap`. Short labels earn their keep here; if yours are long,
+  a smaller `--pallet-node-size` buys width for them.
+
+Rendering the component twice is cheap — it holds no state and subscribes to nothing. If
+you would rather mount one, switch `orientation` from a media query hook instead; the config
+is identical either way.
+
+## Section navigation (scroll-spy)
+
+For a one-page site whose nav items are `#anchors` rather than routes, `useSectionProgress`
+supplies both values the component needs:
+
+```tsx
+import { Pokenav, useSectionProgress } from 'pokenav';
+
+const sections = ['#intro', '#work', '#writing', '#contact'];
+
+export function Nav() {
+  const { activeHref, scrollProgress } = useSectionProgress(sections);
+
+  return (
+    <Pokenav
+      position="left"
+      orientation="vertical"
+      items={sections.map((href) => ({ href, label: labels[href], spriteUrl: icons[href] }))}
+      activeHref={activeHref}
+      scrollProgress={scrollProgress}
+    />
+  );
+}
+```
+
+Each href finds its section by fragment id — `'#work'` matches `id="work"`.
+
+**Take both values, or neither.** The highlight is derived from `scrollProgress`, so a
+`scrollProgress` measured in document scroll paired with an `activeHref` from some other
+scroll-spy will disagree on any page whose sections are not all the same height — late
+sections only light up as progress approaches 1. This hook reports progress in
+*section-space* instead, so the node the trail has reached is always the section you are in.
+
+The activation line — how far below the top of the viewport a section becomes current —
+defaults to the scroll container's `scroll-padding-top`. That's the property you already set
+so anchor links land below a sticky header, which means clicking a node and scrolling to it
+by hand agree by construction. Override it with `offset`, and pass `target` to track a
+scrollable element instead of the document:
+
+```tsx
+useSectionProgress(sections, { offset: 96, target: containerRef });
+```
+
 ## Active route
 
 `activeHref` is a plain string prop. The component compares it against each item's `href`
@@ -205,7 +311,9 @@ drops into a server component without wrapping.
 `'prefix'` keeps a section's node lit on its sub-pages — `/blog` stays active on
 `/blog/some-post`. It handles the cases a bare `startsWith` gets wrong: `/` matches only
 `/` rather than lighting up on every page, `/blog` does not claim `/blogroll`, and trailing
-slashes, query strings and hashes are normalized away.
+slashes, query strings and hashes are normalized away. Hrefs with no path of their own —
+`#work`, `?page=2` — match exactly and never prefix-match, since there is no hierarchy in a
+fragment to nest under.
 
 For anything else, pass a function:
 
@@ -217,15 +325,28 @@ matchActive={(itemHref, activeHref) => activeHref.startsWith(`/en${itemHref}`)}
 
 The rendered markup carries `data-*` attributes that are the **stable public contract** for
 external styling — `data-pallet`, `data-position`, `data-orientation`, `data-ring-style`,
-`data-trail-path`, `data-pallet-node`, `data-active`, `data-reached`, `data-scroll-fill`,
-`data-pallet-ring`, `data-pallet-sprite`, `data-pallet-label`. Target those rather than the
-internal class names:
+`data-trail-path`, `data-pallet-node`, `data-current`, `data-active`, `data-reached`,
+`data-scroll-fill`, `data-pallet-ring`, `data-pallet-sprite`, `data-pallet-label`. Target
+those rather than the internal class names:
 
 ```css
-[data-pallet-node][data-active] [data-pallet-ring] {
+[data-pallet-node][data-current] [data-pallet-ring] {
   border-style: double;
 }
 ```
+
+Three of those describe node state, and the distinction matters:
+
+| Attribute      | On                                                            |
+| -------------- | ------------------------------------------------------------- |
+| `data-current` | The one emphasised node. Carries `aria-current` too.           |
+| `data-active`  | Every item whose `href` matches `activeHref`.                  |
+| `data-reached` | The node the scroll fill has arrived at.                       |
+
+`data-current` is the one to style. It resolves to the reached node when you drive
+`scrollProgress` and the matched route otherwise, and `aria-current` is put on that same
+node — so the highlight and the screen-reader announcement cannot point at different stops.
+The other two are the raw facts, still exposed for when you want them.
 
 Every selector in the package stylesheet is wrapped in `:where()`, so it contributes zero
 specificity from its own class names. Your overrides win whether you import
@@ -258,6 +379,12 @@ Without `alt`, the accessible name depends on how the sprite resolved: `pokemonI
 path an item uses. Set it to `''` to mark the sprite decorative, which hands the accessible
 name back to the visible label.
 
+The current node also gets an `aria-current`, and which token depends on the href:
+`aria-current="location"` for a fragment-only href like `#work`, `aria-current="page"` for a
+route. `page` means "the current page in a set of pages", which is the wrong claim for an
+in-page section nav where every link stays put. Nothing to configure — the href already says
+which kind of link it is.
+
 ### `NavTheme`
 
 | Field          | Type                              | Default     |
@@ -268,6 +395,7 @@ name back to the visible label.
 | `trailPath`    | `'straight' \| 'wavy'`            | `'straight'`|
 | `dotStyle`     | `'dotted' \| 'dashed' \| 'solid'` | `'dotted'`  |
 | `font`         | `string`                          | `'inherit'` |
+| `geometry`     | `{ nodeSize?, gap?, waveAmplitude? }` | from CSS |
 
 `accentColor` is the single source of truth for the active ring, hover ring, inactive ring,
 trail, and focus ring — no color is hardcoded, so the nav matches any consumer's brand.
@@ -346,20 +474,37 @@ isn't 16px.
 
 Set these on the root element to adjust geometry without forking the stylesheet:
 
-| Property                     | Default   |
-| ---------------------------- | --------- |
-| `--pallet-node-size`         | `64px`    |
-| `--pallet-sprite-size`       | `36px`    |
-| `--pallet-gap`               | `1.75rem` |
-| `--pallet-duration`          | `160ms`   |
-| `--pallet-ring-thickness`    | `3px`     |
-| `--pallet-pokeball-thickness`| `6px`     |
-| `--pallet-wave-amplitude`    | `12px`    |
-| `--pallet-surface`           | `Canvas`  |
+| Property                     | Default   | Also read by JS |
+| ---------------------------- | --------- | --------------- |
+| `--pallet-node-size`         | `64px`    | ✓               |
+| `--pallet-sprite-size`       | `36px`    |                 |
+| `--pallet-gap`               | `1.75rem` | ✓               |
+| `--pallet-duration`          | `160ms`   |                 |
+| `--pallet-ring-thickness`    | `3px`     |                 |
+| `--pallet-pokeball-thickness`| `6px`     |                 |
+| `--pallet-wave-amplitude`    | `12px`    | ✓               |
+| `--pallet-surface`           | `Canvas`  |                 |
 
 If you change node, sprite, or pokéball thickness, keep
 `node - 2 x thickness >= sprite x 1.415` — the sprite box is a square inside a circle, so
 its corners are the binding constraint. Violate it and the ring crops the artwork.
+
+**The three marked ✓ are also inputs to the server-rendered wavy trail**, which is computed
+before any layout exists and therefore cannot see a value you set in CSS. Override them in
+your stylesheet and the first paint draws the curve at the default geometry; measurement
+then corrects it, one redraw later. Everything ends up right — you just see the correction.
+
+`trailPath: 'straight'` is unaffected, since the straight trail is drawn from those same
+properties in CSS. To get an overridden wavy trail right on the *first* frame, set the
+geometry through the theme instead, which feeds the computation and emits the custom
+properties for you:
+
+```tsx
+theme={{ trailPath: 'wavy', geometry: { gap: 64 } }}
+```
+
+`geometry` takes `nodeSize`, `gap` and `waveAmplitude`, all in px, all optional. Values you
+don't set keep the stylesheet's.
 
 ## Debugging
 

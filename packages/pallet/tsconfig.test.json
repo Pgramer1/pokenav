@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    /*
+     * Node types are scoped to the tests on purpose. `src` is checked by the base config
+     * with `"types": []` so that Node-only globals cannot quietly become a dependency of a
+     * browser-facing package — see the `declare const process` note in `src/modules.d.ts`.
+     * The tests genuinely run in Node and need them.
+     */
+    "types": ["node"],
+    /*
+     * Tests import source modules with explicit `.ts` extensions because that is what
+     * Node's ESM resolver requires when running them directly through type stripping.
+     */
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src", "test"]
+}

@@ -1,5 +1,80 @@
 # Changelog
 
+## 0.3.0
+
+Bug fixes from a review of 0.2.0, plus a hook for section navigation. No prop-shape changes
+and nothing removed, so upgrading is a version bump.
+
+This release also adds the project's first tests — `npm test`, on Node's built-in runner,
+no framework added. Every fix below has one.
+
+### Added
+
+- **`useSectionProgress(hrefs, options?)`** — scroll-spy for in-page section navs, returning
+  `{ activeHref, scrollProgress }`. The README documented `activeHref={visibleSectionId}`
+  but shipped nothing to compute it, and the obvious pairing is wrong: the node highlight is
+  recovered from progress as `floor(progress × (stops - 1))`, which assumes every section
+  occupies an equal share of the scroll range. On a page with unevenly-sized sections, a
+  `scrollProgress` taken from raw document scroll leaves the highlight on the wrong node for
+  most of the page, with late sections only lighting up as progress approaches 1. This
+  reports progress in *section-space* instead, so that floor recovers the section index by
+  construction.
+
+  The activation line defaults to the scroll container's `scroll-padding-top` — the property
+  that already exists to land anchor links below a sticky header — so click-to-scroll and
+  scroll-spy agree without configuring anything twice. Override with `offset`; pass `target`
+  to track a scrollable element. Section positions are re-measured per scroll and resize,
+  and observed for size changes, because entrance animations and late-loading media move
+  them after first paint.
+- **`theme.geometry`** (`{ nodeSize, gap, waveAmplitude }`, px) — geometry overrides the
+  server-rendered trail can actually see. See the fix below.
+- **`data-current`** on the emphasised node, now the attribute the stylesheet keys every
+  highlight off. `data-active` and `data-reached` are still emitted unchanged.
+
+### Fixed
+
+- **`matchActive: 'prefix'` made every fragment-only href match every other.** `#work`,
+  `#writing` and `#home` all reduce to the same empty path, and the equality check ran
+  *before* the empty-path guard — so a section nav lit up completely and stayed that way.
+  Hrefs with no path of their own (`#work`, `?page=2`, `''`) now match exactly and never
+  prefix-match. Query-only hrefs had the same defect and are covered by the same guard. All
+  the path behaviour — `/` matching only the root, `/blog` not claiming `/blogroll`,
+  trailing slashes and query strings normalizing away — is unchanged and regression-tested.
+- **`aria-current` and the visual highlight could point at different nodes.** They were two
+  independent computations: emphasis followed `reachedNodeIndex(scrollProgress)` while
+  `aria-current` followed `isItemActive(activeHref)`. With `scrollProgress` set they diverge
+  as soon as the fill passes the first node, so a screen reader announced one stop while the
+  page showed another. Both now read from a single `currentNodeIndex`, and the stylesheet's
+  scroll-fill handover rules are gone rather than merely consistent. Where several items
+  match under prefix matching, the longest matching href is the current one.
+- **`aria-current="page"` was wrong for in-page section navs.** `page` means the current page
+  within a set of pages; an anchor nav never leaves the page. A fragment-only href now
+  renders `aria-current="location"`, inferred from the href.
+- **`analyticGeometry` hardcoded the node size, gap and amplitude**, so editing
+  `pallet.module.css` silently desynchronised the server-rendered curve from the layout the
+  browser produces. They are now generated from the stylesheet by
+  `scripts/build-css-geometry.mjs` and mirrored into `src/cssGeometry.ts`, with a test that
+  fails if the two drift.
+
+  A consumer overriding those custom properties **in CSS** is a separate problem, and one a
+  shared source cannot solve — the server has no way to read a stylesheet it never
+  evaluates. That case now behaves as documented rather than silently: the first paint uses
+  the defaults and measurement corrects it. `theme.geometry` is the way to avoid the
+  correction, feeding the computation and emitting the custom properties from one value. The
+  CSS custom-properties table marks which three properties this applies to.
+- **Development warnings could reach production.** The gate tested for production and
+  treated everything else as development, so an absent `process` — a browser loading the ESM
+  build from a CDN, an edge runtime, a worker — counted as development and shipped warnings
+  to real users. Inverted: warnings run only where `NODE_ENV` positively reports a
+  non-production value, and anything undetermined is treated as production.
+
+### Changed
+
+- The stylesheet's highlight rules moved from `[data-active]` / `[data-reached]` to
+  `[data-current]`. If you style `[data-active]` yourself, that still works — it is still
+  emitted on every route-matched item. If you were relying on the *package's* highlight
+  appearing on `[data-active]`, target `[data-current]` instead.
+
 ## 0.2.0
 
 A round of fixes from integrating the package into a real consumer site.

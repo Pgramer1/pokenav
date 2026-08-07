@@ -117,6 +117,29 @@ export interface NavItem {
   alt?: string;
 }
 
+/**
+ * Node geometry, in CSS pixels.
+ *
+ * The same three numbers as `--pallet-node-size`, `--pallet-gap` and
+ * `--pallet-wave-amplitude`, and setting them here rather than in CSS is what makes an
+ * override server-renderable. The wavy trail is computed before layout exists, from the
+ * stylesheet's *default* values — a `--pallet-gap` overridden in your CSS is invisible to
+ * that computation, so the server draws a curve at the wrong pitch and the browser
+ * corrects it on first paint. Values given here are used for the computation *and* emitted
+ * as inline custom properties, so CSS and JS cannot disagree about them.
+ *
+ * Only worth reaching for if you both override the geometry and care about the first
+ * frame; overriding in CSS still works and still ends up correct, one redraw later.
+ */
+export interface NavGeometry {
+  /** `--pallet-node-size` — diameter of a node's ring. */
+  nodeSize?: number;
+  /** `--pallet-gap` — space between two nodes. */
+  gap?: number;
+  /** `--pallet-wave-amplitude` — peak lateral deviation of a `wavy` trail. */
+  waveAmplitude?: number;
+}
+
 /** Visual theming. Every value is optional and falls back to {@link DEFAULT_THEME}. */
 export interface NavTheme {
   /**
@@ -143,6 +166,10 @@ export interface NavTheme {
   dotStyle?: DotStyle;
   /** CSS `font-family` value applied to labels. */
   font?: string;
+  /**
+   * Node geometry overrides that the server-rendered trail can see. See {@link NavGeometry}.
+   */
+  geometry?: NavGeometry;
 }
 
 /** Top-level configuration for the nav. */
@@ -195,7 +222,9 @@ export interface PokenavProps extends NavConfig {
 }
 
 /** Theme with every field filled in. */
-export type ResolvedNavTheme = Required<NavTheme>;
+export type ResolvedNavTheme = Required<Omit<NavTheme, 'geometry'>> & {
+  geometry: Required<NavGeometry>;
+};
 
 /** One entry in the bundled sprite catalogue (`catalogue.json`). */
 export interface CatalogueEntry {

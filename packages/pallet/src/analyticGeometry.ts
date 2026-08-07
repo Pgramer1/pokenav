@@ -1,5 +1,5 @@
 import type { TrailGeometry } from './useTrailGeometry';
-import type { NavOrientation } from './types';
+import type { NavGeometry, NavOrientation } from './types';
 
 /**
  * Node geometry computed from the stylesheet's own defaults, with no layout read.
@@ -10,26 +10,16 @@ import type { NavOrientation } from './types';
  * a constant in `pallet.module.css`, so the common case can be computed instead of measured
  * and the curve is simply there in the first paint.
  *
- * The numbers below mirror the custom-property defaults in that file. They can be wrong —
- * a consumer overriding `--pallet-node-size`, a root font size that isn't 16px, a label
- * that wraps past the node — which is exactly why the measured path still runs and takes
- * over on disagreement. Being wrong costs one corrective re-render; not trying costs the
- * curve on every server-rendered page.
- */
-
-/** `--pallet-node-size`, in px. */
-const NODE_SIZE = 64;
-
-/**
- * `--pallet-gap` (1.75rem) resolved against a 16px root.
+ * The defaults come from `cssGeometry.ts`, which is generated from `pallet.module.css` —
+ * the values are declared once, in the stylesheet, and mirrored into TypeScript by the
+ * build. They used to be literals here, which meant editing the CSS silently desynchronised
+ * the server-rendered curve from the layout the browser actually produced.
  *
- * The one default here that depends on something outside the stylesheet. A consumer with a
- * different root font size gets a slightly-off first paint and one correcting re-render.
+ * They can still be wrong for a given page — a consumer overriding `--pallet-node-size` in
+ * their own CSS, a root font size that isn't 16px, a label that wraps past the node — which
+ * is why the measured path still runs and takes over on disagreement. `theme.geometry` is
+ * the way to get an override right on the first frame instead of the second.
  */
-const GAP = 28;
-
-/** `--pallet-wave-amplitude`, in px. */
-const AMPLITUDE = 12;
 
 /**
  * How far a point may sit from its computed position before measurement is believed over
@@ -50,12 +40,14 @@ const TOLERANCE = 0.5;
 export function analyticGeometry(
   count: number,
   orientation: NavOrientation,
+  geometry: Required<NavGeometry>,
 ): TrailGeometry | null {
   if (count < 2) return null;
 
-  const radius = NODE_SIZE / 2;
-  const pitch = NODE_SIZE + GAP;
-  const span = count * NODE_SIZE + (count - 1) * GAP;
+  const { nodeSize, gap, waveAmplitude } = geometry;
+  const radius = nodeSize / 2;
+  const pitch = nodeSize + gap;
+  const span = count * nodeSize + (count - 1) * gap;
   const isVertical = orientation !== 'horizontal';
 
   const points = Array.from({ length: count }, (_, i) => ({
@@ -66,9 +58,9 @@ export function analyticGeometry(
 
   return {
     points,
-    width: isVertical ? NODE_SIZE : span,
-    height: isVertical ? span : NODE_SIZE,
-    amplitude: AMPLITUDE,
+    width: isVertical ? nodeSize : span,
+    height: isVertical ? span : nodeSize,
+    amplitude: waveAmplitude,
   };
 }
 
