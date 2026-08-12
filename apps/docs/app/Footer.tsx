@@ -1,3 +1,5 @@
+import { PokeNavLogo } from './PokeNavLogo';
+
 const REPO = 'https://github.com/Pgramer1/pokenav';
 
 export function Footer() {
@@ -5,8 +7,7 @@ export function Footer() {
     <footer className="siteFooter">
       <div className="siteFooterInner">
         <div className="footerBrand">
-          <img src="/pokeball.png" alt="" width={18} height={18} className="brandMark" />
-          <span>pokenav</span>
+          <PokeNavLogo className="footerLogo" title="PokeNav" />
         </div>
 
         <p className="footerNote">

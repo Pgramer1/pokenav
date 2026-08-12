@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { PokeNavLogo } from './PokeNavLogo';
 
 const TABS = [
   { href: '/', label: 'Playground' },
@@ -15,14 +16,8 @@ export function SiteNav() {
   return (
     <header className="siteHeader">
       <div className="siteHeaderInner">
-        <Link href="/" className="brand">
-          {/*
-           * Plain <img> rather than next/image: this is a fixed-size decorative mark, so the
-           * optimizer buys nothing and would only add a request. Dimensions are set so it
-           * reserves its space and cannot shift the header on load.
-           */}
-          <img src="/pokeball.png" alt="" width={22} height={22} className="brandMark" />
-          pokenav
+        <Link href="/" className="brand" aria-label="pokenav home">
+          <PokeNavLogo className="navLogo" />
         </Link>
 
         <nav className="siteTabs" aria-label="Documentation sections">

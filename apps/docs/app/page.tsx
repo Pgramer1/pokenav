@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Pokenav, useScrollProgress, type NavConfig } from 'pokenav/pokemon';
 import { Picker } from './Picker';
 import { CopyButton } from './CopyButton';
+import { PokeNavLogo } from './PokeNavLogo';
 
 /**
  * Live demo for the bundled sprites.
@@ -44,7 +45,9 @@ export default function Home() {
       <header className="hero">
         <div className="heroCopy">
           <span className="eyebrow">React component · zero runtime deps</span>
-          <h1 className="heroTitle">pokenav</h1>
+          <h1 className="heroTitle" aria-label="PokeNav">
+            <PokeNavLogo className="heroLogo" />
+          </h1>
           <p className="heroLede">
             A Pokémon route-map style navigation for React — a trail of circular nodes joined
             by a dotted line, each showing a pixel-art sprite for a page or section.
