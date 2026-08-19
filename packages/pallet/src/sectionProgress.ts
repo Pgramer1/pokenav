@@ -72,6 +72,16 @@ export function sectionProgress(
   if (stops === 0) return { index: -1, progress: 0 };
   if (stops === 1) return { index: 0, progress: 0 };
 
+  /*
+   * A short final section may never reach the activation line before the document runs
+   * out of scroll range. At the real bottom the reader has nevertheless reached it, so
+   * make the final stop unambiguous. A page with no scroll range stays on its first stop:
+   * there was no movement from which to infer a later current section.
+   */
+  if (maxScroll > 0 && scrollTop >= maxScroll) {
+    return { index: stops - 1, progress: 1 };
+  }
+
   // The last section whose activation line the reader has crossed. Before the first one,
   // the first section is current — a reader at the top of the page is "in" section one even
   // if its heading has not reached the line yet.

@@ -8,9 +8,9 @@ world map.
 search all 898 sprites, assign them to nav items, and copy out the generated config.
 Source on [GitHub](https://github.com/Pgramer1/pokenav).
 
-> **Status: 0.2.0.** The config API is settled and everything documented here is
+> **Status: 0.3.1.** The config API is settled and everything documented here is
 > implemented: both ring styles, both trail paths, both orientations, accent-colour
-> theming, and scroll-linked trail fill.
+> theming, scroll-linked trail fill, and section-based scroll progress.
 >
 > Upgrading from 0.1.x? `Pallet` is now `Pokenav`, and `pokemonId` moved to the
 > `pokenav/pokemon` entry point. See [CHANGELOG.md](CHANGELOG.md).
@@ -315,10 +315,17 @@ slashes, query strings and hashes are normalized away. Hrefs with no path of the
 `#work`, `?page=2` — match exactly and never prefix-match, since there is no hierarchy in a
 fragment to nest under.
 
+Built-in matching is case-sensitive and compares strings without resolving them against the
+current origin. Relative paths and complete URLs are still segment-aware, but URL
+canonicalization or locale rules belong in a custom matcher.
+
 For anything else, pass a function:
 
 ```tsx
-matchActive={(itemHref, activeHref) => activeHref.startsWith(`/en${itemHref}`)}
+<Pokenav
+  items={items}
+  matchActive={(itemHref, activeHref) => activeHref.startsWith(`/en${itemHref}`)}
+/>
 ```
 
 ## Styling
@@ -500,7 +507,10 @@ geometry through the theme instead, which feeds the computation and emits the cu
 properties for you:
 
 ```tsx
-theme={{ trailPath: 'wavy', geometry: { gap: 64 } }}
+<Pokenav
+  items={items}
+  theme={{ trailPath: 'wavy', geometry: { gap: 64 } }}
+/>
 ```
 
 `geometry` takes `nodeSize`, `gap` and `waveAmplitude`, all in px, all optional. Values you

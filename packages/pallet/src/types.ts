@@ -43,9 +43,8 @@ export type RingStyle = 'solid' | 'pokeball';
  * `straight` — trail rendered as a CSS border/divider. Needs no measurement, so it survives
  * server rendering and no-JS.
  *
- * `wavy` — an SVG path drawn through measured node centers. Because it needs layout to
- * exist first, the straight trail renders until the geometry is measured, which is what
- * prevents a frame of disconnected circles.
+ * `wavy` — an SVG path drawn through node centers. It server-renders from the configured
+ * geometry, then layout measurement corrects it only when consumer CSS changes that shape.
  */
 export type TrailPath = 'straight' | 'wavy';
 
@@ -211,8 +210,8 @@ export interface PokenavProps extends NavConfig {
    * virtualized list, an embedded panel, or driven by something that isn't scroll at all.
    * `useScrollProgress()` is exported for the ordinary page-scroll case.
    *
-   * Omit it and no fill layer renders. This is a separate visual layer from the
-   * route-based active node, which is unaffected.
+   * Omit it and no fill layer renders. When present, the reached node becomes the current
+   * visual and accessible stop; route matches remain available through `data-active`.
    */
   scrollProgress?: number;
   /** Accessible name for the `<nav>` landmark. */

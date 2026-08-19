@@ -990,6 +990,12 @@ code {
   overflow-x: auto;
 }
 
+/* Give the component a real positioning surface so the left/center/right playground
+   controls visibly exercise alignment instead of all three shrink-wrapping to the nav. */
+.previewStage > [data-pallet] {
+  width: 100%;
+}
+
 .previewStage[data-orientation='horizontal'] {
   align-items: center;
   min-height: 10rem;
@@ -1737,6 +1743,7 @@ code {
    * tall button. Height should come from the content here. */
   .slot {
     flex: none;
+    width: 100%;
   }
 
   .slotFields {

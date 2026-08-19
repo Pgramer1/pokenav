@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.3.1 - 2026-08-19
+
+### Fixed
+
+- `useSectionProgress` now activates the final section at the bottom of the scroll range,
+  even when a short last section cannot cross the configured activation line.
+- `useScrollProgress` and `useSectionProgress` now detach from a replaced ref target and
+  subscribe to the new element after it mounts. Empty or entirely missing section sets also
+  clear stale readings, and fragment ids containing commas are preserved.
+
+### Changed
+
+- Tests now run through `tsx`, keeping TypeScript test execution compatible with the
+  repository's Node 20 minimum instead of relying on Node 22+ native type stripping.
+- Added built-artifact component, accessibility, sprite, reduced-motion, scroll-hook
+  lifecycle, target replacement, and cleanup coverage.
+- Added CI coverage for the supported Node 20 baseline and current Node 24 runtime.
+- Added CI validation for README code fences and local documentation links.
+- Updated the private docs app to Next 16.3.1 to pick up current security fixes.
+
 ## 0.3.0
 
 Bug fixes from a review of 0.2.0, plus a hook for section navigation. No prop-shape changes

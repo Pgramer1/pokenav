@@ -89,6 +89,28 @@ test('prefix: trailing slashes, queries and hashes normalize away', () => {
   assert.equal(prefix('/blog', '/blogroll?page=2'), false);
 });
 
+test('prefix: relative and external URLs remain segment-aware', () => {
+  assert.equal(prefix('blog', 'blog/post'), true);
+  assert.equal(prefix('blog', 'blogroll'), false);
+  assert.equal(
+    prefix('https://example.test/blog', 'https://example.test/blog/post'),
+    true,
+  );
+  assert.equal(
+    prefix('https://example.test/blog', 'https://other.test/blog/post'),
+    false,
+  );
+});
+
+test('built-in matching is case-sensitive and custom matcher errors propagate', () => {
+  assert.equal(prefix('/Blog', '/blog/post'), false);
+  assert.throws(() =>
+    isItemActive('/blog', '/blog', () => {
+      throw new Error('matcher failed');
+    }),
+  );
+});
+
 test('isFragmentOnly distinguishes in-page anchors from routes', () => {
   assert.equal(isFragmentOnly('#work'), true);
   assert.equal(isFragmentOnly('#'), true);

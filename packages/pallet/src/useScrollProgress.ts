@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRefTarget } from './useRefTarget';
 
 /**
  * Convenience hook for the common case of "how far down the page am I", returning 0–1.
@@ -17,11 +18,11 @@ import { useEffect, useState } from 'react';
  */
 export function useScrollProgress(target?: React.RefObject<HTMLElement | null>): number {
   const [progress, setProgress] = useState(0);
+  const element = useRefTarget(target);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const element = target?.current ?? null;
     let frame = 0;
 
     const read = () => {
@@ -53,7 +54,7 @@ export function useScrollProgress(target?: React.RefObject<HTMLElement | null>):
       source.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [target]);
+  }, [element]);
 
   return progress;
 }

@@ -129,6 +129,25 @@ test('scrolling above the first section keeps the first section current', () => 
   assert.equal(progress, 0);
 });
 
+test('the bottom of the page reaches a short final section', () => {
+  const positions = [{ top: 0 }, { top: 600 }, { top: 1_400 }];
+
+  // The final heading can never cross a 400px activation line when scrolling stops at
+  // 1,200px. Just before the bottom, the middle section is still current.
+  assert.equal(sectionProgress(positions, 1_199, 1_200).index, 1);
+
+  const bottom = sectionProgress(positions, 1_200, 1_200);
+  assert.deepEqual(bottom, { index: 2, progress: 1 });
+  assert.equal(reachedNodeIndex(bottom.progress, positions.length), 2);
+});
+
+test('a page shorter than the viewport stays on its first section', () => {
+  assert.deepEqual(sectionProgress([{ top: 0 }, { top: 300 }], 0, 0), {
+    index: 0,
+    progress: 0,
+  });
+});
+
 test('degenerate inputs do not produce NaN', () => {
   assert.deepEqual(sectionProgress([], 100, 500), { index: -1, progress: 0 });
   assert.deepEqual(sectionProgress([{ top: 0 }], 100, 500), { index: 0, progress: 0 });

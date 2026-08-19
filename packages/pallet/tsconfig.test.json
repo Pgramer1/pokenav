@@ -8,10 +8,7 @@
      * The tests genuinely run in Node and need them.
      */
     "types": ["node"],
-    /*
-     * Tests import source modules with explicit `.ts` extensions because that is what
-     * Node's ESM resolver requires when running them directly through type stripping.
-     */
+    /* Tests import source modules with explicit extensions so ESM resolution is explicit. */
     "allowImportingTsExtensions": true
   },
   "include": ["src", "test"]

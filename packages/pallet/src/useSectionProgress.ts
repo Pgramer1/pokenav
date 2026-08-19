@@ -4,6 +4,7 @@ import {
   sectionTopInContent,
   type SectionPosition,
 } from './sectionProgress';
+import { useRefTarget } from './useRefTarget';
 
 export interface SectionProgressOptions {
   /**
@@ -68,8 +69,9 @@ export function useSectionProgress(
   options: SectionProgressOptions = {},
 ): SectionProgress {
   const { offset, target } = options;
-  // Hrefs arrive as a fresh array every render; the joined key is what actually changes.
-  const key = hrefs.join(',');
+  // Hrefs arrive as a fresh array every render. JSON preserves valid commas in fragment ids.
+  const key = JSON.stringify(hrefs);
+  const element = useRefTarget(target);
 
   const [reading, setReading] = useState<SectionProgress>({
     activeHref: hrefs[0],
@@ -79,12 +81,11 @@ export function useSectionProgress(
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
-    const list = key === '' ? [] : key.split(',');
+    const list = [...hrefs];
     let frame = 0;
 
     const read = () => {
       frame = 0;
-      const element = target?.current ?? null;
       const scroller = element ?? document.documentElement;
 
       /*
@@ -116,7 +117,14 @@ export function useSectionProgress(
         found.push({ href, position: { top } });
       }
 
-      if (found.length === 0) return;
+      if (found.length === 0) {
+        setReading((previous) =>
+          previous.activeHref === undefined && previous.scrollProgress === 0
+            ? previous
+            : { activeHref: undefined, scrollProgress: 0 },
+        );
+        return;
+      }
 
       const { index, progress } = sectionProgress(
         found.map((entry) => entry.position),
@@ -140,7 +148,7 @@ export function useSectionProgress(
 
     read();
 
-    const source: HTMLElement | Window = target?.current ?? window;
+    const source: HTMLElement | Window = element ?? window;
     source.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
 
@@ -152,22 +160,54 @@ export function useSectionProgress(
      */
     const observer =
       typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(onScroll);
-    if (observer) {
+    let observed = new Set<HTMLElement>();
+    const syncObservedSections = () => {
+      if (!observer) return;
+
+      const next = new Set<HTMLElement>();
       for (const href of list) {
         const section = findSection(href);
-        if (section) observer.observe(section);
+        if (section) next.add(section);
       }
-    }
+
+      for (const section of observed) {
+        if (!next.has(section)) observer.unobserve(section);
+      }
+      for (const section of next) {
+        if (!observed.has(section)) observer.observe(section);
+      }
+      observed = next;
+    };
+    syncObservedSections();
+
+    /*
+     * A section that was missing on the first read can mount later without causing scroll
+     * or resize. Watch only child-list changes, then reuse the same frame throttle; this
+     * discovers the new section and brings it under ResizeObserver without reading layout
+     * for every DOM mutation.
+     */
+    const mutationObserver =
+      typeof MutationObserver === 'undefined'
+        ? null
+        : new MutationObserver(() => {
+            syncObservedSections();
+            onScroll();
+          });
+    mutationObserver?.observe(element ?? document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       source.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       observer?.disconnect();
+      mutationObserver?.disconnect();
     };
     // `key` is the stable identity of `hrefs`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, offset, target]);
+  }, [key, offset, element]);
 
   return reading;
 }

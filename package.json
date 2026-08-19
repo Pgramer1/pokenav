@@ -16,6 +16,7 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present",
     "build:docs": "npm run build --workspace packages/pallet && npm run build --workspace apps/docs",
+    "docs:check": "node scripts/check-docs.mjs",
     "test": "npm run test --workspaces --if-present"
   },
   "engines": {

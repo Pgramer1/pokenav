@@ -1,6 +1,6 @@
 {
   "name": "pokenav",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A Pokémon route-map style navigation component for React — a trail of circular sprite nodes connected by a dotted line.",
   "license": "MIT",
   "keywords": [
@@ -59,7 +59,8 @@
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
-    "test": "node --test"
+    "test": "npm run build && npm run test:only",
+    "test:only": "node test/run.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -69,9 +70,11 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "jsdom": "^26.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.23.12",
     "typescript": "^5.9.0"
   },
   "publishConfig": {

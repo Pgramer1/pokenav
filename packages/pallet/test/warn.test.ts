@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import ts from 'typescript';
 import { isDevelopmentEnv } from '../src/warn.ts';
 
 /*
@@ -26,8 +28,19 @@ test('only an explicit non-production NODE_ENV counts as development', () => {
   assert.equal(isDevelopmentEnv(undefined), false);
 });
 
-// Kept as `file://` URLs: a bare Windows path is not a valid ESM specifier.
-const WARN_SRC = new URL('../src/warn.ts', import.meta.url).href;
+/*
+ * Compile the exact source once, then import it as a self-contained data module in child
+ * processes. The child must be able to delete `process` before module evaluation; a live
+ * TypeScript loader may itself need `process`, which would make the probe test the loader
+ * rather than pokenav.
+ */
+const WARN_MODULE = `data:text/javascript;base64,${Buffer.from(
+  ts.transpileModule(readFileSync(new URL('../src/warn.ts', import.meta.url), 'utf8'), {
+    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
+  }).outputText,
+).toString('base64')}`;
+
+// Kept as a `file://` URL: a bare Windows path is not a valid ESM specifier.
 const DIST = new URL('../dist/index.js', import.meta.url).href;
 
 /**
@@ -47,15 +60,19 @@ function warnsWith(overrides: Record<string, string | undefined>, deleteProcess 
     ${deleteProcess ? 'delete globalThis.process;' : ''}
     let warned = false;
     console.warn = () => { warned = true; };
-    const { warnOnce } = await import(${JSON.stringify(WARN_SRC)});
+    const { warnOnce } = await import(${JSON.stringify(WARN_MODULE)});
     warnOnce('probe');
     out.write(warned ? 'WARNED' : 'SILENT');
   `;
 
-  const result = execFileSync(node.execPath, ['--input-type=module', '-e', script], {
-    encoding: 'utf8',
-    env: { ...node.env, NODE_ENV: undefined, ...overrides },
-  });
+  const result = execFileSync(
+    node.execPath,
+    ['--input-type=module', '-e', script],
+    {
+      encoding: 'utf8',
+      env: { ...node.env, NODE_ENV: undefined, ...overrides },
+    },
+  );
   assert.match(result, /^(WARNED|SILENT)$/, `unexpected probe output: ${result}`);
   return result === 'WARNED';
 }

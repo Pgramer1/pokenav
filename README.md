@@ -11,15 +11,15 @@ like walking a route on the world map.
 npm install pokenav
 ```
 
-> **Status: published on npm, currently 0.2.0.** The config API is settled and everything
-> documented is implemented — both ring styles, both trail paths, both orientations,
-> accent-colour theming, scroll-linked trail fill, and the full 898-sprite catalogue behind
-> the interactive picker.
+> **Status: 0.3.1 is the current release.** The config API
+> is settled and everything documented is implemented — both ring styles, both trail paths,
+> both orientations, accent-colour theming, scroll-linked trail fill, and the full
+> 898-sprite catalogue behind the interactive picker.
 
 The component ships from two entry points: **`pokenav`** resolves `spriteUrl` and is the one
 to reach for by default, **`pokenav/pokemon`** adds `pokemonId` and the bundled catalogue.
-The split keeps the 898 sprite chunks out of builds that never ask for a Pokémon. 0.2.0 also
-renamed the component `Pallet` → `Pokenav`; see
+The split keeps the 898 sprite chunks out of builds that never ask for a Pokémon. Since
+0.2.0 the component is named `Pokenav` rather than `Pallet`; see
 [the changelog](packages/pallet/CHANGELOG.md) for migration notes.
 
 The published package is **`pokenav`**. The workspace folder is still `packages/pallet`,
@@ -56,13 +56,17 @@ Other scripts:
 | `npm run build:all`     | Builds every workspace that defines a build script.   |
 | `npm run dev:pallet`    | Rebuilds the package on change (`tsup --watch`).      |
 | `npm run typecheck`     | Typechecks every workspace.                           |
+| `npm run docs:check`    | Validates README code fences and local links.         |
+| `npm test`              | Builds the package and runs its component/hook tests. |
 | `npm run build:docs`    | Builds the package, then the docs site.               |
 | `npm run clean`         | Removes build output.                                 |
 
 The docs app consumes `pokenav` from `dist/`, so run `npm run build` at least once before
 `npm run dev`. For live iteration on the component, run `npm run dev:pallet` alongside it.
 
-No test framework is configured — there is nothing to run.
+Tests use Node's test runner through `tsx`, so the TypeScript suites work on the repository's
+Node 20 minimum as well as newer Node releases. Component and hook lifecycle tests use
+`jsdom`; no browser or global test-runner install is required.
 
 ## Releasing
 
