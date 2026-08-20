@@ -344,6 +344,12 @@ copy the config, with a live `Pallet` preview beside it and ring/trail/axis/acce
 - **Catalogue size vs curation quality**: resolved by shipping the complete set with lazy
   loading and letting the picker's search and generation filter do the narrowing — see §7.
   Unused entries no longer cost consumers anything but a row of JSON.
+- **Scroll-spy activation line**: documented as a gotcha on the docs site's usage page
+  ("Wiring up scroll-based active state"). A top-of-viewport or header-bottom activation line
+  lags the highlight one section behind on tall sections; the center-line pattern
+  (`header + viewport / 2`) is the reference consumers should adapt. `useSectionProgress`
+  currently defaults to `scroll-padding-top`, which is that header-bottom line — track
+  whether a future release should reconsider the default or offer a viewport-center option.
 
 ## 10. Status
 Phases 1–8 are done. The workspace is scaffolded, the component is built against this spec,

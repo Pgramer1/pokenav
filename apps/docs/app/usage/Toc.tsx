@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export const SECTIONS = [
   { id: 'install', label: 'Install' },
   { id: 'minimal', label: 'Minimal example' },
+  { id: 'scroll-spy', label: 'Scroll-based active state' },
   { id: 'entry-points', label: 'Two entry points' },
   { id: 'reference', label: 'NavConfig reference' },
   { id: 'centered', label: 'Centered horizontal nav' },

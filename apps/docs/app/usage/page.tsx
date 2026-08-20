@@ -81,6 +81,155 @@ export default function Usage() {
           Pages, <code>useLocation().pathname</code> in React Router, or your own scroll-spy.
         </p>
 
+        <H2 id="scroll-spy">Wiring up scroll-based active state</H2>
+        <p>
+          On a one-page site the nav items are <code>#anchor</code>s rather than routes, and
+          both <code>activeHref</code> and <code>scrollProgress</code> come from the scroll
+          position. The component computes neither itself — it takes them as props, because
+          scroll-spy is app-specific: your sticky header, section heights, and layout vary.
+          What follows is a reference to <em>adapt</em>, not something to import.
+        </p>
+        <Snippet
+          lang="tsx"
+          value={`'use client';
+
+import { useEffect, useState } from 'react';
+
+const HEADER_HEIGHT = 80; // your sticky header's height, in px
+
+/**
+ * Reference scroll-spy for a one-page anchor nav. Copy this into your own
+ * project and adapt it — it is example code, not an import from 'pokenav'.
+ *
+ * The activation line is the vertical CENTER of the viewport, not the top
+ * edge or a sticky header's bottom. With a top-of-viewport or header-bottom
+ * line, a tall section (a full-viewport hero) stays "current" until it has
+ * scrolled entirely off-screen, and the highlight lags one section behind
+ * what the reader is actually looking at.
+ */
+export function useSectionTrail(ids: readonly string[]) {
+  const [trail, setTrail] = useState(() => ({
+    activeHref: ids[0] !== undefined ? \`#\${ids[0]}\` : undefined,
+    scrollProgress: 0,
+  }));
+
+  useEffect(() => {
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const line = HEADER_HEIGHT + window.innerHeight / 2;
+
+      // Scroll offset at which each section crosses the line, read fresh every
+      // frame — section tops move after images load or webfonts settle.
+      const tops = ids
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null)
+        .map((el) => el.getBoundingClientRect().top + window.scrollY - line);
+      if (tops.length === 0) return;
+
+      let index = 0;
+      for (let i = 0; i < tops.length; i += 1) {
+        if (tops[i] <= window.scrollY) index = i;
+      }
+      // A short final section (a footer) may never cross the center line;
+      // bottoming out the page should still activate it.
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        index = tops.length - 1;
+      }
+
+      // Section-space progress: (index + fraction through this section) /
+      // (sections - 1). Pokenav's highlight reads it back with
+      // floor(progress * (sections - 1)), so this is the exact inverse and
+      // the reached node is always the section you are in.
+      const maxScroll = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const start = tops[index];
+      const end = tops[index + 1] ?? Math.max(maxScroll, start);
+      const extent = end - start;
+      const fraction = extent > 0 ? clamp01((window.scrollY - start) / extent) : 0;
+      const scrollProgress = (index + fraction) / (tops.length - 1);
+
+      const activeHref = ids[index] !== undefined ? \`#\${ids[index]}\` : undefined;
+      setTrail((prev) =>
+        prev.activeHref === activeHref && prev.scrollProgress === scrollProgress
+          ? prev
+          : { activeHref, scrollProgress },
+      );
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(read);
+    };
+
+    read();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+    // ids is a fresh array each render; its joined value is the stable identity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids.join(',')]);
+
+  return trail;
+}
+
+function clamp01(value: number) {
+  return Math.min(1, Math.max(0, value));
+}`}
+        />
+        <p>
+          Feed the two returned values straight into the component, one source for both — the
+          highlight and <code>aria-current</code> then cannot disagree:
+        </p>
+        <Snippet
+          lang="tsx"
+          value={`const sections = ['intro', 'work', 'writing', 'contact'];
+
+function Nav() {
+  const trail = useSectionTrail(sections);
+
+  return (
+    <Pokenav
+      position="left"
+      orientation="vertical"
+      items={sections.map((id) => ({
+        href: \`#\${id}\`,
+        label: labels[id],
+        spriteUrl: icons[id],
+      }))}
+      activeHref={trail.activeHref}
+      scrollProgress={trail.scrollProgress}
+    />
+  );
+}`}
+        />
+        <p>
+          The one thing to get right is the <strong>activation line</strong> — how far below
+          the top of the viewport a section has to reach before it counts as current. A naive
+          spy uses the top of the viewport or the bottom of a sticky header. With a tall
+          section, such as a full-viewport hero, that line is too high: the hero stays
+          highlighted until it has scrolled entirely off-screen, so the highlight lags one
+          section behind what the reader is actually looking at. The fix is the vertical{' '}
+          <em>center</em> of the viewport — the <code>HEADER_HEIGHT + viewport / 2</code> in
+          the hook above — so a section lights up as soon as its top passes the middle of the
+          screen. Set <code>scroll-padding-top</code> on <code>html</code> to the same line —
+          <code>scroll-padding-top: calc(var(--header-height) + 50vh)</code> — and a clicked
+          nav item lands its target there too.
+        </p>
+        <p className="note">
+          <strong>Adapt this, don&apos;t import it.</strong> The hook is example code, and the
+          header height, section ids, and scroll container are yours to own. The package does
+          ship <code>useSectionProgress</code>, which returns both values as one reading — but
+          its activation line defaults to <code>scroll-padding-top</code>, the header-bottom
+          line that exhibits the lag above. If you want the center line, adapt this hook.
+        </p>
+
         <H2 id="entry-points">Two entry points</H2>
         <p>
           <code>pokenav</code> resolves <code>spriteUrl</code>. <code>pokenav/pokemon</code>{' '}
