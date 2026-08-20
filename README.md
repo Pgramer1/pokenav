@@ -70,16 +70,17 @@ Node 20 minimum as well as newer Node releases. Component and hook lifecycle tes
 
 ## Releasing
 
-The package publishes from `packages/pallet`, and `prepublishOnly` runs the build, so the
-tarball can never contain stale `dist/` output:
+The package publishes from the `packages/pallet` workspace, and `prepublishOnly` runs the
+build so the tarball cannot contain stale `dist/` output. Run the publish command from the
+repository root:
 
 ```bash
-cd packages/pallet
-npm publish --otp=<code>
+npm publish --workspace packages/pallet --access public --otp=<fresh-6-digit-code>
 ```
 
-npm requires 2FA (or a granular access token with 2FA bypass) to publish. Run
-`npm publish --dry-run` first to inspect the tarball contents without touching the registry.
+npm requires 2FA (or a granular access token with 2FA bypass) to publish. Follow the full
+[change and release workflow](RELEASING.md) for versioning, verification, commits, npm
+publishing, tags, and GitHub Releases.
 
 ## Sprite assets and licensing
 

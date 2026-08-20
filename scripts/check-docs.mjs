@@ -4,7 +4,7 @@ import process from 'node:process';
 import { transform } from 'esbuild';
 import ts from 'typescript';
 
-const DOCUMENTS = ['README.md', 'packages/pallet/README.md'];
+const DOCUMENTS = ['README.md', 'RELEASING.md', 'packages/pallet/README.md'];
 const CHECK_EXTERNAL = process.argv.includes('--external');
 const failures = [];
 const externalUrls = new Set();
